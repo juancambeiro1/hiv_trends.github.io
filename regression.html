@@ -11,7 +11,7 @@
 
 
 
-<title>trebds</title>
+<title>Regression Analysis</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -347,12 +347,612 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">trebds</h1>
+<h1 class="title toc-ignore">Regression Analysis</h1>
 
 </div>
 
 
-<p>test trends</p>
+<div id="create-motality_per_100k-and-log_motality_per_100k-variables"
+class="section level4">
+<h4>Create “motality_per_100k” and “log_motality_per_100k”
+variables</h4>
+<pre><code>## # A tibble: 13 × 2
+##    col_name              n_missing
+##    &lt;chr&gt;                     &lt;int&gt;
+##  1 location_id                   0
+##  2 country_name                  0
+##  3 year                          0
+##  4 gdp_per_capita             2880
+##  5 population                  110
+##  6 sex_id                        0
+##  7 sex_name                      0
+##  8 age_name                      0
+##  9 val                           0
+## 10 upper                         0
+## 11 lower                         0
+## 12 motality_per_100k           110
+## 13 log_motality_per_100k       110</code></pre>
+</div>
+<div
+id="plots-of-the-distribution-to-main-outcome-of-interesthiv-mortality-per-100k-population."
+class="section level3">
+<h3>Plots of the distribution to main outcome of interest(HIV mortality
+per 100k population).</h3>
+<p><img src="regression_files/figure-html/unnamed-chunk-3-1.png" width="60%" /><img src="regression_files/figure-html/unnamed-chunk-3-2.png" width="60%" /></p>
+</div>
+<div id="regression-models" class="section level3">
+<h3>Regression models</h3>
+</div>
+<div id="model-1" class="section level3">
+<h3>model 1:</h3>
+<span class="math display">\[ log(motality/100000) = \beta_0 + \beta_1
+age + \beta_2 sex + \beta_3 year + \beta_4 gdp \]</span>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+<th style="text-align:right;">
+t value
+</th>
+<th style="text-align:right;">
+Pr(&gt;|t|)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-83.4162000
+</td>
+<td style="text-align:right;">
+2.6965462
+</td>
+<td style="text-align:right;">
+-30.934460
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name10-24 years
+</td>
+<td style="text-align:right;">
+-0.1839863
+</td>
+<td style="text-align:right;">
+0.0356751
+</td>
+<td style="text-align:right;">
+-5.157268
+</td>
+<td style="text-align:right;">
+3e-07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name25-49 years
+</td>
+<td style="text-align:right;">
+2.2260567
+</td>
+<td style="text-align:right;">
+0.0356751
+</td>
+<td style="text-align:right;">
+62.397964
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name50-74 years
+</td>
+<td style="text-align:right;">
+0.9935827
+</td>
+<td style="text-align:right;">
+0.0356751
+</td>
+<td style="text-align:right;">
+27.850834
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name75+ years
+</td>
+<td style="text-align:right;">
+-2.7893764
+</td>
+<td style="text-align:right;">
+0.0356751
+</td>
+<td style="text-align:right;">
+-78.188220
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sex_nameMale
+</td>
+<td style="text-align:right;">
+0.4534213
+</td>
+<td style="text-align:right;">
+0.0225629
+</td>
+<td style="text-align:right;">
+20.095837
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:right;">
+0.0405708
+</td>
+<td style="text-align:right;">
+0.0013456
+</td>
+<td style="text-align:right;">
+30.149937
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gdp_per_capita
+</td>
+<td style="text-align:right;">
+-0.0000394
+</td>
+<td style="text-align:right;">
+0.0000006
+</td>
+<td style="text-align:right;">
+-63.880393
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## Warning: Removed 2880 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="regression_files/figure-html/unnamed-chunk-4-1.png" width="60%" /></p>
+</div>
+<div id="model-2" class="section level3">
+<h3>model 2:</h3>
+<span class="math display">\[ log(motality/100000) = \beta_0 + \beta_1
+age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp \]</span>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+<th style="text-align:right;">
+t value
+</th>
+<th style="text-align:right;">
+Pr(&gt;|t|)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-1.8001083
+</td>
+<td style="text-align:right;">
+0.0311420
+</td>
+<td style="text-align:right;">
+-57.803261
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name10-24 years
+</td>
+<td style="text-align:right;">
+-0.1839863
+</td>
+<td style="text-align:right;">
+0.0357550
+</td>
+<td style="text-align:right;">
+-5.145753
+</td>
+<td style="text-align:right;">
+3e-07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name25-49 years
+</td>
+<td style="text-align:right;">
+2.2260567
+</td>
+<td style="text-align:right;">
+0.0357550
+</td>
+<td style="text-align:right;">
+62.258651
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name50-74 years
+</td>
+<td style="text-align:right;">
+0.9935827
+</td>
+<td style="text-align:right;">
+0.0357550
+</td>
+<td style="text-align:right;">
+27.788653
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name75+ years
+</td>
+<td style="text-align:right;">
+-2.7893764
+</td>
+<td style="text-align:right;">
+0.0357550
+</td>
+<td style="text-align:right;">
+-78.013652
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sex_nameMale
+</td>
+<td style="text-align:right;">
+0.4534213
+</td>
+<td style="text-align:right;">
+0.0226134
+</td>
+<td style="text-align:right;">
+20.050970
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year_2004
+</td>
+<td style="text-align:right;">
+-0.5889625
+</td>
+<td style="text-align:right;">
+0.0230970
+</td>
+<td style="text-align:right;">
+-25.499530
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gdp_per_capita
+</td>
+<td style="text-align:right;">
+-0.0000388
+</td>
+<td style="text-align:right;">
+0.0000006
+</td>
+<td style="text-align:right;">
+-62.787825
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## Warning: Removed 2880 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="regression_files/figure-html/unnamed-chunk-5-1.png" width="60%" /></p>
+</div>
+<div id="model-3" class="section level3">
+<h3>model 3:</h3>
+<p><span class="math display">\[ log(motality/100000) = \beta_0 +
+\beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
+age*sex \]</span></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std. Error
+</th>
+<th style="text-align:right;">
+t value
+</th>
+<th style="text-align:right;">
+Pr(&gt;|t|)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-1.6119629
+</td>
+<td style="text-align:right;">
+0.0383898
+</td>
+<td style="text-align:right;">
+-41.989407
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name10-24 years
+</td>
+<td style="text-align:right;">
+-0.1077552
+</td>
+<td style="text-align:right;">
+0.0504384
+</td>
+<td style="text-align:right;">
+-2.136372
+</td>
+<td style="text-align:right;">
+0.0326534
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name25-49 years
+</td>
+<td style="text-align:right;">
+1.9566780
+</td>
+<td style="text-align:right;">
+0.0504384
+</td>
+<td style="text-align:right;">
+38.793416
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name50-74 years
+</td>
+<td style="text-align:right;">
+0.6674621
+</td>
+<td style="text-align:right;">
+0.0504384
+</td>
+<td style="text-align:right;">
+13.233211
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name75+ years
+</td>
+<td style="text-align:right;">
+-3.2108353
+</td>
+<td style="text-align:right;">
+0.0504384
+</td>
+<td style="text-align:right;">
+-63.658544
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sex_nameMale
+</td>
+<td style="text-align:right;">
+0.0771304
+</td>
+<td style="text-align:right;">
+0.0504384
+</td>
+<td style="text-align:right;">
+1.529200
+</td>
+<td style="text-align:right;">
+0.1262203
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year_2004
+</td>
+<td style="text-align:right;">
+-0.5889625
+</td>
+<td style="text-align:right;">
+0.0230391
+</td>
+<td style="text-align:right;">
+-25.563620
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gdp_per_capita
+</td>
+<td style="text-align:right;">
+-0.0000388
+</td>
+<td style="text-align:right;">
+0.0000006
+</td>
+<td style="text-align:right;">
+-62.945635
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name10-24 years:sex_nameMale
+</td>
+<td style="text-align:right;">
+-0.1524623
+</td>
+<td style="text-align:right;">
+0.0713307
+</td>
+<td style="text-align:right;">
+-2.137401
+</td>
+<td style="text-align:right;">
+0.0325696
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name25-49 years:sex_nameMale
+</td>
+<td style="text-align:right;">
+0.5387575
+</td>
+<td style="text-align:right;">
+0.0713307
+</td>
+<td style="text-align:right;">
+7.552956
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name50-74 years:sex_nameMale
+</td>
+<td style="text-align:right;">
+0.6522413
+</td>
+<td style="text-align:right;">
+0.0713307
+</td>
+<td style="text-align:right;">
+9.143910
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_name75+ years:sex_nameMale
+</td>
+<td style="text-align:right;">
+0.8429178
+</td>
+<td style="text-align:right;">
+0.0713307
+</td>
+<td style="text-align:right;">
+11.817045
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## Warning: Removed 2880 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="regression_files/figure-html/unnamed-chunk-6-1.png" width="60%" /></p>
+</div>
+<div id="model-4" class="section level3">
+<h3>model 4:</h3>
+<p><span class="math display">\[ log(motality/100000) = \beta_0 +
+\beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
+age*sex + \beta_6 country\]</span></p>
+</div>
 
 
 
