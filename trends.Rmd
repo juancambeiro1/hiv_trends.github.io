@@ -39,7 +39,9 @@ theme_set(theme_bw() +
 maindata = read_csv("data/maindata.csv") 
 ```
 
-### Global trend of HIV mortality per 100k population overtime (1990 to 2019)
+### Global trend of HIV mortality per 100k population: 1990 to 2019
+
+We plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019. HIV/AIDS deaths peaked in the early 2000s.
 
 ```{r echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
 death_year = maindata %>%
@@ -57,17 +59,17 @@ ggplot(aes(x = as.factor(year), y = mortality_per_100k, group=1)) +
   geom_point(col = "deepskyblue3", size = 2) + 
   theme(axis.text.x = element_text(angle = -90, hjust = 0)) +  
   labs(
-    title = "Global Trend of HIV deaths Per 100k Population over time",
-    x = "Years", 
+    title = "Global Trend of HIV deaths Per 100k Population: 1990 to 2019",
+    x = "Year", 
     y = "Estimated HIV deaths per 100k population"
   ) 
 
 plot_death_year + transition_reveal(year)
 ```
 
-### Global trend of HIV mortality per 100k population by gender overtime (1990 to 2019)
+### Global trend of HIV mortality per 100k population by sex: 1990 to 2019
 
-
+Next we plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019 *by sex*. Mortality among females is consistently higher than mortality among males.
 
 ```{r echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
 death_gender = maindata %>% 
@@ -84,7 +86,7 @@ plot_death_gender = death_gender %>%
   geom_line() + 
   geom_point() +
   labs(title = "Global Trend of HIV deaths Per 100k Population over time by Sex", 
-       x = "Years", 
+       x = "Year", 
        y = "Estimated HIV deaths per 100k population", 
        color = "Sex") + 
   scale_x_continuous(breaks = seq(1990, 2019, 5), minor_breaks = F)
@@ -92,9 +94,9 @@ plot_death_gender = death_gender %>%
 plot_death_gender + transition_reveal(year)
 ```
 
-### Global trend of HIV mortality per 100k population by age overtime (1990 to 2019)
+### Global trend of HIV mortality per 100k population by Age: 1990 to 2019
 
-
+Next we plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019 *by age group*. Mortality is highest among those in the 25-49 year old age group, and lowest in those who are 75+. 
 
 ```{r echo=FALSE,message = FALSE,warning = FALSE,  fig.align='center'}
 death_age = maindata %>% 
@@ -111,7 +113,7 @@ plot_death_age = death_age %>%
   geom_line() + 
   geom_point() + 
   labs(title = "Global Trend of HIV deaths Per 100k Population over time by Age", 
-       x = "Years", 
+       x = "Year", 
        y = "Estimated HIV deaths per 100k population", 
        color = "Age") + 
   scale_x_continuous(breaks = seq(1990, 2019, 5), minor_breaks = F)
@@ -119,7 +121,9 @@ plot_death_age = death_age %>%
 plot_death_age + transition_reveal(year)
 ```
 
-### HIV Mortality Rate by Country GDP
+### HIV Mortality Rate by Country GDP Per Capita: 1990 to 2019
+
+We next wanted to explore the relationship between GDP per capita and HIV mortality per 100k. The below graph shows that the countries with the highest HIV mortality per 100k tend to be those with lower GDP per capita, which may be indicative of the fact that poorer countries do not have adequate resources to avert otherwise preventable HIV/AIDS deaths.
 
 ```{r,echo=FALSE,message = FALSE,warning = FALSE, fig.align='center', warning=FALSE}
 
@@ -135,7 +139,10 @@ plot_death_GDP <- ggplot(hiv_country, aes(x = gdp_per_capita, y=mortality_per_10
 plot_death_GDP + transition_time(as.integer(year))+ labs(title = "Year: {frame_time}") + shadow_wake(wake_length = 0.1, alpha = FALSE)
 ```
 
-### HIV mortality by Country across years
+### HIV mortality by Country: 1990 to 2019
+
+
+
 ```{r,echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
 top_16 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=16)
 kable(top_16)

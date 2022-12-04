@@ -354,8 +354,8 @@ div.tocify {
 
 <div id="data-import-and-cleaning" class="section level3">
 <h3>Data Import and Cleaning</h3>
-<div id="death-dataset." class="section level4">
-<h4>Death dataset.</h4>
+<div id="hiv-deaths-by-country-dataset" class="section level4">
+<h4>HIV Deaths By Country Dataset</h4>
 <pre><code>## # A tibble: 10 × 4
 ##    n_countries n_years col_name     n_missing
 ##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
@@ -379,8 +379,8 @@ age_name, year, val, upper, lower.</p>
 <p>The death dataset contains HIV death count data from 204 distinct
 countries, in the 30 years between 1990 and 2019.</p>
 </div>
-<div id="gdp-dataset" class="section level4">
-<h4>GDP dataset</h4>
+<div id="gdp-per-capita-by-country-dataset" class="section level4">
+<h4>GDP Per Capita By Country Dataset</h4>
 <p>The raw GDP dataset contains GDP per capita (US dollars) from 200
 distinct countries, from 1960 to 2021.</p>
 <p>The dataset contains 200 rows and 68 columns, with each row
@@ -394,9 +394,8 @@ country_name, country_code, location_id, indicator_name, indicator_code,
 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019,
 2020, 2021, 68.</p>
 </div>
-</div>
-<div id="population-dataset" class="section level3">
-<h3>Population dataset</h3>
+<div id="population-by-country-dataset" class="section level4">
+<h4>Population By Country Dataset</h4>
 <p>The raw population dataset contains total population from 200
 distinct countries, from 1960 to 2021.</p>
 <p>The dataset contains 200 rows and 68 columns, with each row
@@ -419,11 +418,13 @@ country_code, location_id, indicator_name, indicator_code, 1960, 1961,
 ## 5         200      30 population            11</code></pre>
 <p>After combining, the gdp_population dataset contains data from 200
 distinct countries between 1990 and 2019.</p>
+</div>
+</div>
 <div
-id="merging-datasets-to-produce-the-maindata-dataset-for-analysis-purpose."
-class="section level4">
-<h4>Merging datasets to produce the “maindata” dataset for analysis
-purpose.</h4>
+id="merging-3-datasets-to-produce-the-maindata-dataset-for-visualization-and-analysis"
+class="section level3">
+<h3>Merging 3 datasets to produce the “maindata” dataset for
+visualization and analysis</h3>
 <pre><code>## # A tibble: 11 × 4
 ##    n_countries n_years col_name       n_missing
 ##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
@@ -456,7 +457,6 @@ years”, “25-49 years”, “50-74 years”, and “75+ years”.</li>
 <li><strong>population</strong></li>
 <li><strong>country_name</strong></li>
 </ul>
-</div>
 </div>
 
 
