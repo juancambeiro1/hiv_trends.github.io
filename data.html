@@ -357,32 +357,33 @@ div.tocify {
 <div id="death-dataset." class="section level4">
 <h4>Death dataset.</h4>
 <pre><code>## Rows: 61200 Columns: 16
-## ── Column specification ───────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (6): measure_name, location_name, sex_name, age_name, cause_name, metri...
 ## dbl (10): measure_id, location_id, sex_id, age_id, cause_id, metric_id, year...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 9 × 4
-##   n_countries n_years col_name     n_missing
-##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
-## 1         204      30 country_name         0
-## 2         204      30 sex_id               0
-## 3         204      30 sex_name             0
-## 4         204      30 age_id               0
-## 5         204      30 age_name             0
-## 6         204      30 year                 0
-## 7         204      30 val                  0
-## 8         204      30 upper                0
-## 9         204      30 lower                0</code></pre>
+<pre><code>## # A tibble: 10 × 4
+##    n_countries n_years col_name     n_missing
+##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
+##  1         204      30 location_id          0
+##  2         204      30 country_name         0
+##  3         204      30 sex_id               0
+##  4         204      30 sex_name             0
+##  5         204      30 age_id               0
+##  6         204      30 age_name             0
+##  7         204      30 year                 0
+##  8         204      30 val                  0
+##  9         204      30 upper                0
+## 10         204      30 lower                0</code></pre>
 <p>The death dataset contains HIV death count data from 204 distinct
 countries, in the 30 years between 1990 and 2019.</p>
-<p>The deaths dataset contains 61200 rows and 9 columns, with each row
+<p>The deaths dataset contains 61200 rows and 10 columns, with each row
 representing a single record of number of HIV deaths in a country
 stratified by year, sex and age group. Variables in the deaths dataset
-are as follows: country_name, sex_id, sex_name, age_id, age_name, year,
-val, upper, lower.</p>
+are as follows: location_id, country_name, sex_id, sex_name, age_id,
+age_name, year, val, upper, lower.</p>
 <p>The death dataset contains HIV death count data from 204 distinct
 countries, in the 30 years between 1990 and 2019.</p>
 </div>
@@ -391,13 +392,12 @@ countries, in the 30 years between 1990 and 2019.</p>
 <pre><code>## New names:
 ## Rows: 266 Columns: 68
 ## ── Column specification
-## ─────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (4): Country Name, Country Code, Indicator Name, Indicator Code dbl
-## (63): location_id, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967,
-## 1968,... lgl (1): ...68
-## ℹ Use `spec()` to retrieve the full column specification for this
-## data. ℹ Specify the column types or set `show_col_types = FALSE` to
-## quiet this message.
+## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
+## (4): Country Name, Country Code, Indicator Name, Indicator Code dbl (63):
+## location_id, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968,... lgl (1):
+## ...68
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+## Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ## • `` -&gt; `...68`</code></pre>
 <p>The raw GDP dataset contains GDP per capita (US dollars) from 200
 distinct countries, from 1960 to 2021.</p>
@@ -418,13 +418,12 @@ country_name, country_code, location_id, indicator_name, indicator_code,
 <pre><code>## New names:
 ## Rows: 266 Columns: 68
 ## ── Column specification
-## ─────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (4): Country Name, Country Code, Indicator Name, Indicator Code dbl
-## (63): location_id, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967,
-## 1968,... lgl (1): ...68
-## ℹ Use `spec()` to retrieve the full column specification for this
-## data. ℹ Specify the column types or set `show_col_types = FALSE` to
-## quiet this message.
+## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
+## (4): Country Name, Country Code, Indicator Name, Indicator Code dbl (63):
+## location_id, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968,... lgl (1):
+## ...68
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+## Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ## • `` -&gt; `...68`</code></pre>
 <p>The raw population dataset contains total population from 200
 distinct countries, from 1960 to 2021.</p>
@@ -446,6 +445,46 @@ country_code, location_id, indicator_name, indicator_code, 1960, 1961,
 ## 3         200      30 year                   0
 ## 4         200      30 gdp_per_capita       288
 ## 5         200      30 population            11</code></pre>
+<p>After combining, the gdp_population dataset contains data from 200
+distinct countries between 1990 and 2019.</p>
+<div
+id="merging-datasets-to-produce-the-maindata-dataset-for-analysis-purpose."
+class="section level4">
+<h4>Merging datasets to produce the “maindata” dataset for analysis
+purpose.</h4>
+<pre><code>## # A tibble: 11 × 4
+##    n_countries n_years col_name       n_missing
+##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
+##  1         200      30 location_id            0
+##  2         200      30 country_name           0
+##  3         200      30 year                   0
+##  4         200      30 gdp_per_capita      2880
+##  5         200      30 population           110
+##  6         200      30 sex_id                 0
+##  7         200      30 sex_name               0
+##  8         200      30 age_name               0
+##  9         200      30 val                    0
+## 10         200      30 upper                  0
+## 11         200      30 lower                  0</code></pre>
+<p>By matching on the countries and years from the “death” dataset using
+“left_join”, we produced the main dataset. It has a size of 60000
+observations and 11 features. Basic features we are interested in
+include:</p>
+<ul>
+<li><strong>location_id</strong></li>
+<li><strong>sex_id</strong></li>
+<li><strong>sex_name</strong></li>
+<li><strong>age_name</strong>: Age groups including “0-9 years”, “10-24
+years”, “25-49 years”, “50-74 years”, and “75+ years”.</li>
+<li><strong>year</strong>: Year of the records</li>
+<li><strong>val</strong>:</li>
+<li><strong>upper</strong>:</li>
+<li><strong>lower</strong>:</li>
+<li><strong>gdp_per_capita</strong></li>
+<li><strong>population</strong></li>
+<li><strong>country_name</strong></li>
+</ul>
+</div>
 </div>
 
 

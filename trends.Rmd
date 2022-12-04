@@ -6,4 +6,246 @@ output:
     toc_float: true
 --- 
 
-test trends
+```{r,include=FALSE,message=FALSE,echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(plotly)
+library(highcharter)
+library(rworldmap)
+library(gganimate)
+library(transformr)
+library(corrplot)
+library(leaps)
+library(kableExtra)
+library(modelr)
+library(mgcv)
+library(magick)
+library(readr)
+library(gifski)
+
+knitr::opts_chunk$set(
+echo = FALSE,
+fig.width = 7,
+fig.height = 5,
+fig.asp = 0.6,
+out.width = "60%")
+theme_set(theme_bw() +
+         theme(legend.position = "bottom",
+               legend.title = element_blank(),
+               plot.title = element_text(hjust = 0.5, size = 15),
+               plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+maindata = read_csv("data/maindata.csv") 
+```
+
+### Global trend of HIV mortality per 100k population overtime (1990 to 2019)
+
+```{r echo=FALSE,fig.align='center'}
+death_year = maindata %>%
+ group_by(year) %>%
+ summarize(HIV_death = sum(val),
+           pop_year  = sum(population, na.rm = T)) %>%
+ mutate(HIV_death = as.numeric(HIV_death),
+        mortality_per_100k = HIV_death/(pop_year/100000))
+
+
+
+plot_death_year = death_year %>%
+ggplot(aes(x = as.factor(year), y = mortality_per_100k, group=1)) + 
+  geom_line(col = "deepskyblue3", size = 1) + 
+  geom_point(col = "deepskyblue3", size = 2) + 
+  theme(axis.text.x = element_text(angle = -90, hjust = 0)) +  
+  labs(
+    title = "Global Trend of HIV deaths Per 100k Population over time",
+    x = "Years", 
+    y = "Estimated HIV deaths per 100k population"
+  ) 
+
+plot_death_year + transition_reveal(year)
+```
+
+### Global trend of HIV mortality per 100k population by gender overtime (1990 to 2019)
+
+
+
+```{r echo=FALSE,fig.align='center'}
+death_gender = maindata %>% 
+  group_by(year, sex_name) %>% 
+  summarize(HIV_death = sum(val),
+            pop_year  = sum(population, na.rm = T)) %>% 
+  mutate(
+    HIV_death = as.numeric(HIV_death),
+        year = as.numeric(year),
+    mortality_per_100k = HIV_death/(pop_year/100000))
+
+plot_death_gender = death_gender %>% 
+  ggplot(aes(x = year, y = mortality_per_100k, col=factor(sex_name))) + 
+  geom_line() + 
+  geom_point() +
+  labs(title = "Global Trend of HIV deaths Per 100k Population over time by Sex", 
+       x = "Years", 
+       y = "Estimated HIV deaths per 100k population", 
+       color = "Sex") + 
+  scale_x_continuous(breaks = seq(1990, 2019, 5), minor_breaks = F)
+
+plot_death_gender + transition_reveal(year)
+```
+
+### Global trend of HIV mortality per 100k population by age overtime (1990 to 2019)
+
+
+
+```{r echo=FALSE,fig.align='center'}
+death_age = maindata %>% 
+  group_by(year, age_name) %>% 
+  summarize(HIV_death = sum(val),
+            pop_year  = sum(population, na.rm = T)) %>% 
+  mutate(
+    HIV_death = as.numeric(HIV_death),
+    year = as.numeric(year),
+    mortality_per_100k = HIV_death/(pop_year/100000))
+
+plot_death_age = death_age %>% 
+  ggplot(aes(x = year, y = mortality_per_100k, col = factor(age_name))) +
+  geom_line() + 
+  geom_point() + 
+  labs(title = "Global Trend of HIV deaths Per 100k Population over time by Age", 
+       x = "Years", 
+       y = "Estimated HIV deaths per 100k population", 
+       color = "Age") + 
+  scale_x_continuous(breaks = seq(1990, 2019, 5), minor_breaks = F)
+
+plot_death_age + transition_reveal(year)
+```
+
+### HIV Mortality Rate by Country GDP
+
+```{r,echo=FALSE,fig.align='center', warning=FALSE}
+
+hiv_country <- maindata %>% group_by(year,country_name,gdp_per_capita) %>% summarise(death=sum(val),pop = sum(population, na.rm=TRUE)) %>% mutate(mortality_per_100k=((death)/(pop))*100000)
+
+plot_death_GDP <- ggplot(hiv_country, aes(x = gdp_per_capita, y=mortality_per_100k, colour = country_name)) +
+  geom_point(show.legend = FALSE, alpha = 0.7) +
+  scale_color_viridis_d(option = "F") +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  labs(x = "GDP per capita", y = "HIV Mortality per 100k")
+
+plot_death_GDP + transition_time(as.integer(year))+ labs(title = "Year: {frame_time}") + shadow_wake(wake_length = 0.1, alpha = FALSE)
+```
+
+### HIV mortality by Country across years
+```{r,echo=FALSE,fig.align='center'}
+top_16 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=16)
+kable(top_16)
+```
+
+
+```{r}
+
+knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = "70%")
+theme_set(theme_bw() + 
+          theme(legend.position = "bottom",
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+hiv_sub<-maindata %>% select(country_name,year,sex_id,val)
+
+n<-unique(hiv_sub$country_name)
+country<-function(x){
+  hiv2<-hiv_sub %>% filter(country_name==x)
+  sum(hiv2$val)
+}
+country_total<-sapply(n,function(x) country(x))
+
+top_hiv<- hiv_sub %>% filter(country_name %in% c(
+  "South Africa",
+  "Kenya",
+  "United Republic of Tanzania",
+  "India",
+  "Nigeria",
+  "Uganda",
+  "Zimbabwe",
+  "Ethiopia",
+  "Mozambique",
+  "Malawi",
+  "Zambia",
+  "Cote d'Ivoire",
+  "Democratic Republic of Congo",
+  "Cameroon",
+  "Thailand",
+  "United States of America"))
+
+top_hiv$sex<-as.factor(top_hiv$sex_id)
+
+hiv3<-aggregate(val~country_name+year,top_hiv,sum) %>% 
+  group_by(year) %>% 
+  mutate(rank = min_rank(-val)) %>%
+  ungroup()
+
+static_plot<-ggplot(hiv3,aes(rank,group=country_name,fill=as.factor(country_name),color=as.factor(country_name))) +
+ geom_tile(aes(y = val/2,height = val, width = 0.9), alpha = 0.8, color = NA) +
+ geom_text(aes(y = 0, label = paste(country_name, ' ')), vjust = 0.2, hjust = 1) +
+ geom_text(aes(y=val,label = paste(' ',val)), hjust=0)+
+ coord_flip(clip = 'off', expand = TRUE) +
+ scale_y_continuous(labels = scales::comma) +
+ scale_x_reverse() +
+ guides(color = FALSE, fill = FALSE) +
+ theme_minimal() +
+ theme(
+ plot.title=element_text(size=30, hjust=0.5, face='bold', colour='black', vjust=-1),
+ plot.subtitle=element_text(size=18, hjust=0.5, face='italic', color='black'),
+ plot.caption =element_text(size=8, hjust=0.5, face='italic', color='black'),
+ axis.ticks.y = element_blank(), 
+ axis.text.y = element_blank(), 
+ plot.margin = margin(1,1,1,4, 'cm')
+ )
+plt<-static_plot + transition_states(states = year, transition_length = 4, state_length = 1) + 
+ ease_aes('cubic-in-out') +
+ labs(title = 'HIV Deaths per Year : {closest_state}', 
+ x='',y='HIV Deaths per year')
+
+final_animation<-animate(plt,100,fps = 20,duration = 30, width = 950, height = 750, renderer = gifski_renderer())
+
+final_animation
+```
+
+Add a map in this chunk (top 10 countries change overtime)? More current time?
+```{r}
+death_country = maindata %>%
+ group_by(country_name) %>%
+ summarize(HIV_death = sum(val, na.rm = T),
+           pop_year  = sum(population, na.rm = T)) %>%
+ mutate(
+   HIV_death = as.integer(HIV_death)) %>%
+ mutate(
+   HIV_death = as.numeric(HIV_death),
+        motality_per_100k =     HIV_death/(pop_year/100000))
+top_10_high = death_country %>%
+ filter(motality_per_100k != 'Inf') %>%
+ arrange(desc(motality_per_100k)) %>% head(n = 10) %>% select(country_name,motality_per_100k)
+knitr::kable(top_10_high)
+```
+
+### Top 10 countries with lowest HIV mortality
+
+```{r}
+top_10_low = death_country %>%
+ filter(motality_per_100k != 'Inf') %>%
+ arrange(motality_per_100k) %>% head(n = 10) %>% select(country_name, motality_per_100k)
+knitr::kable(top_10_low)
+```
+
+
+
+
+
+
+

@@ -21,6 +21,7 @@ library(kableExtra)
 library(modelr)
 library(mgcv)
 library(magick)
+library(readr)
 
 knitr::opts_chunk$set(
 echo = FALSE,
@@ -44,7 +45,7 @@ theme_set(theme_bw() +
 ```{r}
 deaths = read_csv("data/final_hiv_deaths.csv") %>%
  janitor::clean_names() %>%
- select("location_name", starts_with("sex"), starts_with("age"), "year", "val", "upper", "lower") %>%
+ select("location_id", "location_name", starts_with("sex"), starts_with("age"), "year", "val", "upper", "lower") %>%
  rename(country_name = location_name) %>% 
   mutate(year = as.character(year))
 
@@ -116,7 +117,39 @@ gdp_population %>%
  unnest(n_missing)
 ```
 
+After combining, the gdp_population dataset contains data from 200 distinct countries between 1990 and 2019.
+
+#### Merging datasets to produce the "maindata" dataset for analysis purpose.
+
+```{r}
+maindata = left_join(gdp_population, deaths, by = c("year","location_id")) %>% 
+  select(-country_name.x, -age_id) %>% 
+  rename(country_name = country_name.y) %>% 
+  select(location_id, country_name, everything())
+
+maindata %>% 
+  summarize(n_countries = n_distinct(location_id),
+            n_years = n_distinct(year),
+            col_name = colnames(maindata),
+            n_missing = map(maindata, ~sum(is.na(.)))) %>% 
+  unnest(n_missing)
+
+write_csv(maindata, 'data/maindata.csv')
+```
+
+By matching on the countries and years from the "death" dataset using "left_join", we produced the main dataset. It has a size of `r nrow(maindata)` observations and `r ncol(maindata)` features. Basic features we are interested in include:
 
 
+- **location_id**
+- **sex_id**
+- **sex_name**
+- **age_name**: Age groups including "0-9 years", "10-24 years",  "25-49 years", "50-74 years", and "75+ years".
+- **year**: Year of the records
+- **val**:
+- **upper**:
+- **lower**:
+- **gdp_per_capita**
+- **population**
+- **country_name**
 
 
