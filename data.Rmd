@@ -1,0 +1,115 @@
+---
+title: "Data cleaning/processing"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+--- 
+
+```{r,include=FALSE,message=FALSE,echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(plotly)
+library(highcharter)
+library(rworldmap)
+library(gganimate)
+library(transformr)
+library(corrplot)
+library(leaps)
+library(kableExtra)
+library(modelr)
+library(mgcv)
+library(magick)
+
+knitr::opts_chunk$set(
+echo = FALSE,
+fig.width = 7,
+fig.height = 5,
+fig.asp = 0.6,
+out.width = "60%")
+theme_set(theme_bw() +
+         theme(legend.position = "bottom",
+               legend.title = element_blank(),
+               plot.title = element_text(hjust = 0.5, size = 15),
+               plot.subtitle = element_text(hjust = 0.5, size = 12)))
+```
+
+### Data Import and Cleaning
+
+
+
+#### Death dataset.
+
+```{r}
+deaths = read_csv("data/final_hiv_deaths.csv") %>%
+ janitor::clean_names() %>%
+ select("location_name", starts_with("sex"), starts_with("age"), "year", "val", "upper", "lower") %>%
+ rename(country_name = location_name) %>% 
+  mutate(year = as.character(year))
+
+deaths %>%
+ summarize(n_countries = n_distinct(country_name),
+           n_years = n_distinct(year),
+           col_name = colnames(deaths),
+           n_missing = map(deaths, ~sum(is.na(.)))) %>%
+ unnest(n_missing)
+```
+
+
+
+The death dataset contains HIV death count data from 204 distinct countries, in the 30 years between 1990 and 2019.
+
+The deaths dataset contains `r nrow(deaths)` rows and `r ncol(deaths)` columns, with each row representing a single record of number of HIV deaths in a country stratified by year, sex and age group. Variables in the deaths dataset are as follows: `r colnames(deaths)`. 
+
+The death dataset contains HIV death count data from 204 distinct countries, in the 30 years between 1990 and 2019.
+
+
+#### GDP dataset
+
+```{r}
+gdp = read_csv("data/final_gdp_per_capita.csv", skip = 4, col_names = TRUE) %>% 
+  janitor::clean_names() %>% 
+  drop_na(location_id) 
+
+names(gdp) <- sub('^x', '', names(gdp))
+
+gdp_clean = gdp %>%  
+  select("location_id", "country_name", "1990":"2019") %>% 
+  pivot_longer(cols = "1990":"2019",
+               names_to = "year",
+               values_to = "GDP_per_capita") 
+
+```
+The raw GDP dataset contains GDP per capita (US dollars) from 200 distinct countries, from 1960 to 2021. 
+
+The dataset contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's GDP per capital (US dollars) in a given year. Variables in the GDP dataset are as follows: `r colnames(gdp)`. 
+
+### Population dataset
+```{r}
+population = read_csv("data/final_population_total.csv", skip = 4, col_names = TRUE)  %>% 
+  janitor::clean_names() %>% 
+  drop_na(location_id) 
+
+names(population) <- sub('^x', '', names(population))
+
+population_clean = population %>%  
+  select("location_id", "1990":"2019") %>% 
+  pivot_longer(cols = "1990":"2019",
+               names_to = "year",
+               values_to = "Population") 
+```
+
+The raw population dataset contains total population from 200 distinct countries, from 1960 to 2021. 
+
+The dataset contains `r nrow(population)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's population in a given year. Variables in the deaths dataset are as follows: `r colnames(gdp)`. 
+
+```{r}
+gdp_population = inner_join(gdp_clean, population_clean, by = c("location_id", "year")) %>%
+ janitor::clean_names() 
+```
+
+
+
+
+
