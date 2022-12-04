@@ -107,6 +107,13 @@ The dataset contains `r nrow(population)` rows and `r ncol(gdp)` columns, with e
 ```{r}
 gdp_population = inner_join(gdp_clean, population_clean, by = c("location_id", "year")) %>%
  janitor::clean_names() 
+
+gdp_population %>%
+ summarize(n_countries = n_distinct(country_name),
+           n_years = n_distinct(year),
+           col_name = colnames(gdp_population),
+           n_missing = map(gdp_population, ~sum(is.na(.)))) %>%
+ unnest(n_missing)
 ```
 
 
