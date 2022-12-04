@@ -1,5 +1,5 @@
 ---
-title: "trends"
+title: "HIV/AIDS Deaths Trends"
 output: 
   html_document:
     toc: true
@@ -41,7 +41,7 @@ maindata = read_csv("data/maindata.csv")
 
 ### Global trend of HIV mortality per 100k population overtime (1990 to 2019)
 
-```{r echo=FALSE,fig.align='center'}
+```{r echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
 death_year = maindata %>%
  group_by(year) %>%
  summarize(HIV_death = sum(val),
@@ -69,7 +69,7 @@ plot_death_year + transition_reveal(year)
 
 
 
-```{r echo=FALSE,fig.align='center'}
+```{r echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
 death_gender = maindata %>% 
   group_by(year, sex_name) %>% 
   summarize(HIV_death = sum(val),
@@ -96,7 +96,7 @@ plot_death_gender + transition_reveal(year)
 
 
 
-```{r echo=FALSE,fig.align='center'}
+```{r echo=FALSE,message = FALSE,warning = FALSE,  fig.align='center'}
 death_age = maindata %>% 
   group_by(year, age_name) %>% 
   summarize(HIV_death = sum(val),
@@ -121,7 +121,7 @@ plot_death_age + transition_reveal(year)
 
 ### HIV Mortality Rate by Country GDP
 
-```{r,echo=FALSE,fig.align='center', warning=FALSE}
+```{r,echo=FALSE,message = FALSE,warning = FALSE, fig.align='center', warning=FALSE}
 
 hiv_country <- maindata %>% group_by(year,country_name,gdp_per_capita) %>% summarise(death=sum(val),pop = sum(population, na.rm=TRUE)) %>% mutate(mortality_per_100k=((death)/(pop))*100000)
 
@@ -136,14 +136,13 @@ plot_death_GDP + transition_time(as.integer(year))+ labs(title = "Year: {frame_t
 ```
 
 ### HIV mortality by Country across years
-```{r,echo=FALSE,fig.align='center'}
+```{r,echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
 top_16 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=16)
 kable(top_16)
 ```
 
 
-```{r}
-
+```{r, message = FALSE,warning = FALSE}
 knitr::opts_chunk$set(
  echo = FALSE,
  fig.width = 7, 
@@ -218,7 +217,7 @@ final_animation
 ```
 
 Add a map in this chunk (top 10 countries change overtime)? More current time?
-```{r}
+```{r, message = FALSE,warning = FALSE}
 death_country = maindata %>%
  group_by(country_name) %>%
  summarize(HIV_death = sum(val, na.rm = T),
@@ -236,7 +235,7 @@ knitr::kable(top_10_high)
 
 ### Top 10 countries with lowest HIV mortality
 
-```{r}
+```{r, message = FALSE,warning = FALSE}
 top_10_low = death_country %>%
  filter(motality_per_100k != 'Inf') %>%
  arrange(motality_per_100k) %>% head(n = 10) %>% select(country_name, motality_per_100k)

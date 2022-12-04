@@ -356,14 +356,6 @@ div.tocify {
 <h3>Data Import and Cleaning</h3>
 <div id="death-dataset." class="section level4">
 <h4>Death dataset.</h4>
-<pre><code>## Rows: 61200 Columns: 16
-## ── Column specification ───────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr  (6): measure_name, location_name, sex_name, age_name, cause_name, metri...
-## dbl (10): measure_id, location_id, sex_id, age_id, cause_id, metric_id, year...
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>## # A tibble: 10 × 4
 ##    n_countries n_years col_name     n_missing
 ##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
@@ -389,17 +381,6 @@ countries, in the 30 years between 1990 and 2019.</p>
 </div>
 <div id="gdp-dataset" class="section level4">
 <h4>GDP dataset</h4>
-<pre><code>## New names:
-## Rows: 266 Columns: 68
-## ── Column specification
-## ─────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (4): Country Name, Country Code, Indicator Name, Indicator Code dbl
-## (63): location_id, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967,
-## 1968,... lgl (1): ...68
-## ℹ Use `spec()` to retrieve the full column specification for this
-## data. ℹ Specify the column types or set `show_col_types = FALSE` to
-## quiet this message.
-## • `` -&gt; `...68`</code></pre>
 <p>The raw GDP dataset contains GDP per capita (US dollars) from 200
 distinct countries, from 1960 to 2021.</p>
 <p>The dataset contains 200 rows and 68 columns, with each row
@@ -416,17 +397,6 @@ country_name, country_code, location_id, indicator_name, indicator_code,
 </div>
 <div id="population-dataset" class="section level3">
 <h3>Population dataset</h3>
-<pre><code>## New names:
-## Rows: 266 Columns: 68
-## ── Column specification
-## ─────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (4): Country Name, Country Code, Indicator Name, Indicator Code dbl
-## (63): location_id, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967,
-## 1968,... lgl (1): ...68
-## ℹ Use `spec()` to retrieve the full column specification for this
-## data. ℹ Specify the column types or set `show_col_types = FALSE` to
-## quiet this message.
-## • `` -&gt; `...68`</code></pre>
 <p>The raw population dataset contains total population from 200
 distinct countries, from 1960 to 2021.</p>
 <p>The dataset contains 200 rows and 68 columns, with each row

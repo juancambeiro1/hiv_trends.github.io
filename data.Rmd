@@ -42,7 +42,7 @@ theme_set(theme_bw() +
 
 #### Death dataset.
 
-```{r}
+```{r, message = FALSE,warning = FALSE}
 deaths = read_csv("data/final_hiv_deaths.csv") %>%
  janitor::clean_names() %>%
  select("location_id", "location_name", starts_with("sex"), starts_with("age"), "year", "val", "upper", "lower") %>%
@@ -68,7 +68,7 @@ The death dataset contains HIV death count data from 204 distinct countries, in 
 
 #### GDP dataset
 
-```{r}
+```{r, message = FALSE,warning = FALSE}
 gdp = read_csv("data/final_gdp_per_capita.csv", skip = 4, col_names = TRUE) %>% 
   janitor::clean_names() %>% 
   drop_na(location_id) 
@@ -87,7 +87,7 @@ The raw GDP dataset contains GDP per capita (US dollars) from 200 distinct count
 The dataset contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's GDP per capital (US dollars) in a given year. Variables in the GDP dataset are as follows: `r colnames(gdp)`. 
 
 ### Population dataset
-```{r}
+```{r, message = FALSE,warning = FALSE}
 population = read_csv("data/final_population_total.csv", skip = 4, col_names = TRUE)  %>% 
   janitor::clean_names() %>% 
   drop_na(location_id) 
@@ -105,7 +105,7 @@ The raw population dataset contains total population from 200 distinct countries
 
 The dataset contains `r nrow(population)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's population in a given year. Variables in the deaths dataset are as follows: `r colnames(gdp)`. 
 
-```{r}
+```{r, message = FALSE,warning = FALSE}
 gdp_population = inner_join(gdp_clean, population_clean, by = c("location_id", "year")) %>%
  janitor::clean_names() 
 
@@ -121,7 +121,7 @@ After combining, the gdp_population dataset contains data from 200 distinct coun
 
 #### Merging datasets to produce the "maindata" dataset for analysis purpose.
 
-```{r}
+```{r, message = FALSE,warning = FALSE}
 maindata = left_join(gdp_population, deaths, by = c("year","location_id")) %>% 
   select(-country_name.x, -age_id) %>% 
   rename(country_name = country_name.y) %>% 
