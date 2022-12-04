@@ -1,0 +1,11 @@
+---
+title: "My test"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---  
+
+test
+
+I use [google](https://www.google.com/) all the time
