@@ -39,12 +39,12 @@ theme_set(theme_bw() +
 maindata = read_csv("data/maindata.csv") 
 ```
 
-#### Create "motality_per_100k" and "log_motality_per_100k" variables
+#### Create "mortality_per_100k" and "log_mortality_per_100k" variables
 
 ```{r, message = FALSE,warning = FALSE}
 regression = maindata %>%
- mutate(motality_per_100k = val / (population/100000),
-        log_motality_per_100k = log(motality_per_100k))
+ mutate(mortality_per_100k = val / (population/100000),
+        log_mortality_per_100k = log(mortality_per_100k))
 regression %>%
  summarize(col_name = colnames(regression),
            n_missing = map(regression, ~sum(is.na(.)))) %>%
@@ -54,19 +54,19 @@ regression %>%
 ### Plots of the distribution to main outcome of interest(HIV mortality per 100k population).
 ```{r, message = FALSE,warning = FALSE}
 regression %>%
- ggplot(aes(x = motality_per_100k)) +
+ ggplot(aes(x = mortality_per_100k)) +
  geom_histogram(color = "darkblue", fill = "lightblue") +
  ggtitle("Histogram of HIV deaths per 100k") +
- geom_vline( aes(xintercept = mean(motality_per_100k)),
+ geom_vline( aes(xintercept = mean(mortality_per_100k)),
             linetype = "dashed") +
  ylab("") +
  xlab("Estimated HIV deaths per 100k")
 
 regression %>%
- ggplot(aes(x = log_motality_per_100k)) +
+ ggplot(aes(x = log_mortality_per_100k)) +
  geom_histogram(color = "darkblue", fill = "lightblue") +
  ggtitle("Histogram of log(HIV deaths per 100k)") +
- geom_vline(aes(xintercept = mean(log_motality_per_100k)),
+ geom_vline(aes(xintercept = mean(log_mortality_per_100k)),
             linetype = "dashed") +
  ylab("") +
  xlab("Estimated log(HIV deaths per 100k)")
@@ -76,14 +76,14 @@ regression %>%
 
 ### model 1:
 
-$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
 ```{r}
 regression_0.01 = regression %>%
- mutate(log_motality_per_100k = if_else(log_motality_per_100k == -Inf, 0.01, log_motality_per_100k),
+ mutate(log_mortality_per_100k = if_else(log_mortality_per_100k == -Inf, 0.01, log_mortality_per_100k),
         age_name = as.factor(age_name),
         sex_name = as.factor(sex_name))
 
-model1 = lm(log_motality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_0.01)
+model1 = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_0.01)
 kable(summary(model1)$coefficients)
 
 regression_0.01 %>%
@@ -94,12 +94,12 @@ regression_0.01 %>%
 
 ### model 2:
 
-$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp $$
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp $$
 ```{r}
 regression_year = regression_0.01 %>%
         mutate(year_2004 = if_else(year <= 2004, 1, 0))
 
-model2 = lm(log_motality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita, data = regression_year)
+model2 = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita, data = regression_year)
 kable(summary(model2)$coefficients)
 
 regression_year %>%
@@ -110,10 +110,10 @@ regression_year %>%
 
 ### model 3:
 
-$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex $$
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex $$
 
 ```{r}
-model3 = lm(log_motality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_year)
+model3 = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_year)
 
 kable(summary(model3)$coefficients)
 
@@ -124,7 +124,7 @@ regression_year %>%
 ```
 
 ### model 4:
-$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex + \beta_6 country$$
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex + \beta_6 country$$
 
 
 

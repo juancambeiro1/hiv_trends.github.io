@@ -352,26 +352,26 @@ div.tocify {
 </div>
 
 
-<div id="create-motality_per_100k-and-log_motality_per_100k-variables"
+<div id="create-mortality_per_100k-and-log_mortality_per_100k-variables"
 class="section level4">
-<h4>Create “motality_per_100k” and “log_motality_per_100k”
+<h4>Create “mortality_per_100k” and “log_mortality_per_100k”
 variables</h4>
 <pre><code>## # A tibble: 13 × 2
-##    col_name              n_missing
-##    &lt;chr&gt;                     &lt;int&gt;
-##  1 location_id                   0
-##  2 country_name                  0
-##  3 year                          0
-##  4 gdp_per_capita             2880
-##  5 population                  110
-##  6 sex_id                        0
-##  7 sex_name                      0
-##  8 age_name                      0
-##  9 val                           0
-## 10 upper                         0
-## 11 lower                         0
-## 12 motality_per_100k           110
-## 13 log_motality_per_100k       110</code></pre>
+##    col_name               n_missing
+##    &lt;chr&gt;                      &lt;int&gt;
+##  1 location_id                    0
+##  2 country_name                   0
+##  3 year                           0
+##  4 gdp_per_capita              2880
+##  5 population                   110
+##  6 sex_id                         0
+##  7 sex_name                       0
+##  8 age_name                       0
+##  9 val                            0
+## 10 upper                          0
+## 11 lower                          0
+## 12 mortality_per_100k           110
+## 13 log_mortality_per_100k       110</code></pre>
 </div>
 <div
 id="plots-of-the-distribution-to-main-outcome-of-interesthiv-mortality-per-100k-population."
@@ -385,7 +385,7 @@ per 100k population).</h3>
 </div>
 <div id="model-1" class="section level3">
 <h3>model 1:</h3>
-<span class="math display">\[ log(motality/100000) = \beta_0 + \beta_1
+<span class="math display">\[ log(mortality/100000) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year + \beta_4 gdp \]</span>
 <table>
 <thead>
@@ -550,7 +550,7 @@ gdp_per_capita
 </div>
 <div id="model-2" class="section level3">
 <h3>model 2:</h3>
-<span class="math display">\[ log(motality/100000) = \beta_0 + \beta_1
+<span class="math display">\[ log(mortality/100000) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp \]</span>
 <table>
 <thead>
@@ -715,7 +715,7 @@ gdp_per_capita
 </div>
 <div id="model-3" class="section level3">
 <h3>model 3:</h3>
-<p><span class="math display">\[ log(motality/100000) = \beta_0 +
+<p><span class="math display">\[ log(mortality/100000) = \beta_0 +
 \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
 age*sex \]</span></p>
 <table>
@@ -949,7 +949,7 @@ age_name75+ years:sex_nameMale
 </div>
 <div id="model-4" class="section level3">
 <h3>model 4:</h3>
-<p><span class="math display">\[ log(motality/100000) = \beta_0 +
+<p><span class="math display">\[ log(mortality/100000) = \beta_0 +
 \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
 age*sex + \beta_6 country\]</span></p>
 </div>
