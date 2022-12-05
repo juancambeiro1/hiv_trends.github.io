@@ -57,13 +57,9 @@ deaths %>%
  unnest(n_missing)
 ```
 
-
-
 The death dataset contains HIV death count data from 204 distinct countries, in the 30 years between 1990 and 2019.
 
 The deaths dataset contains `r nrow(deaths)` rows and `r ncol(deaths)` columns, with each row representing a single record of number of HIV deaths in a country stratified by year, sex and age group. Variables in the deaths dataset are as follows: `r colnames(deaths)`. 
-
-The death dataset contains HIV death count data from 204 distinct countries, in the 30 years between 1990 and 2019.
 
 
 #### GDP Per Capita By Country Dataset
@@ -84,7 +80,8 @@ gdp_clean = gdp %>%
 ```
 The raw GDP dataset contains GDP per capita (US dollars) from 200 distinct countries, from 1960 to 2021. 
 
-The dataset contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's GDP per capital (US dollars) in a given year. Variables in the GDP dataset are as follows: `r colnames(gdp)`. 
+The dataset contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's GDP per capital (US dollars) in a given year. 
+
 
 #### Population By Country Dataset
 ```{r, message = FALSE,warning = FALSE}
@@ -103,7 +100,13 @@ population_clean = population %>%
 
 The raw population dataset contains total population from 200 distinct countries, from 1960 to 2021. 
 
-The dataset contains `r nrow(population)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's population in a given year. Variables in the deaths dataset are as follows: `r colnames(gdp)`. 
+The dataset contains `r nrow(population)` rows and `r ncol(population)` columns, with each row representing a single record of a country's population in a given year. 
+
+
+
+### Merging 3 datasets to produce the "maindata" dataset for visualization and analysis
+
+First, we merge the GDP Per Capita By Country dataset (`gdp_clean`) and Population By Country Dataset (`population_clean`) into a dataset called `gdp_population`. This combined dataset contains data from 200 distinct countries between 1990 and 2019.
 
 ```{r, message = FALSE,warning = FALSE}
 gdp_population = inner_join(gdp_clean, population_clean, by = c("location_id", "year")) %>%
@@ -117,9 +120,7 @@ gdp_population %>%
  unnest(n_missing)
 ```
 
-After combining, the gdp_population dataset contains data from 200 distinct countries between 1990 and 2019.
-
-### Merging 3 datasets to produce the "maindata" dataset for visualization and analysis
+Next, we merge the `gdp_population` dataset with the HIV Deaths dataset (`deaths`) into a `maindata` dataset by matching on the countries and years and using `left_join`. We save this as a CSV for further analysis.
 
 ```{r, message = FALSE,warning = FALSE}
 maindata = left_join(gdp_population, deaths, by = c("year","location_id")) %>% 
@@ -137,19 +138,18 @@ maindata %>%
 write_csv(maindata, 'data/maindata.csv')
 ```
 
-By matching on the countries and years from the "death" dataset using "left_join", we produced the main dataset. It has a size of `r nrow(maindata)` observations and `r ncol(maindata)` features. Basic features we are interested in include:
+`maindata` has `r nrow(maindata)` observations and `r ncol(maindata)` features. Basic features we are interested in include:
 
-
-- **location_id**
-- **sex_id**
-- **sex_name**
-- **age_name**: Age groups including "0-9 years", "10-24 years",  "25-49 years", "50-74 years", and "75+ years".
+- **location_id**: id corresponding to a country_name
+- **sex_id**: id corresponding to sex
+- **sex_name**: Male or Female
+- **age_name**: Aae groups including "0-9 years", "10-24 years",  "25-49 years", "50-74 years", and "75+ years".
 - **year**: Year of the records
-- **val**:
-- **upper**:
-- **lower**:
-- **gdp_per_capita**
-- **population**
-- **country_name**
+- **val**: Point estimate of number of HIV/AIDS deaths
+- **upper**: Upper estimate of number of HIV/AIDS deaths
+- **lower**: Lower estimate of number of HIV/AIDS deaths
+- **gdp_per_capita** GDP per capita in 2022 US dollars
+- **population** population total
+- **country_name** name of country
 
 
