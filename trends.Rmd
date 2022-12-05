@@ -144,7 +144,7 @@ plot_death_GDP + transition_time(as.integer(year))+ labs(title = "Year: {frame_t
 We additionally wanted to look at how countries rank in terms of their number of HIV/AIDS deaths. First, we show the 10 countries with the highest total number of HIV/AIDS deaths.
 
 ```{r,echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
-top_16 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=10)
+top_10 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=10)
 kable(top_10)
 ```
 
