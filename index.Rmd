@@ -42,7 +42,9 @@ x
 
 
 # Website Navigation
-
+* Data cleaning/processing: How we cleaned, merged, and otherwised processed the data for further analysis
+* Trends: Visualizations of HIV/AIDS deaths
+* Regression Analysis: Analysis to determine which variables might be relevant in determining HIV/AIDS deaths
 
 # Group members
 * Juan Cambeiro (jc5313)
