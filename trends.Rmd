@@ -143,9 +143,12 @@ plot_death_GDP + transition_time(as.integer(year))+ labs(title = "Year: {frame_t
 
 We additionally wanted to look at how countries rank in terms of their number of HIV/AIDS deaths. First, we show the 10 countries with the highest total number of HIV/AIDS deaths.
 
-```{r,echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
+```{r,message = FALSE,warning = FALSE, fig.align='center'}
 top_10 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=10)
-kable(top_10)
+knitr::kable(top_10) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, width = "50%") %>%
+  column_spec(2, width = "50%")
 ```
 
 Next, we show the 10 countries with the highest total number of HIV/AIDS deaths for each year from 1990 to 2019.
@@ -246,8 +249,8 @@ top_10_high = death_country %>%
  select(country_name, count_per_100k)
 knitr::kable(top_10_high) %>% 
   kable_styling(full_width = F) %>%
-  column_spec(1, width = "40%") %>%
-  column_spec(2, width = "60%")
+  column_spec(1, width = "65%") %>%
+  column_spec(2, width = "35%")
 ```
 
 ### Top 10 countries with lowest HIV mortality per 100k
@@ -260,8 +263,8 @@ top_10_low = death_country %>%
  select(country_name, count_per_100k)
 knitr::kable(top_10_low) %>%
   kable_styling(full_width = F) %>%
-  column_spec(1, width = "40%") %>%
-  column_spec(2, width = "60%")
+  column_spec(1, width = "60%") %>%
+  column_spec(2, width = "40%")
 ```
 
 
