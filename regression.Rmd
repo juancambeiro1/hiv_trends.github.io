@@ -45,18 +45,21 @@ maindata = read_csv("data/maindata.csv")
 **maindata** has `r nrow(maindata)` observations and `r ncol(maindata)` features. We are adjusting for population size by dividing  `val` (point estimate of number of HIV/AIDS deaths) by `population` multiplied by 100,000 to get a `mortality_per_100k` variable and a `log_mortality_per_100k` variable.
 
 ```{r, message = FALSE,warning = FALSE}
-regression = maindata %>%
- mutate(mortality_per_100k = val / (population/100000),
-        log_mortality_per_100k = log(mortality_per_100k))
-regression %>%
- summarize(col_name = colnames(regression),
-           n_missing = map(regression, ~sum(is.na(.)))) %>%
- unnest(n_missing)
+regression = maindata %>% 
+  mutate(mortality_per_100k = val / (population/100000),
+         log_mortality_per_100k = log(mortality_per_100k),
+         year_2004 = if_else(year <= 2004, 1, 0),
+         year_2004 = as.factor(year_2004),
+         country_name = as.factor(country_name)) 
+regression %>% 
+  summarize(col_name = colnames(regression),
+            n_missing = map(regression, ~sum(is.na(.)))) %>% 
+  unnest(n_missing)
 ```
 
 ### Plots of the distribution to main outcome of interest(HIV mortality per 100k population).
 
-First, we plot the distribution of `mortality_per_100k.` We can see that we need to transform it to satisfy the normality assumption of linear regression. So we used a log transformation to get a more normal distribution.
+First, we plot the distribution of `mortality_per_100k`. We can see that we need to transform it to satisfy the normality assumption. So we used a log transformation to get a more normal distribution, and have a new variable `mortality_per_100k`.
 
 ```{r, message = FALSE,warning = FALSE}
 regression %>%
@@ -82,57 +85,76 @@ regression %>%
 
 Now we proceed with building different regression models.
 
-#### Model 1: age, sex, year, GDP per capita
+### Logistic regression models
+
+### model1:
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
 ```{r}
-regression_0.01 = regression %>%
- mutate(log_mortality_per_100k = if_else(log_mortality_per_100k == -Inf, 0.01, log_mortality_per_100k),
-        age_name = as.factor(age_name),
-        sex_name = as.factor(sex_name))
-
-model1 = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_0.01)
-kable(summary(model1)$coefficients)
-
-regression_0.01 %>%
- add_predictions(model1) %>%
- add_residuals(model1) %>%
- ggplot(aes(x = pred, y = resid)) + geom_point()
+regression_logit = regression %>%
+  mutate(log_mortality_per_100k = if_else(log_mortality_per_100k == -Inf, 0.01, log_mortality_per_100k))
+  
+model1_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_logit) 
+kable(summary(model1_logit)$coefficients)
 ```
 
-#### Model 2: age, sex, year, GDP per capita
+### model2:
 
-$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp $$
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4year_{2004} + \beta_5gdp + \beta_6 year*year_{2004}  $$
 ```{r}
-regression_year = regression_0.01 %>%
-        mutate(year_2004 = if_else(year <= 2004, 1, 0))
-
-model2 = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita, data = regression_year)
-kable(summary(model2)$coefficients)
-
-regression_year %>%
- add_predictions(model2) %>%
- add_residuals(model2) %>%
- ggplot(aes(x = pred, y = resid)) + geom_point()
+  
+model2_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, data = regression_logit)
+kable(summary(model2_logit)$coefficients)
 ```
 
-#### model 3:
+### model3:
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex $$
 
 ```{r}
-model3 = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_year)
-
-kable(summary(model3)$coefficients)
-
-regression_year %>%
- add_predictions(model3) %>%
- add_residuals(model3) %>%
- ggplot(aes(x = pred, y = resid)) + geom_point()
+model3_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_logit)
+kable(summary(model3_logit)$coefficients)
 ```
 
-#### model 4:
+### model4:
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex + \beta_6 country$$
 
+```{r}
+model4_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_logit)
+kable(summary(model4_logit)$coefficients)
+```
 
+#### Poisson Regression models:
 
+### model1:
+
+$$ log(E(Y_i|age_i,sex_i,year_i,gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
+```{r}
+regression_poisson = regression %>% 
+  mutate(val = as.integer(val))
+model1_poi = glm(val ~ age_name + sex_name + year + gdp_per_capita, family = "poisson", data = regression_poisson)
+kable(summary(model1_poi)$coefficients)
+```
+### model2:
+
+$$ log(E(Y_i|age_i,sex_i,year_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 year_{2004} + \beta_5 gdp + \beta_6 year *year_{2004}$$
+```{r}
+model2_poi = glm(val ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, family = "poisson", data = regression_poisson)
+kable(summary(model2_poi)$coefficients)
+```
+
+### model3:
+
+$$ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex$$
+```{r}
+model3_poi = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_poisson)
+kable(summary(model3_logit)$coefficients)
+```
+
+### model4:
+
+$$ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i,country_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex + \beta_6 country$$
+```{r}
+model4_logit = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_poisson)
+kable(summary(model4_logit)$coefficients)
+```
