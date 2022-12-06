@@ -150,7 +150,7 @@ kable(top_10)
 
 Next, we show the 10 countries with the highest total number of HIV/AIDS deaths for each year from 1990 to 2019.
 
-```{r, message = FALSE,warning = FALSE}
+```{r, message = FALSE,warning = FALSE, fig.align='center'}
 knitr::opts_chunk$set(
  echo = FALSE,
  fig.width = 7, 
@@ -219,7 +219,7 @@ plt<-static_plot + transition_states(states = year, transition_length = 4, state
  labs(title = 'HIV Deaths per Year : {closest_state}', 
  x='',y='HIV Deaths per year')
 
-final_animation<-animate(plt,100,fps = 20,duration = 30, width = 950, height = 750, renderer = gifski_renderer())
+final_animation<-animate(plt,100,fps = 20,duration = 30, width = 1000, height = 950, renderer = gifski_renderer())
 
 final_animation
 ```
@@ -228,7 +228,7 @@ Finally, we show the 10 countries with the highest total number of HIV/AIDS deat
 
 ### Top 10 countries with highest HIV mortality per 100k
 
-```{r, message = FALSE,warning = FALSE}
+```{r, message = FALSE,warning = FALSE, fig.align='center'}
 death_country = maindata %>%
  group_by(country_name) %>%
  summarize(HIV_death = sum(val, na.rm = T),
@@ -237,20 +237,31 @@ death_country = maindata %>%
    HIV_death = as.integer(HIV_death)) %>%
  mutate(
    HIV_death = as.numeric(HIV_death),
-        motality_per_100k =     HIV_death/(pop_year/100000))
+        count_per_100k = HIV_death/(pop_year/100000))
 top_10_high = death_country %>%
- filter(motality_per_100k != 'Inf') %>%
- arrange(desc(motality_per_100k)) %>% head(n = 10) %>% select(country_name,motality_per_100k)
-knitr::kable(top_10_high)
+ filter(count_per_100k != 'Inf') %>%
+ arrange(desc(count_per_100k)) %>%
+ mutate(count_per_100k = round(count_per_100k, digits=4)) %>%
+ head(n = 10) %>%
+ select(country_name, count_per_100k)
+knitr::kable(top_10_high) %>% 
+  kable_styling(full_width = F) %>%
+  column_spec(1, width = "40%") %>%
+  column_spec(2, width = "60%")
 ```
 
 ### Top 10 countries with lowest HIV mortality per 100k
 
-```{r, message = FALSE,warning = FALSE}
+```{r, message = FALSE,warning = FALSE, fig.align='center'}
 top_10_low = death_country %>%
- filter(motality_per_100k != 'Inf') %>%
- arrange(motality_per_100k) %>% head(n = 10) %>% select(country_name, motality_per_100k)
-knitr::kable(top_10_low)
+ filter(count_per_100k != 'Inf') %>%
+ arrange(count_per_100k) %>% head(n = 10) %>%
+ mutate(count_per_100k = round(count_per_100k, digits = 4)) %>%
+ select(country_name, count_per_100k)
+knitr::kable(top_10_low) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, width = "40%") %>%
+  column_spec(2, width = "60%")
 ```
 
 
