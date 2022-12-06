@@ -39,7 +39,10 @@ theme_set(theme_bw() +
 maindata = read_csv("data/maindata.csv") 
 ```
 
+
 #### Create "mortality_per_100k" and "log_mortality_per_100k" variables
+
+`maindata` has `r nrow(maindata)` observations and `r ncol(maindata)` features. We are adjusting for population size by dividing  **val** (point estimate of number of HIV/AIDS deaths) by **population** multiplied by 100,000 to get a **mortality_per_100k** variable and a **log_mortality_per_100k** variable.
 
 ```{r, message = FALSE,warning = FALSE}
 regression = maindata %>%
@@ -52,6 +55,9 @@ regression %>%
 ```
 
 ### Plots of the distribution to main outcome of interest(HIV mortality per 100k population).
+
+First, we plot the distribution of **mortality_per_100k**. We can see that we need to transform it to satisfy the normality assumption of linear regression. So we used a log transformation to get a more normal distribution.
+
 ```{r, message = FALSE,warning = FALSE}
 regression %>%
  ggplot(aes(x = mortality_per_100k)) +
@@ -74,7 +80,9 @@ regression %>%
 
 ### Regression models
 
-### model 1:
+Now we proceed with building different regression models.
+
+#### Model 1: age, sex, year, GDP per capita
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
 ```{r}
@@ -92,7 +100,7 @@ regression_0.01 %>%
  ggplot(aes(x = pred, y = resid)) + geom_point()
 ```
 
-### model 2:
+#### Model 2: age, sex, year, GDP per capita
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp $$
 ```{r}
@@ -108,7 +116,7 @@ regression_year %>%
  ggplot(aes(x = pred, y = resid)) + geom_point()
 ```
 
-### model 3:
+#### model 3:
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex $$
 
@@ -123,7 +131,7 @@ regression_year %>%
  ggplot(aes(x = pred, y = resid)) + geom_point()
 ```
 
-### model 4:
+#### model 4:
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex + \beta_6 country$$
 
 

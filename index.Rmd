@@ -26,6 +26,8 @@ FILL LATER
 
 Human immunodeficiency virus (HIV), which is a virus that causes acquired immunodeficiency syndrome (AIDS), is one of the world’s most pressing public health challenges. Since the time it was identified, tens of millions of deaths due to HIV/AIDS have occurred. HIV/AIDS is considered an ongoing pandemic since it is actively spreading globally, and it continues to wreak devastating impacts across the world, and in particular in low-and-middle income countries that have limited resources to address it. It is therefore important and timely to study trends in HIV/AIDS in countries across the world as well as stratified by sociodemographic variables to determine communities and subgroups who are most impacted by the disease. Furthermore, it is important to determine the predictors of HIV/AIDS deaths to develop targeted policies and legislation that can prevent or slow the spread of HIV/AIDS.
 
+Our project proposal can be found [here](proposal.html).
+
 # Data
 
 We combine a complex set of open datasets from the following websites:
