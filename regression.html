@@ -362,11 +362,11 @@ div.tocify {
 class="section level4">
 <h4>Create “mortality_per_100k” and “log_mortality_per_100k”
 variables</h4>
-<p><code>maindata</code> has 60000 observations and 11 features. We are
-adjusting for population size by dividing <strong>val</strong> (point
-estimate of number of HIV/AIDS deaths) by <strong>population</strong>
-multiplied by 100,000 to get a <strong>mortality_per_100k</strong>
-variable and a <strong>log_mortality_per_100k</strong> variable.</p>
+<p><strong>maindata</strong> has 60000 observations and 11 features. We
+are adjusting for population size by dividing <code>val</code> (point
+estimate of number of HIV/AIDS deaths) by <code>population</code>
+multiplied by 100,000 to get a <code>mortality_per_100k</code> variable
+and a <code>log_mortality_per_100k</code> variable.</p>
 <pre><code>## # A tibble: 13 × 2
 ##    col_name               n_missing
 ##    &lt;chr&gt;                      &lt;int&gt;
@@ -389,10 +389,10 @@ id="plots-of-the-distribution-to-main-outcome-of-interesthiv-mortality-per-100k-
 class="section level3">
 <h3>Plots of the distribution to main outcome of interest(HIV mortality
 per 100k population).</h3>
-<p>First, we plot the distribution of
-<strong>mortality_per_100k</strong>. We can see that we need to
-transform it to satisfy the normality assumption of linear regression.
-So we used a log transformation to get a more normal distribution.</p>
+<p>First, we plot the distribution of <code>mortality_per_100k.</code>
+We can see that we need to transform it to satisfy the normality
+assumption of linear regression. So we used a log transformation to get
+a more normal distribution.</p>
 <p><img src="regression_files/figure-html/unnamed-chunk-3-1.png" width="60%" /><img src="regression_files/figure-html/unnamed-chunk-3-2.png" width="60%" /></p>
 </div>
 <div id="regression-models" class="section level3">

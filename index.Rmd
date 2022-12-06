@@ -44,7 +44,7 @@ We combine a complex set of open datasets from the following websites:
 * [Data cleaning/processing](data.html): How we cleaned, merged, and otherwised processed the data for further analysis
 * [Trends](trends.html): Visualizations of HIV/AIDS deaths
 * [Regression Analysis](regression.html): Analysis to determine which variables might be relevant in determining HIV/AIDS deaths
-* [Report](report.html): Our report.
+* [Report](report.html): Our written report that describes what we did in this project and our results
 
 # Group members
 * Juan Cambeiro (jc5313)

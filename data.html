@@ -406,10 +406,10 @@ class="section level3">
 <h3>Merging 3 datasets to produce the “maindata” dataset for
 visualization and analysis</h3>
 <p>First, we merge the GDP Per Capita By Country dataset
-(<code>gdp_clean</code>) and Population By Country Dataset
-(<code>population_clean</code>) into a dataset called
-<code>gdp_population</code>. This combined dataset contains data from
-200 distinct countries between 1990 and 2019.</p>
+(<strong>gdp_clean</strong>) and Population By Country Dataset
+(<strong>population_clean</strong>) into a dataset called
+<strong>gdp_population</strong>. This combined dataset contains data
+from 200 distinct countries between 1990 and 2019.</p>
 <pre><code>## # A tibble: 5 × 4
 ##   n_countries n_years col_name       n_missing
 ##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
@@ -418,10 +418,11 @@ visualization and analysis</h3>
 ## 3         200      30 year                   0
 ## 4         200      30 gdp_per_capita       288
 ## 5         200      30 population            11</code></pre>
-<p>Next, we merge the <code>gdp_population</code> dataset with the HIV
-Deaths dataset (<code>deaths</code>) into a <code>maindata</code>
-dataset by matching on the countries and years and using
-<code>left_join</code>. We save this as a CSV for further analysis.</p>
+<p>Next, we merge the <strong>gdp_population</strong> dataset with the
+HIV Deaths dataset (<strong>deaths</strong>) into a
+<strong>maindata</strong> dataset by matching on the countries and years
+and using <code>left_join</code>. We save this as a CSV for further
+analysis.</p>
 <pre><code>## # A tibble: 11 × 4
 ##    n_countries n_years col_name       n_missing
 ##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
@@ -436,26 +437,21 @@ dataset by matching on the countries and years and using
 ##  9         200      30 val                    0
 ## 10         200      30 upper                  0
 ## 11         200      30 lower                  0</code></pre>
-<p><code>maindata</code> has 60000 observations and 11 features. Basic
-features we are interested in include:</p>
+<p><strong>maindata</strong> has 60000 observations and 11 features.
+Basic features we are interested in include:</p>
 <ul>
-<li><strong>location_id</strong>: id corresponding to a
-country_name</li>
-<li><strong>sex_id</strong>: id corresponding to sex</li>
-<li><strong>sex_name</strong>: Male or Female</li>
-<li><strong>age_name</strong>: Aae groups including “0-9 years”, “10-24
+<li><code>location_id</code>: id corresponding to a country_name</li>
+<li><code>sex_id</code>: id corresponding to sex</li>
+<li><code>sex_name</code>: Male or Female</li>
+<li><code>age_name</code>: Aae groups including “0-9 years”, “10-24
 years”, “25-49 years”, “50-74 years”, and “75+ years”.</li>
-<li><strong>year</strong>: Year of the records</li>
-<li><strong>val</strong>: Point estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>upper</strong>: Upper estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>lower</strong>: Lower estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>gdp_per_capita</strong> GDP per capita in 2022 US
-dollars</li>
-<li><strong>population</strong> population total</li>
-<li><strong>country_name</strong> name of country</li>
+<li><code>year</code>: Year of the records</li>
+<li><code>val</code>: Point estimate of number of HIV/AIDS deaths</li>
+<li><code>upper</code>: Upper estimate of number of HIV/AIDS deaths</li>
+<li><code>lower</code>: Lower estimate of number of HIV/AIDS deaths</li>
+<li><code>gdp_per_capita</code>: GDP per capita in 2022 US dollars</li>
+<li><code>population</code>: population total</li>
+<li><code>country_name</code>: name of country</li>
 </ul>
 </div>
 
