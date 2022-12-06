@@ -35,11 +35,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="site_libs/visjs-7.4.9/vis-timeline-graph2d.min.css" rel="stylesheet" />
-<script src="site_libs/visjs-7.4.9/vis-timeline-graph2d.min.js"></script>
-<link href="site_libs/timeline-0.4/timevis.css" rel="stylesheet" />
-<script src="site_libs/timevis-binding-2.1.0/timevis.js"></script>
+<link href="site_libs/cronologia-0.1.0/cronologia.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -329,6 +325,9 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="timeline.html">Timeline</a>
+</li>
+<li>
   <a href="data.html">Data cleaning/pre-processing</a>
 </li>
 <li>
@@ -364,37 +363,38 @@ div.tocify {
 <h1>HIV/AIDS Timeline</h1>
 <p>Below is a timeline of major events of the HIV/AIDS pandemic, which
 is useful contextualizing subsequent analysis of major trends.</p>
+<div class="chronologia-wrapper">
+<div class="chronologia-detail-wrapper">
+<details>
+<summary style="color: white; background: #002240;">June 1981: First official report of HIV/AIDS</summary>
+<p style="color: #1D1D1D; background: #FFFFFF; font-size: 14px;">A report by U.S. CDC describes cases of Pneumocystis pneumonia with unknown etiology in previously healthy men. This is the first reporting of cases in the HIV/AIDS pandemic</p>
+</details>
 </div>
-<div id="timeline" class="section level1">
-<h1>Timeline</h1>
-<pre class="r"><code>timeline &lt;- data.frame(
-  id = 1:10,
-  content = c(&quot;First cases of HIV/AIDS reported&quot;, &quot;AIDS officially recognized as a disease&quot;, &quot;First HIV test approved by FDA&quot;, &quot;First antiretroviral drug approved&quot;, &quot;AIDS becomes leading cause of death for US men aged 25-44&quot;, &quot;Combination antiretroviral therapy introduced&quot;, &quot;HAART becomes standard of care for HIV&quot;, &quot;President Clinton announces plan to support global AIDS prevention and treatment&quot;, &quot;Global fund to fight AIDS, TB, and Malaria established&quot;, &quot;World Health Organization recommends treatment for all HIV-positive individuals&quot;),
-  start = c(&quot;1981-01-01&quot;, &quot;1983-01-01&quot;, &quot;1984-01-01&quot;, &quot;1986-01-01&quot;, &quot;1987-01-01&quot;, &quot;1996-01-01&quot;, &quot;1997-01-01&quot;, &quot;1998-01-01&quot;, &quot;2000-01-01&quot;, &quot;2001-01-01&quot;),
-  end     = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-  style = c(&quot;border-color: black; background: #EB4646;&quot;, 
-            &quot;border-color: black; background: #EB4646;&quot;, 
-            &quot;border-color: black; background: #EB4646;&quot;, 
-            &quot;border-color: black; background: #EB4646;&quot;, 
-            &quot;border-color: black; background: #EB4646;&quot;, 
-            &quot;border-color: black; background: #46AEEB;&quot;, 
-            &quot;border-color: black; background: #46AEEB;&quot;, 
-            &quot;border-color: black; background: #46AEEB;&quot;, 
-            &quot;border-color: black; background: #46AEEB;&quot;, 
-            &quot;border-color: black; background: #46AEEB;&quot;))
-
-timevis(timeline,
-        showZoom = TRUE,
-        zoomFactor = 0.5,
-        fit = TRUE,
-        width = &quot;110%&quot;)</code></pre>
-<div id="htmlwidget-4d16595a8519437a6cbc" class="timevis html-widget" style="width:110%;height:480px;">
-<div class="btn-group zoom-menu">
-<button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
-<button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
+<div class="chronologia-detail-wrapper">
+<details>
+<summary style="color: white; background: #002240;">September 1982: CDC releases AIDS case definition</summary>
+<p style="color: #1D1D1D; background: #FFFFFF; font-size: 14px;">This follows dozens of additional cases having been reported among homosexual men, mostly in New York and California</p>
+</details>
+</div>
+<div class="chronologia-detail-wrapper">
+<details>
+<summary style="color: white; background: #002240;">September 1983: CDC identifies major routes of HIV transmission</summary>
+<p style="color: #1D1D1D; background: #FFFFFF; font-size: 14px;">U.S. CDC notes that the primary route of infection is sexual contact. Transmission does not occur through casual contact, food, air, or surfaces.</p>
+</details>
+</div>
+<div class="chronologia-detail-wrapper">
+<details>
+<summary style="color: white; background: #002240;">July 1984: Needle-sharing identified as transmission method</summary>
+<p style="color: #1D1D1D; background: #FFFFFF; font-size: 14px;">CDC recommends that people avoid needle-sharing</p>
+</details>
+</div>
+<div class="chronologia-detail-wrapper">
+<details>
+<summary style="color: white; background: #002240;">March 1985: FDA approves first test for detecting HIV</summary>
+<p style="color: #1D1D1D; background: #FFFFFF; font-size: 14px;">The U.S. FDA approves an ELISA test as the first commercially available test for detecting HIV in blood</p>
+</details>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-4d16595a8519437a6cbc">{"x":{"items":[{"id":"1","content":"First cases of HIV/AIDS reported","start":"1981-01-01","style":"border-color: black; background: #EB4646;"},{"id":"2","content":"AIDS officially recognized as a disease","start":"1983-01-01","style":"border-color: black; background: #EB4646;"},{"id":"3","content":"First HIV test approved by FDA","start":"1984-01-01","style":"border-color: black; background: #EB4646;"},{"id":"4","content":"First antiretroviral drug approved","start":"1986-01-01","style":"border-color: black; background: #EB4646;"},{"id":"5","content":"AIDS becomes leading cause of death for US men aged 25-44","start":"1987-01-01","style":"border-color: black; background: #EB4646;"},{"id":"6","content":"Combination antiretroviral therapy introduced","start":"1996-01-01","style":"border-color: black; background: #46AEEB;"},{"id":"7","content":"HAART becomes standard of care for HIV","start":"1997-01-01","style":"border-color: black; background: #46AEEB;"},{"id":"8","content":"President Clinton announces plan to support global AIDS prevention and treatment","start":"1998-01-01","style":"border-color: black; background: #46AEEB;"},{"id":"9","content":"Global fund to fight AIDS, TB, and Malaria established","start":"2000-01-01","style":"border-color: black; background: #46AEEB;"},{"id":"10","content":"World Health Organization recommends treatment for all HIV-positive individuals","start":"2001-01-01","style":"border-color: black; background: #46AEEB;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"timezone":null,"api":[]},"evals":[],"jsHooks":[]}</script>
 </div>
 
 
