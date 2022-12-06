@@ -63,7 +63,7 @@ create_tml_img(df = hiv_data,
                dsc_bgcol = "white",
                imgsrc = "images",
                imgalt = "blank",
-               imgwidth = "250px", 
+               imgwidth = "300px", 
                imgheight = "250px", 
                dsc_size = "15px")
 ```
