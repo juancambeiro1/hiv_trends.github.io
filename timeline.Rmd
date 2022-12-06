@@ -7,11 +7,11 @@ output:
 --- 
 
 ```{r, include = FALSE}
-library(tidyverse)
 library(cronologia)
 ```
 
-# HIV/AIDS Timeline
+Below is a timeline of major events of the HIV/AIDS pandemic, which is useful for contextualizing our subsequent assessment of major trends and our regression analysis.
+
 
 ```{r, message=FALSE, echo=FALSE}
 hiv_data <- data.frame(
@@ -55,10 +55,17 @@ hiv_data <- data.frame(
 )
 
 create_tml_img(df = hiv_data, 
+               open = TRUE,
                smr = "title", 
                dsc = "described", 
+               smr_bgcol = "pink",
+               dsc_col = "black",
+               dsc_bgcol = "white",
                imgsrc = "images",
-               imgalt = "blank")
+               imgalt = "blank",
+               imgwidth = "250px", 
+               imgheight = "250px", 
+               dsc_size = "15px")
 ```
 
 
