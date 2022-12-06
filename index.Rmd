@@ -6,6 +6,11 @@ output:
     toc_float: true
 ---  
 
+```{r,include=FALSE,message=FALSE,echo=FALSE}
+library(tidyverse)
+library(timevis)
+```
+
 <center>
 
 ![](images/hiv.jpg){width=500px}
@@ -32,19 +37,12 @@ We combine a complex set of open datasets from the following websites:
 * Population totals by country 1990-2019, which will allow for adjustment by population size (per 100k) from [World Bank data](https://data.worldbank.org/indicator/SP.POP.TOTL) 
 
 
-# Findings
-
-x
-
-# Report
-
-x
-
-
 # Website Navigation
+* [HIV/AIDS Timeline](timeline.html): Timeline of major events of the HIV/AIDS as context
 * [Data cleaning/processing](data.html): How we cleaned, merged, and otherwised processed the data for further analysis
 * [Trends](trends.html): Visualizations of HIV/AIDS deaths
 * [Regression Analysis](regression.html): Analysis to determine which variables might be relevant in determining HIV/AIDS deaths
+* [Report](report.html): Our report.
 
 # Group members
 * Juan Cambeiro (jc5313)

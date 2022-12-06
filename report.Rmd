@@ -1,0 +1,20 @@
+---
+title: "Final Project Report"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+--- 
+
+### Background
+
+HIV/AIDS is a viral infection caused by the human immunodeficiency virus (HIV). It attacks and weakens the immune system, making it difficult for the body to fight off other infections and diseases. Acquired Immunodeficiency Syndrome (AIDS) is the most advanced stage of HIV infection, when the immune system is severely weakened and the body is unable to fight off life-threatening infections and diseases.
+
+The first cases of HIV/AIDS were reported in the United States in the early 1980s, and the disease quickly spread around the world. In the early years of the epidemic, HIV/AIDS was associated with specific risk groups, such as gay men and intravenous drug users. However, as the disease spread, it became clear that anyone could contract HIV, regardless of their sexual orientation or lifestyle.
+
+Over the past several decades, significant progress has been made in the fight against HIV/AIDS. Antiretroviral therapy (ART) has greatly improved the health and longevity of people living with HIV, and the use of condoms and other preventive measures has helped to reduce the spread of the virus. However, HIV/AIDS remains a major global health problem, with millions of new infections and deaths each year.
+
+
+
+
+

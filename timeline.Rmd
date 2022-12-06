@@ -1,0 +1,41 @@
+---
+title: "HIV/AIDS Timeline"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+--- 
+
+```{r, include = FALSE}
+library(tidyverse)
+library(timevis)
+```
+
+
+# HIV/AIDS Timeline
+
+Below is a timeline of major events of the HIV/AIDS pandemic, which is useful contextualizing subsequent analysis of major trends.
+
+# create data frame with HIV/AIDS timeline events
+```{r}
+timeline_data <- data.frame(
+  id = 1:10,
+  content = c("First cases of HIV/AIDS reported", "AIDS officially recognized as a disease", "First HIV test approved by FDA", "First antiretroviral drug approved", "AIDS becomes leading cause of death for US men aged 25-44", "Combination antiretroviral therapy introduced", "HAART becomes standard of care for HIV", "President Clinton announces plan to support global AIDS prevention and treatment", "Global fund to fight AIDS, TB, and Malaria established", "World Health Organization recommends treatment for all HIV-positive individuals"),
+  start = c("1981-01-01", "1983-01-01", "1984-01-01", "1986-01-01", "1987-01-01", "1996-01-01", "1997-01-01", "1998-01-01", "2000-01-01", "2001-01-01")
+)
+
+```
+
+# create timeline using timevis package
+```{r}
+timeline(data = timeline_data,
+         start = "1980-01-01",
+         end = "2002-01-01",
+         orientation = "top",
+         colors = c("red", "blue", "green"),
+         showLabels = TRUE,
+         timeFormat = "%Y")
+```
+
+
+

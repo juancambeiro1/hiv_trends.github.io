@@ -11,7 +11,7 @@
 
 
 
-<title>Data cleaning/processing</title>
+<title>Final Project Report</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -350,110 +350,31 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Data cleaning/processing</h1>
+<h1 class="title toc-ignore">Final Project Report</h1>
 
 </div>
 
 
-<div id="data-import-and-cleaning" class="section level3">
-<h3>Data Import and Cleaning</h3>
-<div id="hiv-deaths-by-country-dataset" class="section level4">
-<h4>HIV Deaths By Country Dataset</h4>
-<pre><code>## # A tibble: 10 × 4
-##    n_countries n_years col_name     n_missing
-##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
-##  1         204      30 location_id          0
-##  2         204      30 country_name         0
-##  3         204      30 sex_id               0
-##  4         204      30 sex_name             0
-##  5         204      30 age_id               0
-##  6         204      30 age_name             0
-##  7         204      30 year                 0
-##  8         204      30 val                  0
-##  9         204      30 upper                0
-## 10         204      30 lower                0</code></pre>
-<p>The death dataset contains HIV death count data from 204 distinct
-countries, in the 30 years between 1990 and 2019.</p>
-<p>The deaths dataset contains 61200 rows and 10 columns, with each row
-representing a single record of number of HIV deaths in a country
-stratified by year, sex and age group. Variables in the deaths dataset
-are as follows: location_id, country_name, sex_id, sex_name, age_id,
-age_name, year, val, upper, lower.</p>
-</div>
-<div id="gdp-per-capita-by-country-dataset" class="section level4">
-<h4>GDP Per Capita By Country Dataset</h4>
-<p>The raw GDP dataset contains GDP per capita (US dollars) from 200
-distinct countries, from 1960 to 2021.</p>
-<p>The dataset contains 200 rows and 68 columns, with each row
-representing a single record of a country’s GDP per capital (US dollars)
-in a given year.</p>
-</div>
-<div id="population-by-country-dataset" class="section level4">
-<h4>Population By Country Dataset</h4>
-<p>The raw population dataset contains total population from 200
-distinct countries, from 1960 to 2021.</p>
-<p>The dataset contains 200 rows and 68 columns, with each row
-representing a single record of a country’s population in a given
-year.</p>
-</div>
-</div>
-<div
-id="merging-3-datasets-to-produce-the-maindata-dataset-for-visualization-and-analysis"
-class="section level3">
-<h3>Merging 3 datasets to produce the “maindata” dataset for
-visualization and analysis</h3>
-<p>First, we merge the GDP Per Capita By Country dataset
-(<code>gdp_clean</code>) and Population By Country Dataset
-(<code>population_clean</code>) into a dataset called
-<code>gdp_population</code>. This combined dataset contains data from
-200 distinct countries between 1990 and 2019.</p>
-<pre><code>## # A tibble: 5 × 4
-##   n_countries n_years col_name       n_missing
-##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
-## 1         200      30 location_id            0
-## 2         200      30 country_name           0
-## 3         200      30 year                   0
-## 4         200      30 gdp_per_capita       288
-## 5         200      30 population            11</code></pre>
-<p>Next, we merge the <code>gdp_population</code> dataset with the HIV
-Deaths dataset (<code>deaths</code>) into a <code>maindata</code>
-dataset by matching on the countries and years and using
-<code>left_join</code>. We save this as a CSV for further analysis.</p>
-<pre><code>## # A tibble: 11 × 4
-##    n_countries n_years col_name       n_missing
-##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
-##  1         200      30 location_id            0
-##  2         200      30 country_name           0
-##  3         200      30 year                   0
-##  4         200      30 gdp_per_capita      2880
-##  5         200      30 population           110
-##  6         200      30 sex_id                 0
-##  7         200      30 sex_name               0
-##  8         200      30 age_name               0
-##  9         200      30 val                    0
-## 10         200      30 upper                  0
-## 11         200      30 lower                  0</code></pre>
-<p><code>maindata</code> has 60000 observations and 11 features. Basic
-features we are interested in include:</p>
-<ul>
-<li><strong>location_id</strong>: id corresponding to a
-country_name</li>
-<li><strong>sex_id</strong>: id corresponding to sex</li>
-<li><strong>sex_name</strong>: Male or Female</li>
-<li><strong>age_name</strong>: Aae groups including “0-9 years”, “10-24
-years”, “25-49 years”, “50-74 years”, and “75+ years”.</li>
-<li><strong>year</strong>: Year of the records</li>
-<li><strong>val</strong>: Point estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>upper</strong>: Upper estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>lower</strong>: Lower estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>gdp_per_capita</strong> GDP per capita in 2022 US
-dollars</li>
-<li><strong>population</strong> population total</li>
-<li><strong>country_name</strong> name of country</li>
-</ul>
+<div id="background" class="section level3">
+<h3>Background</h3>
+<p>HIV/AIDS is a viral infection caused by the human immunodeficiency
+virus (HIV). It attacks and weakens the immune system, making it
+difficult for the body to fight off other infections and diseases.
+Acquired Immunodeficiency Syndrome (AIDS) is the most advanced stage of
+HIV infection, when the immune system is severely weakened and the body
+is unable to fight off life-threatening infections and diseases.</p>
+<p>The first cases of HIV/AIDS were reported in the United States in the
+early 1980s, and the disease quickly spread around the world. In the
+early years of the epidemic, HIV/AIDS was associated with specific risk
+groups, such as gay men and intravenous drug users. However, as the
+disease spread, it became clear that anyone could contract HIV,
+regardless of their sexual orientation or lifestyle.</p>
+<p>Over the past several decades, significant progress has been made in
+the fight against HIV/AIDS. Antiretroviral therapy (ART) has greatly
+improved the health and longevity of people living with HIV, and the use
+of condoms and other preventive measures has helped to reduce the spread
+of the virus. However, HIV/AIDS remains a major global health problem,
+with millions of new infections and deaths each year.</p>
 </div>
 
 

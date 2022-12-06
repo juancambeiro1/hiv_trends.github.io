@@ -11,7 +11,7 @@
 
 
 
-<title>Data cleaning/processing</title>
+<title>HIV/AIDS Timeline</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -35,6 +35,11 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/visjs-7.4.9/vis-timeline-graph2d.min.css" rel="stylesheet" />
+<script src="site_libs/visjs-7.4.9/vis-timeline-graph2d.min.js"></script>
+<link href="site_libs/timeline-0.4/timevis.css" rel="stylesheet" />
+<script src="site_libs/timevis-binding-2.1.0/timevis.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -350,110 +355,70 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Data cleaning/processing</h1>
+<h1 class="title toc-ignore">HIV/AIDS Timeline</h1>
 
 </div>
 
 
-<div id="data-import-and-cleaning" class="section level3">
-<h3>Data Import and Cleaning</h3>
-<div id="hiv-deaths-by-country-dataset" class="section level4">
-<h4>HIV Deaths By Country Dataset</h4>
-<pre><code>## # A tibble: 10 × 4
-##    n_countries n_years col_name     n_missing
-##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
-##  1         204      30 location_id          0
-##  2         204      30 country_name         0
-##  3         204      30 sex_id               0
-##  4         204      30 sex_name             0
-##  5         204      30 age_id               0
-##  6         204      30 age_name             0
-##  7         204      30 year                 0
-##  8         204      30 val                  0
-##  9         204      30 upper                0
-## 10         204      30 lower                0</code></pre>
-<p>The death dataset contains HIV death count data from 204 distinct
-countries, in the 30 years between 1990 and 2019.</p>
-<p>The deaths dataset contains 61200 rows and 10 columns, with each row
-representing a single record of number of HIV deaths in a country
-stratified by year, sex and age group. Variables in the deaths dataset
-are as follows: location_id, country_name, sex_id, sex_name, age_id,
-age_name, year, val, upper, lower.</p>
+<div id="hivaids-timeline" class="section level1">
+<h1>HIV/AIDS Timeline</h1>
+<p>Below is a timeline of major events of the HIV/AIDS pandemic, which
+is useful contextualizing subsequent analysis of major trends.</p>
+<pre class="r"><code>timeline &lt;- data.frame(
+  id      = 1:11,
+  content = c(&quot;First COVID Case in NYC&quot;, 
+              &quot;NYC issues guidelines to avoid densely packed buses, subways, or trains&quot;,
+              &quot;NYC Public Schools Close&quot;, 
+              &quot;NYC Bars and Restaurants Close for In-Person Dining&quot;,
+              &quot;Governor Cuomo announces NYC subway closures from 1 am to 5 am&quot;, 
+              &quot;NYC Begins Phase 1 Re-Opening&quot;, &quot;NYC Begins Phase 2 Re-Opening&quot;,
+              &quot;NYC Begins Phase 3 of Re-Opening (without indoor dining)&quot;,
+              &quot;NYC Begins Phase 4 of Re-Opening (excluding malls, museums, and indoor dining/bars)&quot;,
+              &quot;Elementary Students Return to Public School Classrooms across NYC&quot;,
+              &quot;NYC Schools Switch to Fully Remote&quot;),
+  start   = c(&quot;2020-03-01&quot;, &quot;2020-03-08&quot;, &quot;2020-03-16&quot;, &quot;2020-03-17&quot;, &quot;2020-04-30&quot;,
+              &quot;2020-06-08&quot;, &quot;2020-06-022&quot;, &quot;2020-07-06&quot;, &quot;2020-07-19&quot;, &quot;2020-09-29&quot;, &quot;2020-11-19&quot;),
+  end     = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+  style = c(&quot;border-color: black; background: #EB4646;&quot;, 
+            &quot;border-color: black; background: #EB4646;&quot;, 
+            &quot;border-color: black; background: #EB4646;&quot;, 
+            &quot;border-color: black; background: #EB4646;&quot;, 
+            &quot;border-color: black; background: #EB4646;&quot;, 
+            &quot;border-color: black; background: #46AEEB;&quot;, 
+            &quot;border-color: black; background: #46AEEB;&quot;, 
+            &quot;border-color: black; background: #46AEEB;&quot;, 
+            &quot;border-color: black; background: #46AEEB;&quot;, 
+            &quot;border-color: black; background: #46AEEB;&quot;, 
+            &quot;border-color: black; background: #EB4646;&quot;)
+  
+)
+timevis(
+  timeline,
+  showZoom = TRUE,
+  zoomFactor = 0.5,
+  fit = TRUE,
+  width = &quot;110%&quot;
+  )</code></pre>
+<div id="htmlwidget-27ef9446eda63df80192" class="timevis html-widget" style="width:110%;height:480px;">
+<div class="btn-group zoom-menu">
+<button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
+<button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
 </div>
-<div id="gdp-per-capita-by-country-dataset" class="section level4">
-<h4>GDP Per Capita By Country Dataset</h4>
-<p>The raw GDP dataset contains GDP per capita (US dollars) from 200
-distinct countries, from 1960 to 2021.</p>
-<p>The dataset contains 200 rows and 68 columns, with each row
-representing a single record of a country’s GDP per capital (US dollars)
-in a given year.</p>
 </div>
-<div id="population-by-country-dataset" class="section level4">
-<h4>Population By Country Dataset</h4>
-<p>The raw population dataset contains total population from 200
-distinct countries, from 1960 to 2021.</p>
-<p>The dataset contains 200 rows and 68 columns, with each row
-representing a single record of a country’s population in a given
-year.</p>
-</div>
-</div>
-<div
-id="merging-3-datasets-to-produce-the-maindata-dataset-for-visualization-and-analysis"
-class="section level3">
-<h3>Merging 3 datasets to produce the “maindata” dataset for
-visualization and analysis</h3>
-<p>First, we merge the GDP Per Capita By Country dataset
-(<code>gdp_clean</code>) and Population By Country Dataset
-(<code>population_clean</code>) into a dataset called
-<code>gdp_population</code>. This combined dataset contains data from
-200 distinct countries between 1990 and 2019.</p>
-<pre><code>## # A tibble: 5 × 4
-##   n_countries n_years col_name       n_missing
-##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
-## 1         200      30 location_id            0
-## 2         200      30 country_name           0
-## 3         200      30 year                   0
-## 4         200      30 gdp_per_capita       288
-## 5         200      30 population            11</code></pre>
-<p>Next, we merge the <code>gdp_population</code> dataset with the HIV
-Deaths dataset (<code>deaths</code>) into a <code>maindata</code>
-dataset by matching on the countries and years and using
-<code>left_join</code>. We save this as a CSV for further analysis.</p>
-<pre><code>## # A tibble: 11 × 4
-##    n_countries n_years col_name       n_missing
-##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
-##  1         200      30 location_id            0
-##  2         200      30 country_name           0
-##  3         200      30 year                   0
-##  4         200      30 gdp_per_capita      2880
-##  5         200      30 population           110
-##  6         200      30 sex_id                 0
-##  7         200      30 sex_name               0
-##  8         200      30 age_name               0
-##  9         200      30 val                    0
-## 10         200      30 upper                  0
-## 11         200      30 lower                  0</code></pre>
-<p><code>maindata</code> has 60000 observations and 11 features. Basic
-features we are interested in include:</p>
-<ul>
-<li><strong>location_id</strong>: id corresponding to a
-country_name</li>
-<li><strong>sex_id</strong>: id corresponding to sex</li>
-<li><strong>sex_name</strong>: Male or Female</li>
-<li><strong>age_name</strong>: Aae groups including “0-9 years”, “10-24
-years”, “25-49 years”, “50-74 years”, and “75+ years”.</li>
-<li><strong>year</strong>: Year of the records</li>
-<li><strong>val</strong>: Point estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>upper</strong>: Upper estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>lower</strong>: Lower estimate of number of HIV/AIDS
-deaths</li>
-<li><strong>gdp_per_capita</strong> GDP per capita in 2022 US
-dollars</li>
-<li><strong>population</strong> population total</li>
-<li><strong>country_name</strong> name of country</li>
-</ul>
+<script type="application/json" data-for="htmlwidget-27ef9446eda63df80192">{"x":{"items":[{"id":"1","content":"First COVID Case in NYC","start":"2020-03-01","style":"border-color: black; background: #EB4646;"},{"id":"2","content":"NYC issues guidelines to avoid densely packed buses, subways, or trains","start":"2020-03-08","style":"border-color: black; background: #EB4646;"},{"id":"3","content":"NYC Public Schools Close","start":"2020-03-16","style":"border-color: black; background: #EB4646;"},{"id":"4","content":"NYC Bars and Restaurants Close for In-Person Dining","start":"2020-03-17","style":"border-color: black; background: #EB4646;"},{"id":"5","content":"Governor Cuomo announces NYC subway closures from 1 am to 5 am","start":"2020-04-30","style":"border-color: black; background: #EB4646;"},{"id":"6","content":"NYC Begins Phase 1 Re-Opening","start":"2020-06-08","style":"border-color: black; background: #46AEEB;"},{"id":"7","content":"NYC Begins Phase 2 Re-Opening","start":"2020-06-022","style":"border-color: black; background: #46AEEB;"},{"id":"8","content":"NYC Begins Phase 3 of Re-Opening (without indoor dining)","start":"2020-07-06","style":"border-color: black; background: #46AEEB;"},{"id":"9","content":"NYC Begins Phase 4 of Re-Opening (excluding malls, museums, and indoor dining/bars)","start":"2020-07-19","style":"border-color: black; background: #46AEEB;"},{"id":"10","content":"Elementary Students Return to Public School Classrooms across NYC","start":"2020-09-29","style":"border-color: black; background: #46AEEB;"},{"id":"11","content":"NYC Schools Switch to Fully Remote","start":"2020-11-19","style":"border-color: black; background: #EB4646;"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"timezone":null,"api":[]},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>timeline_data &lt;- data.frame(
+  date = c(&quot;1981&quot;, &quot;1983&quot;, &quot;1984&quot;, &quot;1986&quot;, &quot;1987&quot;, &quot;1996&quot;, &quot;1997&quot;, &quot;1998&quot;, &quot;2000&quot;, &quot;2001&quot;),
+  event = c(&quot;First cases of HIV/AIDS reported&quot;, &quot;AIDS officially recognized as a disease&quot;, &quot;First HIV test approved by FDA&quot;, &quot;First antiretroviral drug approved&quot;, &quot;AIDS becomes leading cause of death for US men aged 25-44&quot;, &quot;Combination antiretroviral therapy introduced&quot;, &quot;HAART becomes standard of care for HIV&quot;, &quot;President Clinton announces plan to support global AIDS prevention and treatment&quot;, &quot;Global fund to fight AIDS, TB, and Malaria established&quot;, &quot;World Health Organization recommends treatment for all HIV-positive individuals&quot;)
+)
+
+# create timeline using ggplot2
+ggplot(data = timeline_data, aes(x = date, y = event)) +
+  geom_line(color = &quot;red&quot;) +
+  labs(title = &quot;Timeline of HIV/AIDS&quot;, x = &quot;Year&quot;, y = &quot;Event&quot;) +
+  theme_bw()</code></pre>
+<pre><code>## `geom_line()`: Each group consists of only one observation.
+## ℹ Do you need to adjust the group aesthetic?</code></pre>
+<p><img src="timeline_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 
 
