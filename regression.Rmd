@@ -124,7 +124,7 @@ model4_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp
 kable(summary(model4_logit)$coefficients)
 ```
 
-### Poisson Regression models:
+### Poisson Regression models
 
 #### model1:
 
