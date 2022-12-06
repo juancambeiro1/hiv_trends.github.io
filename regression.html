@@ -397,15 +397,13 @@ distribution, and have a new variable
 <code>mortality_per_100k</code>.</p>
 <p><img src="regression_files/figure-html/unnamed-chunk-3-1.png" width="60%" /><img src="regression_files/figure-html/unnamed-chunk-3-2.png" width="60%" /></p>
 </div>
-<div id="regression-models" class="section level3">
-<h3>Regression models</h3>
+<div id="regression-models" class="section level2">
+<h2>Regression models</h2>
 <p>Now we proceed with building different regression models.</p>
-</div>
 <div id="logistic-regression-models" class="section level3">
 <h3>Logistic regression models</h3>
-</div>
-<div id="model1" class="section level3">
-<h3>model1:</h3>
+<div id="model1" class="section level4">
+<h4>model1:</h4>
 <span class="math display">\[ log(mortality/100000) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year + \beta_4 gdp \]</span>
 <table>
@@ -567,8 +565,8 @@ gdp_per_capita
 </tbody>
 </table>
 </div>
-<div id="model2" class="section level3">
-<h3>model2:</h3>
+<div id="model2" class="section level4">
+<h4>model2:</h4>
 <span class="math display">\[ log(mortality/100000) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year + \beta_4year_{2004} + \beta_5gdp +
 \beta_6 year*year_{2004}  \]</span>
@@ -765,8 +763,8 @@ year:year_20041
 </tbody>
 </table>
 </div>
-<div id="model3" class="section level3">
-<h3>model3:</h3>
+<div id="model3" class="section level4">
+<h4>model3:</h4>
 <p><span class="math display">\[ log(mortality/100000) = \beta_0 +
 \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
 age*sex \]</span></p>
@@ -997,8 +995,8 @@ age_name75+ years:sex_nameMale
 </tbody>
 </table>
 </div>
-<div id="model4" class="section level3">
-<h3>model4:</h3>
+<div id="model4" class="section level4">
+<h4>model4:</h4>
 <p><span class="math display">\[ log(mortality/100000) = \beta_0 +
 \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
 age*sex + \beta_6 country\]</span></p>
@@ -4594,12 +4592,12 @@ age_name75+ years:sex_nameMale
 </tr>
 </tbody>
 </table>
-<div id="poisson-regression-models" class="section level4">
-<h4>Poisson Regression models:</h4>
 </div>
 </div>
-<div id="model1-1" class="section level3">
-<h3>model1:</h3>
+<div id="poisson-regression-models" class="section level3">
+<h3>Poisson Regression models:</h3>
+<div id="model1-1" class="section level4">
+<h4>model1:</h4>
 <span class="math display">\[ log(E(Y_i|age_i,sex_i,year_i,gdp_i)) =
 \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp
 \]</span>
@@ -4762,8 +4760,8 @@ gdp_per_capita
 </tbody>
 </table>
 </div>
-<div id="model2-1" class="section level3">
-<h3>model2:</h3>
+<div id="model2-1" class="section level4">
+<h4>model2:</h4>
 <span class="math display">\[
 log(E(Y_i|age_i,sex_i,year_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year + \beta_4 year_{2004} + \beta_5 gdp +
@@ -4961,8 +4959,8 @@ year:year_20041
 </tbody>
 </table>
 </div>
-<div id="model3-1" class="section level3">
-<h3>model3:</h3>
+<div id="model3-1" class="section level4">
+<h4>model3:</h4>
 <span class="math display">\[ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i))
 = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4
 gdp + \beta_5 age *sex\]</span>
@@ -5193,8 +5191,8 @@ age_name75+ years:sex_nameMale
 </tbody>
 </table>
 </div>
-<div id="model4-1" class="section level3">
-<h3>model4:</h3>
+<div id="model4-1" class="section level4">
+<h4>model4:</h4>
 <span class="math display">\[
 log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i,country_i)) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex
@@ -8791,6 +8789,8 @@ age_name75+ years:sex_nameMale
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 </div>
 
 
