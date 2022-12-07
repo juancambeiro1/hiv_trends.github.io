@@ -125,7 +125,7 @@ fig2 <- fig2 %>% add_trace(
   )
 fig2 <- fig2 %>% colorbar(title = 'GDP Billions US$', tickprefix = '$')
 fig2 <- fig2 %>% layout(
-    title = '2014 Global GDP<br>Source:<a href="https://www.cia.gov/library/publications/the-world-factbook/fields/2195.html">CIA World Factbook</a>',
+    title = 'Figure showing the association between GDP per capita and HIV mortality rate',
     geo = g
   )
 
