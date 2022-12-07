@@ -13,7 +13,7 @@
 
 <title>HIV/AIDS Deaths Trends</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -185,8 +185,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,9 +194,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -613,6 +620,7 @@ Uganda
 </tr>
 </tbody>
 </table>
+<p><img src="trends_files/figure-html/unnamed-chunk-9-1.gif" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="top-10-countries-with-lowest-hiv-mortality-per-100k"
 class="section level3">
@@ -711,6 +719,7 @@ Comoros
 </tr>
 </tbody>
 </table>
+<p><img src="trends_files/figure-html/unnamed-chunk-11-1.gif" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 
 

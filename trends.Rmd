@@ -227,7 +227,7 @@ final_animation<-animate(plt,100,fps = 20,duration = 30, width = 1000, height = 
 final_animation
 ```
 
-Finally, we show the 10 countries with the highest total number of HIV/AIDS deaths adjusted for population size and the 10 countries with the lowest total number of HIV/AIDS deaths adjusted for population size.
+Finally, we show the 10 countries with the highest total number of HIV/AIDS deaths adjusted for population size and the 10 countries with the lowest total number of HIV/AIDS deaths adjusted for population size. 
 
 ### Top 10 countries with highest HIV mortality per 100k
 
@@ -253,6 +253,84 @@ knitr::kable(top_10_high) %>%
   column_spec(2, width = "35%")
 ```
 
+
+```{r, message = FALSE,warning = FALSE, fig.align='center'}
+
+knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = "70%")
+theme_set(theme_bw() + 
+          theme(legend.position = "bottom",
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+hiv_sub<-maindata %>% select(country_name,year,sex_id,val, population)
+
+top_hiv<- hiv_sub %>% filter(country_name %in% c(
+  "Lesotho",
+  "Eswatini",
+  "Zimbabwe",
+  "Botswana",
+  "South Africa",
+  "Malwai",
+  "Zambia",
+  "Nambia",
+  "Mozambique",
+  "Uganda",
+  "Central African Republic",
+  "Kenya",
+  "Cameroon",
+  "Burundi",
+  "Equatorial Guinea"))
+
+hiv3<-top_hiv %>%
+   group_by(year, country_name) %>%
+ summarize(HIV_death = sum(val, na.rm = T),
+           pop_year  = sum(population, na.rm = T)) %>%
+ mutate(
+   HIV_death = as.integer(HIV_death)
+ ) %>%
+ mutate(
+   HIV_death = as.numeric(HIV_death),
+        motality_per_100k =     HIV_death/(pop_year/100000)) %>%
+  mutate(rank = min_rank(-motality_per_100k)) %>%
+  ungroup() %>%
+    select(-HIV_death, -pop_year)
+
+static_plot<-ggplot(hiv3,aes(rank,group=country_name,fill=as.factor(country_name),color=as.factor(country_name))) +
+ geom_tile(aes(y = motality_per_100k/2,height = motality_per_100k, width = 0.9), alpha = 0.8, color = NA) + 
+ geom_text(aes(y = 0, label = paste(country_name, ' ')), vjust = 0.2, hjust = 1) +
+ geom_text(aes(y=motality_per_100k,label = paste(' ',motality_per_100k)), hjust=0)+
+ coord_flip(clip = 'off', expand = TRUE) +
+ scale_y_continuous(labels = scales::comma) +
+ scale_x_reverse() +
+ guides(color = FALSE, fill = FALSE) +
+ theme_minimal() +
+ theme(
+ plot.title=element_text(size=30, hjust=0.5, face='bold', colour='black', vjust=-1),
+ plot.subtitle=element_text(size=18, hjust=0.5, face='italic', color='black'),
+ plot.caption =element_text(size=8, hjust=0.5, face='italic', color='black'),
+ axis.ticks.y = element_blank(), 
+ axis.text.y = element_blank(), 
+ plot.margin = margin(1,1,1,4, 'cm')
+ )
+
+plt<-static_plot + transition_states(states = year, transition_length = 4, state_length = 1) + 
+ ease_aes('cubic-in-out') +
+ labs(title = 'HIV Mortality Rate per 100k by Year : {closest_state}', 
+ x='',y='HIV Mortality Rate by Year')
+
+hivrate_animation<-animate(plt,100,fps = 20,duration = 30, width = 950, height = 750, renderer = gifski_renderer())
+
+hivrate_animation
+
+```
+
+
 ### Top 10 countries with lowest HIV mortality per 100k
 
 ```{r, message = FALSE,warning = FALSE, fig.align='center'}
@@ -267,7 +345,82 @@ knitr::kable(top_10_low) %>%
   column_spec(2, width = "40%")
 ```
 
+```{r, message = FALSE,warning = FALSE, fig.align='center'}
 
+knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = "70%")
+theme_set(theme_bw() + 
+          theme(legend.position = "bottom",
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+hiv_sub_2<-maindata %>% select(country_name,year,sex_id,val, population)
+
+low_hiv<- hiv_sub_2 %>% filter(country_name %in% c(
+  "Albania",
+  "Bosnia and Herzegovina",
+  "North Macedonia",
+  "Kuwait",
+  "Syrian Arab Republic",
+  "Bangladesh",
+  "Czechia",
+  "Comoros",
+  "Maldives",
+  "Japan",
+  "Iraq",
+  "Slovenia",
+  "Jordan",
+  "Finland",
+  "Croatia"))
+
+hiv3_2<-low_hiv %>%
+   group_by(year, country_name) %>%
+ summarize(HIV_death = sum(val, na.rm = T),
+           pop_year  = sum(population, na.rm = T)) %>%
+ mutate(
+   HIV_death = as.integer(HIV_death)
+ ) %>%
+ mutate(
+   HIV_death = as.numeric(HIV_death),
+        motality_per_100k =     HIV_death/(pop_year/100000)) %>%
+  mutate(rank = row_number(motality_per_100k)) %>%
+  ungroup() %>%
+    select(-HIV_death, -pop_year)
+
+
+static_plot<-ggplot(hiv3_2,aes(rank,group=country_name,fill=as.factor(country_name),color=as.factor(country_name))) +
+ geom_tile(aes(y = motality_per_100k/2,height = motality_per_100k, width = 0.9), alpha = 0.8, color = NA) + 
+ geom_text(aes(y = 0, label = paste(country_name, ' ')), vjust = 0.2, hjust = 1) +
+ geom_text(aes(y=motality_per_100k,label = paste(' ',motality_per_100k)), hjust=0)+
+ coord_flip(clip = 'off', expand = TRUE) +
+ scale_y_continuous(labels = scales::comma) +
+ scale_x_reverse() +
+ guides(color = FALSE, fill = FALSE) +
+ theme_minimal() +
+ theme(
+ plot.title=element_text(size=30, hjust=0.5, face='bold', colour='black', vjust=-1),
+ plot.subtitle=element_text(size=18, hjust=0.5, face='italic', color='black'),
+ plot.caption =element_text(size=8, hjust=0.5, face='italic', color='black'),
+ axis.ticks.y = element_blank(), 
+ axis.text.y = element_blank(), 
+ plot.margin = margin(1,1,1,4, 'cm')
+ )
+
+plt<-static_plot + transition_states(states = year, transition_length = 4, state_length = 1) + 
+ ease_aes('cubic-in-out') +
+ labs(title = 'HIV Mortality Rate per 100k by Year : {closest_state}', 
+ x='',y='HIV Mortality Rate by Year')
+
+hivrate_animation2<-animate(plt,100,fps = 20,duration = 30, width = 950, height = 750, renderer = gifski_renderer())
+
+hivrate_animation2
+
+```
 
 
 
