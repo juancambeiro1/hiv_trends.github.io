@@ -6,21 +6,12 @@ output:
     toc_float: true
 ---  
 
-```{r,include=FALSE,message=FALSE,echo=FALSE}
-library(tidyverse)
-library(timevis)
-```
-
 <center>
 
 ![](images/hiv.jpg){width=500px}
 </center>
 
 <br>
-
-# Screencast Introduction
-
-FILL LATER
 
 # Introduction
 

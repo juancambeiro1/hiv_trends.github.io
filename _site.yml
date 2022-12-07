@@ -3,6 +3,8 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
+    - icon: fa-brands fa-youtube
+      href: https://www.youtube.com/watch?v=Bg8tbmppoIA
     - text: "HIV/AIDS Timeline"
       href: timeline.html
     - text: "Data cleaning/pre-processing"
