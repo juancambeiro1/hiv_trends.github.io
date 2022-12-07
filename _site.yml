@@ -9,6 +9,8 @@ navbar:
       href: data.html
     - text: "Trends"
       href: trends.html
+    - text: "Dashboard"
+      href: dashboard.html
     - text: "Regression Analysis"
       href: regression.html
     - text: "Final Project Report"

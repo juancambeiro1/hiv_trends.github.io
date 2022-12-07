@@ -30,13 +30,13 @@ Our project proposal can be found [here](proposal.html).
 
 # Data
 
-We combine a complex set of open datasets from the following websites:
+We combine a complex set of datasets from the following websites:
 
 * HIV/AIDS deaths data by country 1990-2019, by sex and by age group, from the [2019 Global Burden of Disease Study](https://vizhub.healthdata.org/gbd-results/?params=gbd-api-2019-public/c896c16b3ce69e85653c71c75e780f64). 
 
-* GDP per capita by country 1990-2019 from [World Bank data](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2019&start=1990) 
+* GDP per capita by country 1990-2019 from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2019&start=1990) 
 
-* Population totals by country 1990-2019, which will allow for adjustment by population size (per 100k) from [World Bank data](https://data.worldbank.org/indicator/SP.POP.TOTL) 
+* Population totals by country 1990-2019, which will allow for adjustment by population size (per 100k) from the [World Bank](https://data.worldbank.org/indicator/SP.POP.TOTL) 
 
 
 # Website Navigation

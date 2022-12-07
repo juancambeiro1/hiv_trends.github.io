@@ -77,6 +77,12 @@ gdp_clean = gdp %>%
                names_to = "year",
                values_to = "GDP_per_capita") 
 
+gdp_clean %>%
+ summarize(n_countries = n_distinct(country_name),
+           n_years = n_distinct(year),
+           col_name = colnames(gdp_clean),
+           n_missing = map(gdp_clean, ~sum(is.na(.)))) %>%
+ unnest(n_missing)
 ```
 The raw GDP dataset contains GDP per capita (US dollars) from 200 distinct countries, from 1960 to 2021. 
 
@@ -96,6 +102,13 @@ population_clean = population %>%
   pivot_longer(cols = "1990":"2019",
                names_to = "year",
                values_to = "Population") 
+
+population_clean %>%
+ summarize(n_countries = n_distinct(location_id),
+           n_years = n_distinct(year),
+           col_name = colnames(population_clean),
+           n_missing = map(population_clean, ~sum(is.na(.)))) %>%
+ unnest(n_missing)
 ```
 
 The raw population dataset contains total population from 200 distinct countries, from 1960 to 2021. 

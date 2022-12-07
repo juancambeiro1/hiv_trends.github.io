@@ -333,6 +333,9 @@ div.tocify {
   <a href="trends.html">Trends</a>
 </li>
 <li>
+  <a href="dashboard.html">Dashboard</a>
+</li>
+<li>
   <a href="regression.html">Regression Analysis</a>
 </li>
 <li>
@@ -385,6 +388,13 @@ age_name, year, val, upper, lower.</p>
 </div>
 <div id="gdp-per-capita-by-country-dataset" class="section level4">
 <h4>GDP Per Capita By Country Dataset</h4>
+<pre><code>## # A tibble: 4 × 4
+##   n_countries n_years col_name       n_missing
+##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
+## 1         200      30 location_id            0
+## 2         200      30 country_name           0
+## 3         200      30 year                   0
+## 4         200      30 GDP_per_capita       288</code></pre>
 <p>The raw GDP dataset contains GDP per capita (US dollars) from 200
 distinct countries, from 1960 to 2021.</p>
 <p>The dataset contains 200 rows and 68 columns, with each row
@@ -393,6 +403,12 @@ in a given year.</p>
 </div>
 <div id="population-by-country-dataset" class="section level4">
 <h4>Population By Country Dataset</h4>
+<pre><code>## # A tibble: 3 × 4
+##   n_countries n_years col_name    n_missing
+##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+## 1         200      30 location_id         0
+## 2         200      30 year                0
+## 3         200      30 Population         11</code></pre>
 <p>The raw population dataset contains total population from 200
 distinct countries, from 1960 to 2021.</p>
 <p>The dataset contains 200 rows and 68 columns, with each row
