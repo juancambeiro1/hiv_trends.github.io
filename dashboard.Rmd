@@ -1,10 +1,12 @@
 ---
 title: "Dashboard"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
---- 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+
+---
 
 ```{r,include=FALSE,message=FALSE,echo=FALSE}
 library(tidyverse)
