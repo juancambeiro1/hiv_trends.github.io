@@ -31,11 +31,21 @@ We got the idea to do the same analysis we had intended for monkeypox but for HI
 
 ### Initial questions
 
-X
+We first wanted to assess how the HIV/AIDS epidemic had unfolded over time, specifically focusing on general trends, differences by sex, differences by age, and the relationship between how developed a country is (GDP) and HIV/AIDS mortality rate across time.
+
 
 ### Data
 
-X
+Our final data set contained 60000 observations with 11 variables.Some important variables include: 
+
+  * `country_name` : Country corresponding to data.
+  * `year` : Year corresponding to data.
+  * `gdp_per_capita` : Measure of a countries development.
+  * `population ` : Total population size.
+  * `sex_id` 
+  * `age_name` : Age group (e.g., "0-9", "10-24", "25-49","50-74","75+")
+  * `val` : Number of HIV/AIDS deaths
+ 
 
 ### Exploratory Analysis
 

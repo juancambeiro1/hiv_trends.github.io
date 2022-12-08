@@ -13,7 +13,7 @@
 
 <title>HIV/AIDS Deaths Trends</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -186,8 +186,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -195,9 +195,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -877,7 +884,7 @@ hivrate_animation</code></pre>
 <div id="top-10-countries-with-lowest-hiv-mortality-per-100k"
 class="section level3">
 <h3>Top 10 countries with lowest HIV mortality per 100k</h3>
-<p>Finally we show a table of the 10 countries with the highest total
+<p>Finally we show a table of the 10 countries with the lowest total
 number of HIV/AIDS deaths adjusted for population size, as well as an
 animation of how the top 10 has changed between 1990 and 2019.</p>
 <pre class="r"><code>top_10_low = death_country %&gt;%

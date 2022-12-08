@@ -341,7 +341,7 @@ hivrate_animation
 
 ### Top 10 countries with lowest HIV mortality per 100k
 
-Finally we show a table of the 10 countries with the highest total number of HIV/AIDS deaths adjusted for population size, as well as an animation of how the top 10 has changed between 1990 and 2019.
+Finally we show a table of the 10 countries with the lowest total number of HIV/AIDS deaths adjusted for population size, as well as an animation of how the top 10 has changed between 1990 and 2019.
 
 ```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 top_10_low = death_country %>%

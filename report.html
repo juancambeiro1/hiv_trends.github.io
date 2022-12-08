@@ -13,7 +13,7 @@
 
 <title>Final Project Report</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -183,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,9 +192,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -424,11 +431,26 @@ how progress on HIV treatment and prevention has flatlined over the past
 </div>
 <div id="initial-questions" class="section level3">
 <h3>Initial questions</h3>
-<p>X</p>
+<p>We first wanted to assess how the HIV/AIDS epidemic had unfolded over
+time, specifically focusing on general trends, differences by sex,
+differences by age, and the relationship between how developed a country
+is (GDP) and HIV/AIDS mortality rate across time.</p>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
-<p>X</p>
+<p>Our final data set contained 60000 observations with 11
+variables.Some important variables include:</p>
+<ul>
+<li><code>country_name</code> : Country corresponding to data.</li>
+<li><code>year</code> : Year corresponding to data.</li>
+<li><code>gdp_per_capita</code> : Measure of a countries
+development.</li>
+<li><code>population</code> : Total population size.</li>
+<li><code>sex_id</code></li>
+<li><code>age_name</code> : Age group (e.g., “0-9”, “10-24”,
+“25-49”,“50-74”,“75+”)</li>
+<li><code>val</code> : Number of HIV/AIDS deaths</li>
+</ul>
 </div>
 <div id="exploratory-analysis" class="section level3">
 <h3>Exploratory Analysis</h3>
