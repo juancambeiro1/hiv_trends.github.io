@@ -383,6 +383,18 @@ div.tocify {
 <h3>Data Import and Cleaning</h3>
 <div id="hiv-deaths-by-country-dataset" class="section level4">
 <h4>HIV Deaths By Country Dataset</h4>
+<pre class="r"><code>deaths = read_csv(&quot;data/final_hiv_deaths.csv&quot;) %&gt;%
+ janitor::clean_names() %&gt;%
+ select(&quot;location_id&quot;, &quot;location_name&quot;, starts_with(&quot;sex&quot;), starts_with(&quot;age&quot;), &quot;year&quot;, &quot;val&quot;, &quot;upper&quot;, &quot;lower&quot;) %&gt;%
+ rename(country_name = location_name) %&gt;% 
+  mutate(year = as.character(year))
+
+deaths %&gt;%
+ summarize(n_countries = n_distinct(country_name),
+           n_years = n_distinct(year),
+           col_name = colnames(deaths),
+           n_missing = map(deaths, ~sum(is.na(.)))) %&gt;%
+ unnest(n_missing)</code></pre>
 <pre><code>## # A tibble: 10 × 4
 ##    n_countries n_years col_name     n_missing
 ##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
@@ -406,6 +418,24 @@ age_name, year, val, upper, lower.</p>
 </div>
 <div id="gdp-per-capita-by-country-dataset" class="section level4">
 <h4>GDP Per Capita By Country Dataset</h4>
+<pre class="r"><code>gdp = read_csv(&quot;data/final_gdp_per_capita.csv&quot;, skip = 4, col_names = TRUE) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  drop_na(location_id) 
+
+names(gdp) &lt;- sub(&#39;^x&#39;, &#39;&#39;, names(gdp))
+
+gdp_clean = gdp %&gt;%  
+  select(&quot;location_id&quot;, &quot;country_name&quot;, &quot;1990&quot;:&quot;2019&quot;) %&gt;% 
+  pivot_longer(cols = &quot;1990&quot;:&quot;2019&quot;,
+               names_to = &quot;year&quot;,
+               values_to = &quot;GDP_per_capita&quot;) 
+
+gdp_clean %&gt;%
+ summarize(n_countries = n_distinct(country_name),
+           n_years = n_distinct(year),
+           col_name = colnames(gdp_clean),
+           n_missing = map(gdp_clean, ~sum(is.na(.)))) %&gt;%
+ unnest(n_missing)</code></pre>
 <pre><code>## # A tibble: 4 × 4
 ##   n_countries n_years col_name       n_missing
 ##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
@@ -421,6 +451,24 @@ in a given year.</p>
 </div>
 <div id="population-by-country-dataset" class="section level4">
 <h4>Population By Country Dataset</h4>
+<pre class="r"><code>population = read_csv(&quot;data/final_population_total.csv&quot;, skip = 4, col_names = TRUE)  %&gt;% 
+  janitor::clean_names() %&gt;% 
+  drop_na(location_id) 
+
+names(population) &lt;- sub(&#39;^x&#39;, &#39;&#39;, names(population))
+
+population_clean = population %&gt;%  
+  select(&quot;location_id&quot;, &quot;1990&quot;:&quot;2019&quot;) %&gt;% 
+  pivot_longer(cols = &quot;1990&quot;:&quot;2019&quot;,
+               names_to = &quot;year&quot;,
+               values_to = &quot;Population&quot;) 
+
+population_clean %&gt;%
+ summarize(n_countries = n_distinct(location_id),
+           n_years = n_distinct(year),
+           col_name = colnames(population_clean),
+           n_missing = map(population_clean, ~sum(is.na(.)))) %&gt;%
+ unnest(n_missing)</code></pre>
 <pre><code>## # A tibble: 3 × 4
 ##   n_countries n_years col_name    n_missing
 ##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
@@ -444,6 +492,15 @@ visualization and analysis</h3>
 (<strong>population_clean</strong>) into a dataset called
 <strong>gdp_population</strong>. This combined dataset contains data
 from 200 distinct countries between 1990 and 2019.</p>
+<pre class="r"><code>gdp_population = inner_join(gdp_clean, population_clean, by = c(&quot;location_id&quot;, &quot;year&quot;)) %&gt;%
+ janitor::clean_names() 
+
+gdp_population %&gt;%
+ summarize(n_countries = n_distinct(country_name),
+           n_years = n_distinct(year),
+           col_name = colnames(gdp_population),
+           n_missing = map(gdp_population, ~sum(is.na(.)))) %&gt;%
+ unnest(n_missing)</code></pre>
 <pre><code>## # A tibble: 5 × 4
 ##   n_countries n_years col_name       n_missing
 ##         &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
@@ -457,6 +514,17 @@ HIV Deaths dataset (<strong>deaths</strong>) into a
 <strong>maindata</strong> dataset by matching on the countries and years
 and using <code>left_join</code>. We save this as a CSV for further
 analysis.</p>
+<pre class="r"><code>maindata = left_join(gdp_population, deaths, by = c(&quot;year&quot;,&quot;location_id&quot;)) %&gt;% 
+  select(-country_name.x, -age_id) %&gt;% 
+  rename(country_name = country_name.y) %&gt;% 
+  select(location_id, country_name, everything())
+
+maindata %&gt;% 
+  summarize(n_countries = n_distinct(location_id),
+            n_years = n_distinct(year),
+            col_name = colnames(maindata),
+            n_missing = map(maindata, ~sum(is.na(.)))) %&gt;% 
+  unnest(n_missing)</code></pre>
 <pre><code>## # A tibble: 11 × 4
 ##    n_countries n_years col_name       n_missing
 ##          &lt;int&gt;   &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
@@ -471,6 +539,7 @@ analysis.</p>
 ##  9         200      30 val                    0
 ## 10         200      30 upper                  0
 ## 11         200      30 lower                  0</code></pre>
+<pre class="r"><code>write_csv(maindata, &#39;data/maindata.csv&#39;)</code></pre>
 <p><strong>maindata</strong> has 60000 observations and 11 features.
 Basic features we are interested in include:</p>
 <ul>

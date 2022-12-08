@@ -1,8 +1,10 @@
 ---
 title: "Regression Analysis"
+always_allow_html: true
 output: 
   html_document:
     toc: true
+    code_folding: hide
     toc_float: true
 --- 
 
@@ -44,7 +46,7 @@ maindata = read_csv("data/maindata.csv")
 
 **maindata** has `r nrow(maindata)` observations and `r ncol(maindata)` features. We are adjusting for population size by dividing  `val` (point estimate of number of HIV/AIDS deaths) by `population` multiplied by 100,000 to get a `mortality_per_100k` variable and a `log_mortality_per_100k` variable.
 
-```{r, message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE}
 regression = maindata %>% 
   mutate(mortality_per_100k = val / (population/100000),
          log_mortality_per_100k = log(mortality_per_100k),
@@ -61,7 +63,7 @@ regression %>%
 
 First, we plot the distribution of `mortality_per_100k`. We can see that we need to transform it to satisfy the normality assumption. So we used a log transformation to get a more normal distribution, and have a new variable `mortality_per_100k`.
 
-```{r, message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE}
 regression %>%
  ggplot(aes(x = mortality_per_100k)) +
  geom_histogram(color = "darkblue", fill = "lightblue") +
@@ -90,7 +92,7 @@ Now we proceed with building different regression models.
 #### model1:
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
-```{r}
+```{r, echo=TRUE}
 regression_logit = regression %>%
   mutate(log_mortality_per_100k = if_else(log_mortality_per_100k == -Inf, 0.01, log_mortality_per_100k))
   
@@ -101,7 +103,7 @@ kable(summary(model1_logit)$coefficients)
 #### model2:
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4year_{2004} + \beta_5gdp + \beta_6 year*year_{2004}  $$
-```{r}
+```{r, echo=TRUE}
   
 model2_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, data = regression_logit)
 kable(summary(model2_logit)$coefficients)
@@ -111,7 +113,7 @@ kable(summary(model2_logit)$coefficients)
 
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex $$
 
-```{r}
+```{r, echo=TRUE}
 model3_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_logit)
 kable(summary(model3_logit)$coefficients)
 ```
@@ -119,7 +121,7 @@ kable(summary(model3_logit)$coefficients)
 #### model4:
 $$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex + \beta_6 country$$
 
-```{r}
+```{r, echo=TRUE}
 model4_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_logit)
 kable(summary(model4_logit)$coefficients)
 ```
@@ -129,7 +131,7 @@ kable(summary(model4_logit)$coefficients)
 #### model1:
 
 $$ log(E(Y_i|age_i,sex_i,year_i,gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
-```{r}
+```{r, echo=TRUE}
 regression_poisson = regression %>% 
   mutate(val = as.integer(val))
 model1_poi = glm(val ~ age_name + sex_name + year + gdp_per_capita, family = "poisson", data = regression_poisson)
@@ -138,7 +140,7 @@ kable(summary(model1_poi)$coefficients)
 #### model2:
 
 $$ log(E(Y_i|age_i,sex_i,year_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 year_{2004} + \beta_5 gdp + \beta_6 year *year_{2004}$$
-```{r}
+```{r, echo=TRUE}
 model2_poi = glm(val ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, family = "poisson", data = regression_poisson)
 kable(summary(model2_poi)$coefficients)
 ```
@@ -146,7 +148,7 @@ kable(summary(model2_poi)$coefficients)
 #### model3:
 
 $$ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex$$
-```{r}
+```{r, echo=TRUE}
 model3_poi = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_poisson)
 kable(summary(model3_logit)$coefficients)
 ```
@@ -154,7 +156,7 @@ kable(summary(model3_logit)$coefficients)
 #### model4:
 
 $$ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i,country_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex + \beta_6 country$$
-```{r}
+```{r, echo=TRUE}
 model4_logit = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_poisson)
 kable(summary(model4_logit)$coefficients)
 ```

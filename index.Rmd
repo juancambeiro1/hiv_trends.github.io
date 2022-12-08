@@ -19,6 +19,8 @@ Human immunodeficiency virus (HIV), which is a virus that causes acquired immuno
 
 Our project proposal can be found [here](proposal.html).
 
+Click on the Youtube symbol on the navigation bar to watch a narrated screencast that explains our project.
+
 # Data
 
 We combine a complex set of datasets from the following websites:

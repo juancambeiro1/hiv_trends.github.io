@@ -33,6 +33,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -221,6 +222,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -360,6 +364,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Regression Analysis</h1>
@@ -376,6 +388,16 @@ are adjusting for population size by dividing <code>val</code> (point
 estimate of number of HIV/AIDS deaths) by <code>population</code>
 multiplied by 100,000 to get a <code>mortality_per_100k</code> variable
 and a <code>log_mortality_per_100k</code> variable.</p>
+<pre class="r"><code>regression = maindata %&gt;% 
+  mutate(mortality_per_100k = val / (population/100000),
+         log_mortality_per_100k = log(mortality_per_100k),
+         year_2004 = if_else(year &lt;= 2004, 1, 0),
+         year_2004 = as.factor(year_2004),
+         country_name = as.factor(country_name)) 
+regression %&gt;% 
+  summarize(col_name = colnames(regression),
+            n_missing = map(regression, ~sum(is.na(.)))) %&gt;% 
+  unnest(n_missing)</code></pre>
 <pre><code>## # A tibble: 14 × 2
 ##    col_name               n_missing
 ##    &lt;chr&gt;                      &lt;int&gt;
@@ -404,7 +426,24 @@ We can see that we need to transform it to satisfy the normality
 assumption. So we used a log transformation to get a more normal
 distribution, and have a new variable
 <code>mortality_per_100k</code>.</p>
-<p><img src="regression_files/figure-html/unnamed-chunk-3-1.png" width="60%" /><img src="regression_files/figure-html/unnamed-chunk-3-2.png" width="60%" /></p>
+<pre class="r"><code>regression %&gt;%
+ ggplot(aes(x = mortality_per_100k)) +
+ geom_histogram(color = &quot;darkblue&quot;, fill = &quot;lightblue&quot;) +
+ ggtitle(&quot;Histogram of HIV deaths per 100k&quot;) +
+ geom_vline( aes(xintercept = mean(mortality_per_100k)),
+            linetype = &quot;dashed&quot;) +
+ ylab(&quot;&quot;) +
+ xlab(&quot;Estimated HIV deaths per 100k&quot;)</code></pre>
+<p><img src="regression_files/figure-html/unnamed-chunk-3-1.png" width="60%" /></p>
+<pre class="r"><code>regression %&gt;%
+ ggplot(aes(x = log_mortality_per_100k)) +
+ geom_histogram(color = &quot;darkblue&quot;, fill = &quot;lightblue&quot;) +
+ ggtitle(&quot;Histogram of log(HIV deaths per 100k)&quot;) +
+ geom_vline(aes(xintercept = mean(log_mortality_per_100k)),
+            linetype = &quot;dashed&quot;) +
+ ylab(&quot;&quot;) +
+ xlab(&quot;Estimated log(HIV deaths per 100k)&quot;)</code></pre>
+<p><img src="regression_files/figure-html/unnamed-chunk-3-2.png" width="60%" /></p>
 </div>
 <div id="regression-models" class="section level2">
 <h2>Regression models</h2>
@@ -413,8 +452,13 @@ distribution, and have a new variable
 <h3>Logistic regression models</h3>
 <div id="model1" class="section level4">
 <h4>model1:</h4>
-<span class="math display">\[ log(mortality/100000) = \beta_0 + \beta_1
-age + \beta_2 sex + \beta_3 year + \beta_4 gdp \]</span>
+<p><span class="math display">\[ log(mortality/100000) = \beta_0 +
+\beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp \]</span></p>
+<pre class="r"><code>regression_logit = regression %&gt;%
+  mutate(log_mortality_per_100k = if_else(log_mortality_per_100k == -Inf, 0.01, log_mortality_per_100k))
+  
+model1_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_logit) 
+kable(summary(model1_logit)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -576,9 +620,11 @@ gdp_per_capita
 </div>
 <div id="model2" class="section level4">
 <h4>model2:</h4>
-<span class="math display">\[ log(mortality/100000) = \beta_0 + \beta_1
-age + \beta_2 sex + \beta_3 year + \beta_4year_{2004} + \beta_5gdp +
-\beta_6 year*year_{2004}  \]</span>
+<p><span class="math display">\[ log(mortality/100000) = \beta_0 +
+\beta_1 age + \beta_2 sex + \beta_3 year + \beta_4year_{2004} +
+\beta_5gdp + \beta_6 year*year_{2004}  \]</span></p>
+<pre class="r"><code>model2_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, data = regression_logit)
+kable(summary(model2_logit)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -777,6 +823,8 @@ year:year_20041
 <p><span class="math display">\[ log(mortality/100000) = \beta_0 +
 \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
 age*sex \]</span></p>
+<pre class="r"><code>model3_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_logit)
+kable(summary(model3_logit)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -1009,6 +1057,8 @@ age_name75+ years:sex_nameMale
 <p><span class="math display">\[ log(mortality/100000) = \beta_0 +
 \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5
 age*sex + \beta_6 country\]</span></p>
+<pre class="r"><code>model4_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_logit)
+kable(summary(model4_logit)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -4607,9 +4657,13 @@ age_name75+ years:sex_nameMale
 <h3>Poisson Regression models</h3>
 <div id="model1-1" class="section level4">
 <h4>model1:</h4>
-<span class="math display">\[ log(E(Y_i|age_i,sex_i,year_i,gdp_i)) =
+<p><span class="math display">\[ log(E(Y_i|age_i,sex_i,year_i,gdp_i)) =
 \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp
-\]</span>
+\]</span></p>
+<pre class="r"><code>regression_poisson = regression %&gt;% 
+  mutate(val = as.integer(val))
+model1_poi = glm(val ~ age_name + sex_name + year + gdp_per_capita, family = &quot;poisson&quot;, data = regression_poisson)
+kable(summary(model1_poi)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -4771,10 +4825,12 @@ gdp_per_capita
 </div>
 <div id="model2-1" class="section level4">
 <h4>model2:</h4>
-<span class="math display">\[
+<p><span class="math display">\[
 log(E(Y_i|age_i,sex_i,year_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year + \beta_4 year_{2004} + \beta_5 gdp +
-\beta_6 year *year_{2004}\]</span>
+\beta_6 year *year_{2004}\]</span></p>
+<pre class="r"><code>model2_poi = glm(val ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, family = &quot;poisson&quot;, data = regression_poisson)
+kable(summary(model2_poi)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -4970,9 +5026,12 @@ year:year_20041
 </div>
 <div id="model3-1" class="section level4">
 <h4>model3:</h4>
-<span class="math display">\[ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i))
-= \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4
-gdp + \beta_5 age *sex\]</span>
+<p><span class="math display">\[
+log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1 age +
+\beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age
+*sex\]</span></p>
+<pre class="r"><code>model3_poi = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_poisson)
+kable(summary(model3_logit)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -5202,10 +5261,12 @@ age_name75+ years:sex_nameMale
 </div>
 <div id="model4-1" class="section level4">
 <h4>model4:</h4>
-<span class="math display">\[
+<p><span class="math display">\[
 log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i,country_i)) = \beta_0 + \beta_1
 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex
-+ \beta_6 country\]</span>
++ \beta_6 country\]</span></p>
+<pre class="r"><code>model4_logit = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_poisson)
+kable(summary(model4_logit)$coefficients)</code></pre>
 <table>
 <thead>
 <tr>
@@ -8837,6 +8898,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

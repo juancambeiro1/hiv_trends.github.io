@@ -1,8 +1,10 @@
 ---
 title: "HIV/AIDS Deaths Trends"
+always_allow_html: true
 output: 
   html_document:
     toc: true
+    code_folding: hide
     toc_float: true
 --- 
 
@@ -43,7 +45,7 @@ maindata = read_csv("data/maindata.csv")
 
 We plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019. HIV/AIDS deaths peaked in the early 2000s.
 
-```{r echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
+```{r echo=TRUE,message = FALSE,warning = FALSE, fig.align='center'}
 death_year = maindata %>%
  group_by(year) %>%
  summarize(HIV_death = sum(val),
@@ -71,7 +73,7 @@ plot_death_year + transition_reveal(year)
 
 Next we plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019 *by sex*. Mortality among females is consistently higher than mortality among males.
 
-```{r echo=FALSE,message = FALSE,warning = FALSE, fig.align='center'}
+```{r echo=TRUE,message = FALSE,warning = FALSE, fig.align='center'}
 death_gender = maindata %>% 
   group_by(year, sex_name) %>% 
   summarize(HIV_death = sum(val),
@@ -98,7 +100,7 @@ plot_death_gender + transition_reveal(year)
 
 Next we plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019 *by age group*. Mortality is highest among those in the 25-49 year old age group, and lowest in those who are 75+. 
 
-```{r echo=FALSE,message = FALSE,warning = FALSE,  fig.align='center'}
+```{r echo=TRUE, message = FALSE,warning = FALSE,  fig.align='center'}
 death_age = maindata %>% 
   group_by(year, age_name) %>% 
   summarize(HIV_death = sum(val),
@@ -125,7 +127,7 @@ plot_death_age + transition_reveal(year)
 
 We next wanted to explore the relationship between GDP per capita and HIV mortality per 100k. The below graph shows that the countries with the highest HIV mortality per 100k tend to be those with lower GDP per capita, which may be indicative of the fact that poorer countries do not have adequate resources to avert otherwise preventable HIV/AIDS deaths.
 
-```{r,echo=FALSE,message = FALSE,warning = FALSE, fig.align='center', warning=FALSE}
+```{r,echo=TRUE, message = FALSE,warning = FALSE, fig.align='center', warning=FALSE}
 
 hiv_country <- maindata %>% group_by(year,country_name,gdp_per_capita) %>% summarise(death=sum(val),pop = sum(population, na.rm=TRUE)) %>% mutate(mortality_per_100k=((death)/(pop))*100000)
 
@@ -143,7 +145,7 @@ plot_death_GDP + transition_time(as.integer(year))+ labs(title = "Year: {frame_t
 
 We additionally wanted to look at how countries rank in terms of their number of HIV/AIDS deaths. First, we show the 10 countries with the highest total number of HIV/AIDS deaths.
 
-```{r,message = FALSE,warning = FALSE, fig.align='center'}
+```{r,echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 top_10 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=10)
 knitr::kable(top_10) %>%
   kable_styling(full_width = F) %>%
@@ -153,7 +155,7 @@ knitr::kable(top_10) %>%
 
 Next, we show the 10 countries with the highest total number of HIV/AIDS deaths for each year from 1990 to 2019.
 
-```{r, message = FALSE,warning = FALSE, fig.align='center'}
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 knitr::opts_chunk$set(
  echo = FALSE,
  fig.width = 7, 
@@ -231,7 +233,7 @@ Finally, we show the 10 countries with the highest total number of HIV/AIDS deat
 
 ### Top 10 countries with highest HIV mortality per 100k
 
-```{r, message = FALSE,warning = FALSE, fig.align='center'}
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 death_country = maindata %>%
  group_by(country_name) %>%
  summarize(HIV_death = sum(val, na.rm = T),
@@ -254,7 +256,7 @@ knitr::kable(top_10_high) %>%
 ```
 
 
-```{r, message = FALSE,warning = FALSE, fig.align='center'}
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 
 knitr::opts_chunk$set(
  echo = FALSE,
@@ -333,7 +335,7 @@ hivrate_animation
 
 ### Top 10 countries with lowest HIV mortality per 100k
 
-```{r, message = FALSE,warning = FALSE, fig.align='center'}
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 top_10_low = death_country %>%
  filter(count_per_100k != 'Inf') %>%
  arrange(count_per_100k) %>% head(n = 10) %>%
@@ -345,7 +347,7 @@ knitr::kable(top_10_low) %>%
   column_spec(2, width = "40%")
 ```
 
-```{r, message = FALSE,warning = FALSE, fig.align='center'}
+```{r,echo=TRUE,  message = FALSE,warning = FALSE, fig.align='center'}
 
 knitr::opts_chunk$set(
  echo = FALSE,

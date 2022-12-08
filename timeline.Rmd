@@ -15,7 +15,7 @@ library(cronologia)
 Below is a timeline of major events of the HIV/AIDS pandemic, which is useful for contextualizing our subsequent assessment of major trends and our regression analysis.
 
 
-```{r, message=FALSE, echo=FALSE}
+```{r, echo=TRUE, message=FALSE}
 hiv_data <- data.frame(
   described = c("The first cases of HIV/AIDS are reported in the United States, though at the time they were only    known as cases of Pneumocystis pneumonia of unknown etiology. The cases are primarily seen in homosexual men, but soon cases spread to other groups.",
   "Cases of HIV/AIDS are reported in other countries, including France, Canada, Spain, the United Kingdom, Italy and Australia. Most of these cases are seen in homosexual",

@@ -33,6 +33,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
@@ -223,6 +224,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -362,6 +366,14 @@ div.tocify {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">HIV/AIDS Deaths Trends</h1>
@@ -375,6 +387,27 @@ class="section level3">
 <p>We plot the estimated number of HIV deaths per 100k population across
 all countries from 1990 to 2019. HIV/AIDS deaths peaked in the early
 2000s.</p>
+<pre class="r"><code>death_year = maindata %&gt;%
+ group_by(year) %&gt;%
+ summarize(HIV_death = sum(val),
+           pop_year  = sum(population, na.rm = T)) %&gt;%
+ mutate(HIV_death = as.numeric(HIV_death),
+        mortality_per_100k = HIV_death/(pop_year/100000))
+
+
+
+plot_death_year = death_year %&gt;%
+ggplot(aes(x = as.factor(year), y = mortality_per_100k, group=1)) + 
+  geom_line(col = &quot;deepskyblue3&quot;, size = 1) + 
+  geom_point(col = &quot;deepskyblue3&quot;, size = 2) + 
+  theme(axis.text.x = element_text(angle = -90, hjust = 0)) +  
+  labs(
+    title = &quot;Global Trend of HIV deaths Per 100k Population: 1990 to 2019&quot;,
+    x = &quot;Year&quot;, 
+    y = &quot;Estimated HIV deaths per 100k population&quot;
+  ) 
+
+plot_death_year + transition_reveal(year)</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-2-1.gif" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div
@@ -385,6 +418,26 @@ class="section level3">
 <p>Next we plot the estimated number of HIV deaths per 100k population
 across all countries from 1990 to 2019 <em>by sex</em>. Mortality among
 females is consistently higher than mortality among males.</p>
+<pre class="r"><code>death_gender = maindata %&gt;% 
+  group_by(year, sex_name) %&gt;% 
+  summarize(HIV_death = sum(val),
+            pop_year  = sum(population, na.rm = T)) %&gt;% 
+  mutate(
+    HIV_death = as.numeric(HIV_death),
+        year = as.numeric(year),
+    mortality_per_100k = HIV_death/(pop_year/100000))
+
+plot_death_gender = death_gender %&gt;% 
+  ggplot(aes(x = year, y = mortality_per_100k, col=factor(sex_name))) + 
+  geom_line() + 
+  geom_point() +
+  labs(title = &quot;Global Trend of HIV deaths Per 100k Population over time by Sex&quot;, 
+       x = &quot;Year&quot;, 
+       y = &quot;Estimated HIV deaths per 100k population&quot;, 
+       color = &quot;Sex&quot;) + 
+  scale_x_continuous(breaks = seq(1990, 2019, 5), minor_breaks = F)
+
+plot_death_gender + transition_reveal(year)</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-3-1.gif" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div
@@ -396,6 +449,26 @@ class="section level3">
 across all countries from 1990 to 2019 <em>by age group</em>. Mortality
 is highest among those in the 25-49 year old age group, and lowest in
 those who are 75+.</p>
+<pre class="r"><code>death_age = maindata %&gt;% 
+  group_by(year, age_name) %&gt;% 
+  summarize(HIV_death = sum(val),
+            pop_year  = sum(population, na.rm = T)) %&gt;% 
+  mutate(
+    HIV_death = as.numeric(HIV_death),
+    year = as.numeric(year),
+    mortality_per_100k = HIV_death/(pop_year/100000))
+
+plot_death_age = death_age %&gt;% 
+  ggplot(aes(x = year, y = mortality_per_100k, col = factor(age_name))) +
+  geom_line() + 
+  geom_point() + 
+  labs(title = &quot;Global Trend of HIV deaths Per 100k Population over time by Age&quot;, 
+       x = &quot;Year&quot;, 
+       y = &quot;Estimated HIV deaths per 100k population&quot;, 
+       color = &quot;Age&quot;) + 
+  scale_x_continuous(breaks = seq(1990, 2019, 5), minor_breaks = F)
+
+plot_death_age + transition_reveal(year)</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-4-1.gif" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hiv-mortality-rate-by-country-gdp-per-capita-1990-to-2019"
@@ -407,6 +480,16 @@ the highest HIV mortality per 100k tend to be those with lower GDP per
 capita, which may be indicative of the fact that poorer countries do not
 have adequate resources to avert otherwise preventable HIV/AIDS
 deaths.</p>
+<pre class="r"><code>hiv_country &lt;- maindata %&gt;% group_by(year,country_name,gdp_per_capita) %&gt;% summarise(death=sum(val),pop = sum(population, na.rm=TRUE)) %&gt;% mutate(mortality_per_100k=((death)/(pop))*100000)
+
+plot_death_GDP &lt;- ggplot(hiv_country, aes(x = gdp_per_capita, y=mortality_per_100k, colour = country_name)) +
+  geom_point(show.legend = FALSE, alpha = 0.7) +
+  scale_color_viridis_d(option = &quot;F&quot;) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  labs(x = &quot;GDP per capita&quot;, y = &quot;HIV Mortality per 100k&quot;)
+
+plot_death_GDP + transition_time(as.integer(year))+ labs(title = &quot;Year: {frame_time}&quot;) + shadow_wake(wake_length = 0.1, alpha = FALSE)</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-5-1.gif" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="hiv-mortality-by-country-1990-to-2019" class="section level3">
@@ -414,6 +497,11 @@ deaths.</p>
 <p>We additionally wanted to look at how countries rank in terms of
 their number of HIV/AIDS deaths. First, we show the 10 countries with
 the highest total number of HIV/AIDS deaths.</p>
+<pre class="r"><code>top_10 &lt;- maindata %&gt;% group_by(country_name) %&gt;% summarise(count=sum(val)) %&gt;% arrange(desc(count)) %&gt;% head(n=10)
+knitr::kable(top_10) %&gt;%
+  kable_styling(full_width = F) %&gt;%
+  column_spec(1, width = &quot;50%&quot;) %&gt;%
+  column_spec(2, width = &quot;50%&quot;)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -510,6 +598,77 @@ Malawi
 </table>
 <p>Next, we show the 10 countries with the highest total number of
 HIV/AIDS deaths for each year from 1990 to 2019.</p>
+<pre class="r"><code>knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = &quot;70%&quot;)
+theme_set(theme_bw() + 
+          theme(legend.position = &quot;bottom&quot;,
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+hiv_sub&lt;-maindata %&gt;% select(country_name,year,sex_id,val)
+
+n&lt;-unique(hiv_sub$country_name)
+country&lt;-function(x){
+  hiv2&lt;-hiv_sub %&gt;% filter(country_name==x)
+  sum(hiv2$val)
+}
+country_total&lt;-sapply(n,function(x) country(x))
+
+top_hiv&lt;- hiv_sub %&gt;% filter(country_name %in% c(
+  &quot;South Africa&quot;,
+  &quot;Kenya&quot;,
+  &quot;United Republic of Tanzania&quot;,
+  &quot;India&quot;,
+  &quot;Nigeria&quot;,
+  &quot;Uganda&quot;,
+  &quot;Zimbabwe&quot;,
+  &quot;Ethiopia&quot;,
+  &quot;Mozambique&quot;,
+  &quot;Malawi&quot;,
+  &quot;Zambia&quot;,
+  &quot;Cote d&#39;Ivoire&quot;,
+  &quot;Democratic Republic of Congo&quot;,
+  &quot;Cameroon&quot;,
+  &quot;Thailand&quot;,
+  &quot;United States of America&quot;))
+
+top_hiv$sex&lt;-as.factor(top_hiv$sex_id)
+
+hiv3&lt;-aggregate(val~country_name+year,top_hiv,sum) %&gt;% 
+  group_by(year) %&gt;% 
+  mutate(rank = min_rank(-val)) %&gt;%
+  ungroup()
+
+static_plot&lt;-ggplot(hiv3,aes(rank,group=country_name,fill=as.factor(country_name),color=as.factor(country_name))) +
+ geom_tile(aes(y = val/2,height = val, width = 0.9), alpha = 0.8, color = NA) +
+ geom_text(aes(y = 0, label = paste(country_name, &#39; &#39;)), vjust = 0.2, hjust = 1) +
+ geom_text(aes(y=val,label = paste(&#39; &#39;,val)), hjust=0)+
+ coord_flip(clip = &#39;off&#39;, expand = TRUE) +
+ scale_y_continuous(labels = scales::comma) +
+ scale_x_reverse() +
+ guides(color = FALSE, fill = FALSE) +
+ theme_minimal() +
+ theme(
+ plot.title=element_text(size=30, hjust=0.5, face=&#39;bold&#39;, colour=&#39;black&#39;, vjust=-1),
+ plot.subtitle=element_text(size=18, hjust=0.5, face=&#39;italic&#39;, color=&#39;black&#39;),
+ plot.caption =element_text(size=8, hjust=0.5, face=&#39;italic&#39;, color=&#39;black&#39;),
+ axis.ticks.y = element_blank(), 
+ axis.text.y = element_blank(), 
+ plot.margin = margin(1,1,1,4, &#39;cm&#39;)
+ )
+plt&lt;-static_plot + transition_states(states = year, transition_length = 4, state_length = 1) + 
+ ease_aes(&#39;cubic-in-out&#39;) +
+ labs(title = &#39;HIV Deaths per Year : {closest_state}&#39;, 
+ x=&#39;&#39;,y=&#39;HIV Deaths per year&#39;)
+
+final_animation&lt;-animate(plt,100,fps = 20,duration = 30, width = 1000, height = 950, renderer = gifski_renderer())
+
+final_animation</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-7-1.gif" width="60%" style="display: block; margin: auto;" /></p>
 <p>Finally, we show the 10 countries with the highest total number of
 HIV/AIDS deaths adjusted for population size and the 10 countries with
@@ -519,6 +678,25 @@ size.</p>
 <div id="top-10-countries-with-highest-hiv-mortality-per-100k"
 class="section level3">
 <h3>Top 10 countries with highest HIV mortality per 100k</h3>
+<pre class="r"><code>death_country = maindata %&gt;%
+ group_by(country_name) %&gt;%
+ summarize(HIV_death = sum(val, na.rm = T),
+           pop_year  = sum(population, na.rm = T)) %&gt;%
+ mutate(
+   HIV_death = as.integer(HIV_death)) %&gt;%
+ mutate(
+   HIV_death = as.numeric(HIV_death),
+        count_per_100k = HIV_death/(pop_year/100000))
+top_10_high = death_country %&gt;%
+ filter(count_per_100k != &#39;Inf&#39;) %&gt;%
+ arrange(desc(count_per_100k)) %&gt;%
+ mutate(count_per_100k = round(count_per_100k, digits=4)) %&gt;%
+ head(n = 10) %&gt;%
+ select(country_name, count_per_100k)
+knitr::kable(top_10_high) %&gt;% 
+  kable_styling(full_width = F) %&gt;%
+  column_spec(1, width = &quot;65%&quot;) %&gt;%
+  column_spec(2, width = &quot;35%&quot;)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -613,11 +791,91 @@ Uganda
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = &quot;70%&quot;)
+theme_set(theme_bw() + 
+          theme(legend.position = &quot;bottom&quot;,
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+hiv_sub&lt;-maindata %&gt;% select(country_name,year,sex_id,val, population)
+
+top_hiv&lt;- hiv_sub %&gt;% filter(country_name %in% c(
+  &quot;Lesotho&quot;,
+  &quot;Eswatini&quot;,
+  &quot;Zimbabwe&quot;,
+  &quot;Botswana&quot;,
+  &quot;South Africa&quot;,
+  &quot;Malwai&quot;,
+  &quot;Zambia&quot;,
+  &quot;Nambia&quot;,
+  &quot;Mozambique&quot;,
+  &quot;Uganda&quot;,
+  &quot;Central African Republic&quot;,
+  &quot;Kenya&quot;,
+  &quot;Cameroon&quot;,
+  &quot;Burundi&quot;,
+  &quot;Equatorial Guinea&quot;))
+
+hiv3&lt;-top_hiv %&gt;%
+   group_by(year, country_name) %&gt;%
+ summarize(HIV_death = sum(val, na.rm = T),
+           pop_year  = sum(population, na.rm = T)) %&gt;%
+ mutate(
+   HIV_death = as.integer(HIV_death)
+ ) %&gt;%
+ mutate(
+   HIV_death = as.numeric(HIV_death),
+        motality_per_100k =     HIV_death/(pop_year/100000)) %&gt;%
+  mutate(rank = min_rank(-motality_per_100k)) %&gt;%
+  ungroup() %&gt;%
+    select(-HIV_death, -pop_year)
+
+static_plot&lt;-ggplot(hiv3,aes(rank,group=country_name,fill=as.factor(country_name),color=as.factor(country_name))) +
+ geom_tile(aes(y = motality_per_100k/2,height = motality_per_100k, width = 0.9), alpha = 0.8, color = NA) + 
+ geom_text(aes(y = 0, label = paste(country_name, &#39; &#39;)), vjust = 0.2, hjust = 1) +
+ geom_text(aes(y=motality_per_100k,label = paste(&#39; &#39;,motality_per_100k)), hjust=0)+
+ coord_flip(clip = &#39;off&#39;, expand = TRUE) +
+ scale_y_continuous(labels = scales::comma) +
+ scale_x_reverse() +
+ guides(color = FALSE, fill = FALSE) +
+ theme_minimal() +
+ theme(
+ plot.title=element_text(size=30, hjust=0.5, face=&#39;bold&#39;, colour=&#39;black&#39;, vjust=-1),
+ plot.subtitle=element_text(size=18, hjust=0.5, face=&#39;italic&#39;, color=&#39;black&#39;),
+ plot.caption =element_text(size=8, hjust=0.5, face=&#39;italic&#39;, color=&#39;black&#39;),
+ axis.ticks.y = element_blank(), 
+ axis.text.y = element_blank(), 
+ plot.margin = margin(1,1,1,4, &#39;cm&#39;)
+ )
+
+plt&lt;-static_plot + transition_states(states = year, transition_length = 4, state_length = 1) + 
+ ease_aes(&#39;cubic-in-out&#39;) +
+ labs(title = &#39;HIV Mortality Rate per 100k by Year : {closest_state}&#39;, 
+ x=&#39;&#39;,y=&#39;HIV Mortality Rate by Year&#39;)
+
+hivrate_animation&lt;-animate(plt,100,fps = 20,duration = 30, width = 950, height = 750, renderer = gifski_renderer())
+
+hivrate_animation</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-9-1.gif" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="top-10-countries-with-lowest-hiv-mortality-per-100k"
 class="section level3">
 <h3>Top 10 countries with lowest HIV mortality per 100k</h3>
+<pre class="r"><code>top_10_low = death_country %&gt;%
+ filter(count_per_100k != &#39;Inf&#39;) %&gt;%
+ arrange(count_per_100k) %&gt;% head(n = 10) %&gt;%
+ mutate(count_per_100k = round(count_per_100k, digits = 4)) %&gt;%
+ select(country_name, count_per_100k)
+knitr::kable(top_10_low) %&gt;%
+  kable_styling(full_width = F) %&gt;%
+  column_spec(1, width = &quot;60%&quot;) %&gt;%
+  column_spec(2, width = &quot;40%&quot;)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -712,6 +970,78 @@ Comoros
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = &quot;70%&quot;)
+theme_set(theme_bw() + 
+          theme(legend.position = &quot;bottom&quot;,
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+hiv_sub_2&lt;-maindata %&gt;% select(country_name,year,sex_id,val, population)
+
+low_hiv&lt;- hiv_sub_2 %&gt;% filter(country_name %in% c(
+  &quot;Albania&quot;,
+  &quot;Bosnia and Herzegovina&quot;,
+  &quot;North Macedonia&quot;,
+  &quot;Kuwait&quot;,
+  &quot;Syrian Arab Republic&quot;,
+  &quot;Bangladesh&quot;,
+  &quot;Czechia&quot;,
+  &quot;Comoros&quot;,
+  &quot;Maldives&quot;,
+  &quot;Japan&quot;,
+  &quot;Iraq&quot;,
+  &quot;Slovenia&quot;,
+  &quot;Jordan&quot;,
+  &quot;Finland&quot;,
+  &quot;Croatia&quot;))
+
+hiv3_2&lt;-low_hiv %&gt;%
+   group_by(year, country_name) %&gt;%
+ summarize(HIV_death = sum(val, na.rm = T),
+           pop_year  = sum(population, na.rm = T)) %&gt;%
+ mutate(
+   HIV_death = as.integer(HIV_death)
+ ) %&gt;%
+ mutate(
+   HIV_death = as.numeric(HIV_death),
+        motality_per_100k =     HIV_death/(pop_year/100000)) %&gt;%
+  mutate(rank = row_number(motality_per_100k)) %&gt;%
+  ungroup() %&gt;%
+    select(-HIV_death, -pop_year)
+
+
+static_plot&lt;-ggplot(hiv3_2,aes(rank,group=country_name,fill=as.factor(country_name),color=as.factor(country_name))) +
+ geom_tile(aes(y = motality_per_100k/2,height = motality_per_100k, width = 0.9), alpha = 0.8, color = NA) + 
+ geom_text(aes(y = 0, label = paste(country_name, &#39; &#39;)), vjust = 0.2, hjust = 1) +
+ geom_text(aes(y=motality_per_100k,label = paste(&#39; &#39;,motality_per_100k)), hjust=0)+
+ coord_flip(clip = &#39;off&#39;, expand = TRUE) +
+ scale_y_continuous(labels = scales::comma) +
+ scale_x_reverse() +
+ guides(color = FALSE, fill = FALSE) +
+ theme_minimal() +
+ theme(
+ plot.title=element_text(size=30, hjust=0.5, face=&#39;bold&#39;, colour=&#39;black&#39;, vjust=-1),
+ plot.subtitle=element_text(size=18, hjust=0.5, face=&#39;italic&#39;, color=&#39;black&#39;),
+ plot.caption =element_text(size=8, hjust=0.5, face=&#39;italic&#39;, color=&#39;black&#39;),
+ axis.ticks.y = element_blank(), 
+ axis.text.y = element_blank(), 
+ plot.margin = margin(1,1,1,4, &#39;cm&#39;)
+ )
+
+plt&lt;-static_plot + transition_states(states = year, transition_length = 4, state_length = 1) + 
+ ease_aes(&#39;cubic-in-out&#39;) +
+ labs(title = &#39;HIV Mortality Rate per 100k by Year : {closest_state}&#39;, 
+ x=&#39;&#39;,y=&#39;HIV Mortality Rate by Year&#39;)
+
+hivrate_animation2&lt;-animate(plt,100,fps = 20,duration = 30, width = 950, height = 750, renderer = gifski_renderer())
+
+hivrate_animation2</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-11-1.gif" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 
@@ -750,6 +1080,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

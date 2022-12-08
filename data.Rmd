@@ -44,7 +44,7 @@ theme_set(theme_bw() +
 
 #### HIV Deaths By Country Dataset
 
-```{r, message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE}
 deaths = read_csv("data/final_hiv_deaths.csv") %>%
  janitor::clean_names() %>%
  select("location_id", "location_name", starts_with("sex"), starts_with("age"), "year", "val", "upper", "lower") %>%
@@ -66,7 +66,7 @@ The deaths dataset contains `r nrow(deaths)` rows and `r ncol(deaths)` columns, 
 
 #### GDP Per Capita By Country Dataset
 
-```{r, message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE}
 gdp = read_csv("data/final_gdp_per_capita.csv", skip = 4, col_names = TRUE) %>% 
   janitor::clean_names() %>% 
   drop_na(location_id) 
@@ -92,7 +92,7 @@ The dataset contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row
 
 
 #### Population By Country Dataset
-```{r,message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE}
 population = read_csv("data/final_population_total.csv", skip = 4, col_names = TRUE)  %>% 
   janitor::clean_names() %>% 
   drop_na(location_id) 
@@ -123,7 +123,7 @@ The dataset contains `r nrow(population)` rows and `r ncol(population)` columns,
 
 First, we merge the GDP Per Capita By Country dataset (**gdp_clean**) and Population By Country Dataset (**population_clean**) into a dataset called **gdp_population**. This combined dataset contains data from 200 distinct countries between 1990 and 2019.
 
-```{r, message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE}
 gdp_population = inner_join(gdp_clean, population_clean, by = c("location_id", "year")) %>%
  janitor::clean_names() 
 
@@ -137,7 +137,7 @@ gdp_population %>%
 
 Next, we merge the **gdp_population** dataset with the HIV Deaths dataset (**deaths**) into a **maindata** dataset by matching on the countries and years and using `left_join`. We save this as a CSV for further analysis.
 
-```{r, message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE}
 maindata = left_join(gdp_population, deaths, by = c("year","location_id")) %>% 
   select(-country_name.x, -age_id) %>% 
   rename(country_name = country_name.y) %>% 
