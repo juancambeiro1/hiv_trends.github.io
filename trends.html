@@ -330,12 +330,6 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://www.youtube.com/watch?v=Bg8tbmppoIA">
-    <span class="fa fa-brands fa-youtube"></span>
-     
-  </a>
-</li>
-<li>
   <a href="timeline.html">HIV/AIDS Timeline</a>
 </li>
 <li>
@@ -348,10 +342,16 @@ div.tocify {
   <a href="dashboard.html">Dashboard</a>
 </li>
 <li>
-  <a href="regression.html">Regression Analysis</a>
+  <a href="regression.html">Analysis</a>
 </li>
 <li>
   <a href="report.html">Final Project Report</a>
+</li>
+<li>
+  <a href="https://www.youtube.com/watch?v=Bg8tbmppoIA">
+    <span class="fa fa-brands fa-youtube"></span>
+     
+  </a>
 </li>
 <li>
   <a href="https://github.com/juancambeiro1/hiv_trends.github.io">
@@ -384,9 +384,10 @@ div.tocify {
 <div id="global-trend-of-hiv-mortality-per-100k-population-1990-to-2019"
 class="section level3">
 <h3>Global trend of HIV mortality per 100k population: 1990 to 2019</h3>
-<p>We plot the estimated number of HIV deaths per 100k population across
-all countries from 1990 to 2019. HIV/AIDS deaths peaked in the early
-2000s.</p>
+<p>We plot the estimated global HIV mortality per 100k population across
+200 countries from 1990 to 2019. The estimated global HIV mortality rate
+increased from 1990, reached a peak in 2004, and decreased from 2005 to
+2019.</p>
 <pre class="r"><code>death_year = maindata %&gt;%
  group_by(year) %&gt;%
  summarize(HIV_death = sum(val),
@@ -415,9 +416,11 @@ id="global-trend-of-hiv-mortality-per-100k-population-by-sex-1990-to-2019"
 class="section level3">
 <h3>Global trend of HIV mortality per 100k population by sex: 1990 to
 2019</h3>
-<p>Next we plot the estimated number of HIV deaths per 100k population
-across all countries from 1990 to 2019 <em>by sex</em>. Mortality among
-females is consistently higher than mortality among males.</p>
+<p>The trajectories of estimated global HIV mortality for females and
+males from 1990 to 2019 were similar. Before 1994 and after 2015, the
+difference in the HIV mortality rate between females and males was
+virtually indistinguishable. But from 1994 to 2015, the yearly global
+HIV mortality rate for females was higher than that for males.</p>
 <pre class="r"><code>death_gender = maindata %&gt;% 
   group_by(year, sex_name) %&gt;% 
   summarize(HIV_death = sum(val),
@@ -445,10 +448,15 @@ id="global-trend-of-hiv-mortality-per-100k-population-by-age-1990-to-2019"
 class="section level3">
 <h3>Global trend of HIV mortality per 100k population by Age: 1990 to
 2019</h3>
-<p>Next we plot the estimated number of HIV deaths per 100k population
-across all countries from 1990 to 2019 <em>by age group</em>. Mortality
-is highest among those in the 25-49 year old age group, and lowest in
-those who are 75+.</p>
+<p>Generally, the estimated global HIV mortality rates from 1990 to 2019
+were the highest among young or middle-aged adults (25-49 years), and
+were the lowest among the elderly (75+ years).</p>
+<p>Among young or middle-aged adults, the global HIV mortality rate
+changed the most from 1990 to 2019, with the peak occurring in 2004. The
+mortality trends were more stable for people in other age groups (0-9
+years, 10-24 years, 50-74 years, and 75+ years). Among the people aged
+over 75 years old, the global HIV mortality rates during the 30 years
+were low and stable.</p>
 <pre class="r"><code>death_age = maindata %&gt;% 
   group_by(year, age_name) %&gt;% 
   summarize(HIV_death = sum(val),
@@ -475,11 +483,12 @@ plot_death_age + transition_reveal(year)</code></pre>
 class="section level3">
 <h3>HIV Mortality Rate by Country GDP Per Capita: 1990 to 2019</h3>
 <p>We next wanted to explore the relationship between GDP per capita and
-HIV mortality per 100k. The below graph shows that the countries with
-the highest HIV mortality per 100k tend to be those with lower GDP per
-capita, which may be indicative of the fact that poorer countries do not
-have adequate resources to avert otherwise preventable HIV/AIDS
-deaths.</p>
+HIV mortality per 100k. The below graph shows there was a non-linear
+negative association between the estimated global HIV mortality rates in
+the past 30 years and the country GDP. The countries with lower GDP had
+higher HIV mortality rate. This may be indicative of the fact that
+poorer countries do not have adequate resources to avert otherwise
+preventable HIV/AIDS deaths.</p>
 <pre class="r"><code>hiv_country &lt;- maindata %&gt;% group_by(year,country_name,gdp_per_capita) %&gt;% summarise(death=sum(val),pop = sum(population, na.rm=TRUE)) %&gt;% mutate(mortality_per_100k=((death)/(pop))*100000)
 
 plot_death_GDP &lt;- ggplot(hiv_country, aes(x = gdp_per_capita, y=mortality_per_100k, colour = country_name)) +
@@ -498,6 +507,8 @@ plot_death_GDP + transition_time(as.integer(year))+ labs(title = &quot;Year: {fr
 their number of HIV/AIDS deaths. First, we show the 10 countries with
 the highest total number of HIV/AIDS deaths.</p>
 <pre class="r"><code>top_10 &lt;- maindata %&gt;% group_by(country_name) %&gt;% summarise(count=sum(val)) %&gt;% arrange(desc(count)) %&gt;% head(n=10)
+top_10$count &lt;- format(top_10$count, big.mark=&quot;,&quot;)
+
 knitr::kable(top_10) %&gt;%
   kable_styling(full_width = F) %&gt;%
   column_spec(1, width = &quot;50%&quot;) %&gt;%
@@ -508,7 +519,7 @@ knitr::kable(top_10) %&gt;%
 <th style="text-align:left;">
 country_name
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 count
 </th>
 </tr>
@@ -518,80 +529,80 @@ count
 <td style="text-align:left;width: 50%; ">
 South Africa
 </td>
-<td style="text-align:right;width: 50%; ">
-4874295
+<td style="text-align:left;width: 50%; ">
+4,874,295
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 Kenya
 </td>
-<td style="text-align:right;width: 50%; ">
-2583538
+<td style="text-align:left;width: 50%; ">
+2,583,538
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 United Republic of Tanzania
 </td>
-<td style="text-align:right;width: 50%; ">
-2465046
+<td style="text-align:left;width: 50%; ">
+2,465,046
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 India
 </td>
-<td style="text-align:right;width: 50%; ">
-2454374
+<td style="text-align:left;width: 50%; ">
+2,454,374
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 Nigeria
 </td>
-<td style="text-align:right;width: 50%; ">
-2216719
+<td style="text-align:left;width: 50%; ">
+2,216,719
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 Uganda
 </td>
-<td style="text-align:right;width: 50%; ">
-2102166
+<td style="text-align:left;width: 50%; ">
+2,102,166
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 Zimbabwe
 </td>
-<td style="text-align:right;width: 50%; ">
-1836041
+<td style="text-align:left;width: 50%; ">
+1,836,041
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 Ethiopia
 </td>
-<td style="text-align:right;width: 50%; ">
-1788431
+<td style="text-align:left;width: 50%; ">
+1,788,431
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 Mozambique
 </td>
-<td style="text-align:right;width: 50%; ">
-1541267
+<td style="text-align:left;width: 50%; ">
+1,541,267
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 50%; ">
 Malawi
 </td>
-<td style="text-align:right;width: 50%; ">
-1265348
+<td style="text-align:left;width: 50%; ">
+1,265,348
 </td>
 </tr>
 </tbody>
@@ -670,10 +681,9 @@ final_animation&lt;-animate(plt,100,fps = 20,duration = 30, width = 1000, height
 
 final_animation</code></pre>
 <p><img src="trends_files/figure-html/unnamed-chunk-7-1.gif" width="60%" style="display: block; margin: auto;" /></p>
-<p>Finally, we show the 10 countries with the highest total number of
-HIV/AIDS deaths adjusted for population size and the 10 countries with
-the lowest total number of HIV/AIDS deaths adjusted for population
-size.</p>
+<p>Now we show a table of the 10 countries with the highest total number
+of HIV/AIDS deaths adjusted for population size, as well as an animation
+of how the top 10 has changed between 1990 and 2019.</p>
 </div>
 <div id="top-10-countries-with-highest-hiv-mortality-per-100k"
 class="section level3">
@@ -867,6 +877,9 @@ hivrate_animation</code></pre>
 <div id="top-10-countries-with-lowest-hiv-mortality-per-100k"
 class="section level3">
 <h3>Top 10 countries with lowest HIV mortality per 100k</h3>
+<p>Finally we show a table of the 10 countries with the highest total
+number of HIV/AIDS deaths adjusted for population size, as well as an
+animation of how the top 10 has changed between 1990 and 2019.</p>
 <pre class="r"><code>top_10_low = death_country %&gt;%
  filter(count_per_100k != &#39;Inf&#39;) %&gt;%
  arrange(count_per_100k) %&gt;% head(n = 10) %&gt;%

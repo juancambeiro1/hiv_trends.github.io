@@ -13,13 +13,15 @@ output:
 
 <br>
 
-# Introduction
+# Screencast Introduction
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=Bg8tbmppoIA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+# Background
 
 Human immunodeficiency virus (HIV), which is a virus that causes acquired immunodeficiency syndrome (AIDS), is one of the world’s most pressing public health challenges. Since the time it was identified, tens of millions of deaths due to HIV/AIDS have occurred. HIV/AIDS is considered an ongoing pandemic since it is actively spreading globally, and it continues to wreak devastating impacts across the world, and in particular in low-and-middle income countries that have limited resources to address it. It is therefore important and timely to study trends in HIV/AIDS in countries across the world as well as stratified by sociodemographic variables to determine communities and subgroups who are most impacted by the disease. Furthermore, it is important to determine the predictors of HIV/AIDS deaths to develop targeted policies and legislation that can prevent or slow the spread of HIV/AIDS.
 
 Our project proposal can be found [here](proposal.html).
-
-Click on the Youtube symbol on the navigation bar to watch a narrated screencast that explains our project.
 
 # Data
 
@@ -27,16 +29,17 @@ We combine a complex set of datasets from the following websites:
 
 * HIV/AIDS deaths data by country 1990-2019, by sex and by age group, from the [2019 Global Burden of Disease Study](https://vizhub.healthdata.org/gbd-results/?params=gbd-api-2019-public/c896c16b3ce69e85653c71c75e780f64). 
 
-* GDP per capita by country 1990-2019 from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2019&start=1990) 
+* GDP per capita by country 1990-2019 from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2019&start=1990).
 
-* Population totals by country 1990-2019, which will allow for adjustment by population size (per 100k) from the [World Bank](https://data.worldbank.org/indicator/SP.POP.TOTL) 
+* Population totals by country 1990-2019, which will allow for adjustment by population size (per 100k) from the [World Bank](https://data.worldbank.org/indicator/SP.POP.TOTL).
 
 
 # Website Navigation
 * [HIV/AIDS Timeline](timeline.html): Timeline of major events of the HIV/AIDS as context
-* [Data cleaning/processing](data.html): How we cleaned, merged, and otherwised processed the data for further analysis
+* [Data cleaning/processing](data.html): How we cleaned, merged, and otherwise processed the data for further analysis
 * [Trends](trends.html): Visualizations of HIV/AIDS deaths
-* [Regression Analysis](regression.html): Analysis to determine which variables might be relevant in determining HIV/AIDS deaths
+* [Dashboard](dashboard.html): Dashboard of HIV mortality rate per 100k against GDP per capital (USD)
+* [Analysis](regression.html): Exploratory data analysis and regression analysis
 * [Report](report.html): Our written report that describes what we did in this project and our results
 
 # Group members

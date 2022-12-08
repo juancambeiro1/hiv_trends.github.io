@@ -34,6 +34,8 @@ theme_set(theme_bw() +
                 legend.title = element_blank(),
                 plot.title = element_text(hjust = 0.5, size = 15),
                 plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+maindata = read_csv("data/maindata.csv") 
 ```
 
 ### Scatterplot showing HIV mortality rate per 100k against GDP per capital (USD)

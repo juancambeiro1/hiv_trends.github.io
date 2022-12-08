@@ -1,5 +1,5 @@
 ---
-title: "Regression Analysis"
+title: "Analysis"
 always_allow_html: true
 output: 
   html_document:
@@ -25,6 +25,7 @@ library(mgcv)
 library(magick)
 library(readr)
 library(gifski)
+library(car)
 
 knitr::opts_chunk$set(
 echo = FALSE,
@@ -42,7 +43,7 @@ maindata = read_csv("data/maindata.csv")
 ```
 
 
-#### Create "mortality_per_100k" and "log_mortality_per_100k" variables
+### Data
 
 **maindata** has `r nrow(maindata)` observations and `r ncol(maindata)` features. We are adjusting for population size by dividing  `val` (point estimate of number of HIV/AIDS deaths) by `population` multiplied by 100,000 to get a `mortality_per_100k` variable and a `log_mortality_per_100k` variable.
 
@@ -59,11 +60,87 @@ regression %>%
   unnest(n_missing)
 ```
 
-### Plots of the distribution to main outcome of interest(HIV mortality per 100k population).
+### Exploratory data analysis
+
+We will check the distribution of the following predictors: `sex_name`, `age_name`, and `gdp_per_capita`
+
+#### Sex
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
+sex_count = maindata %>% 
+  select(country_name, population, sex_name, year) %>% 
+  group_by(year, sex_name) %>% 
+  distinct(population) %>% 
+  mutate(count = population/100000)
+```
+
+In **maindata**, the global sex distribution across years was approximately balanced between males and females. 
+
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
+plot_sex = ggplot(aes(x=as.factor(year),y=count,fill=sex_name, alpha = 0.5),data=sex_count)+
+  geom_bar(stat="identity") +
+  ggtitle("Gender distribution across 30 years") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(
+    x = "Year",
+    y = "Count/100k population"
+  )
+
+plot_sex
+```
+
+#### Age
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
+age_count = maindata %>% 
+  select(country_name, population, age_name, year) %>% 
+  group_by(year,age_name) %>%  
+  distinct(population) %>% 
+  mutate(count = population/100000)
+```
+
+In **maindata**, the global age distribution across years was approximately balanced across the years between the five age groups.
+
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
+plot_age = ggplot(aes(x=as.factor(year),y=count,fill=age_name, alpha = 0.5),data=age_count)+
+  geom_bar(stat="identity") +
+  ggtitle("Age distribution across 30 years") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(
+    x = "Year",
+    y = "Count/100k population"
+  )
+
+plot_age
+```
+
+#### GDP per capita
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
+gdp_count = maindata %>% 
+  select(country_name, population, gdp_per_capita, year) %>% 
+  group_by(year,gdp_per_capita) 
+```
+
+In **maindata**, global GDP per capita distribution was right-skewed. Most of the countries had their GDP per capita less than 10,000.    
+
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
+plot_gdp =  ggplot(data=maindata, aes(x=gdp_per_capita)) +
+  geom_histogram(color = "darkblue", fill = "lightblue")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  labs(
+    title = "GDP per capita distribution in 30 years",
+    x = "GDP per capita (k)",
+    y = "") + 
+  scale_x_continuous(
+    breaks = c(0,10000,20000, 30000, 40000, 50000), 
+    labels = c("0", "10k", "20k", "30k", "40k", "50k"))
+
+plot_gdp
+```
+
+#### Plots of the distribution to main outcome of interest (HIV mortality per 100k population)
 
 First, we plot the distribution of `mortality_per_100k`. We can see that we need to transform it to satisfy the normality assumption. So we used a log transformation to get a more normal distribution, and have a new variable `mortality_per_100k`.
 
-```{r, echo=TRUE, message = FALSE,warning = FALSE}
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 regression %>%
  ggplot(aes(x = mortality_per_100k)) +
  geom_histogram(color = "darkblue", fill = "lightblue") +
@@ -85,13 +162,13 @@ regression %>%
 
 ### Linear regression models
 
-### Hypothesis 1:
-There is statistically significant relationship between the HIV deaths per 100k and age groups, sex, year, and the country's gdp respectively. 
+#### Hypothesis 1
+There is statistically significant relationship between the HIV deaths per 100k and age groups, sex, year, and the country's gdp per capita respectively. 
 
-### model 1:
+#### Model 1
 
-$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
-```{r}
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 regression_logit = regression %>%
   mutate(log_mortality_per_100k = if_else(log_mortality_per_100k == -Inf, 0.01, log_mortality_per_100k))
   
@@ -99,8 +176,10 @@ model1_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_
   broom::tidy() %>% 
   mutate(exp_est = exp(estimate))
 
-knitr::kable(model1_logit)
-
+model1_logit %>% 
+  kable("html") %>%
+  kable_styling(full_width = FALSE, position = "center") %>%
+  column_spec(1:4, width = "2cm")
 ```
 
 Interpretation:
@@ -111,39 +190,41 @@ The 75+ years old has 0.06 times the HIV mortality per 100k population compared 
 The HIV mortality per 100k population will increase by 4% with 1 year increase between 1990-2019 holding age, sex, and gdp in constant.
 The the HIV mortality per 100k population will decrease by 0.004% with 1 unit increase of gdp holding age, sex, and year in constant.
 
-The associations between the HIV deaths per 100k and age groups, sex, year, and the country's gdp respectively are all statistically significant at the level of 5%.
+The associations between the HIV deaths per 100k and age groups, sex, year, and the country's gdp per capita respectively are all statistically significant at the level of 5%.
 
 
-### Hypothesis 2:
-There is a significant change of the HIV deaths per 100k before and after the year 2004 controlling for age groups, sex, and gdp.
+#### Hypothesis 2
+There is a significant change of the HIV deaths per 100k before and after the year 2004 controlling for age groups, sex, and gdp per capita.
 
-### model 2:
-$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4gdp  $$
-```{r}
-  
+#### Model 2
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4gdp  $$
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 model2_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita, data = regression_logit) %>% 
   broom::tidy() %>% 
   mutate(exp_est = exp(estimate))
 
-knitr::kable(model2_logit)
+model2_logit %>% 
+  kable("html") %>%
+  kable_styling(full_width = FALSE, position = "center") %>%
+  column_spec(1:4, width = "2cm")
 
 ```
 Interpretation: 
-The HIV deaths per 100k is 44.51% lower before 2004 than after 2004 after controlling for age, sex, and gdp at the level of 5% significance. 
+The HIV deaths per 100k is 44.51% lower before 2004 than after 2004 after controlling for age, sex, and gdp per capita at the level of 5% significance. 
 
-### Hypothesis 3:
+#### Hypothesis 3
 There is an interaction between age and sex. 
 
-### model 3:
+#### Model 3
 
-$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp + \beta_5 age*sex $$
+$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp + \beta_5 age*sex $$
 
-```{r}
+```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 model1_compare = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_logit)
 
 model3_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita + age_name*sex_name, data = regression_logit) 
 
-anova(model1_compare, model3_logit) 
+Anova(model1_compare, model3_logit)
 
 ```
 

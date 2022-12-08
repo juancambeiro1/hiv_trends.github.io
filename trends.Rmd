@@ -41,9 +41,10 @@ theme_set(theme_bw() +
 maindata = read_csv("data/maindata.csv") 
 ```
 
+
 ### Global trend of HIV mortality per 100k population: 1990 to 2019
 
-We plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019. HIV/AIDS deaths peaked in the early 2000s.
+We plot the estimated global HIV mortality per 100k population across 200 countries from 1990 to 2019. The estimated global HIV mortality rate increased from 1990, reached a peak in 2004, and decreased from 2005 to 2019.
 
 ```{r echo=TRUE,message = FALSE,warning = FALSE, fig.align='center'}
 death_year = maindata %>%
@@ -71,7 +72,7 @@ plot_death_year + transition_reveal(year)
 
 ### Global trend of HIV mortality per 100k population by sex: 1990 to 2019
 
-Next we plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019 *by sex*. Mortality among females is consistently higher than mortality among males.
+The trajectories of estimated global HIV mortality for females and males from 1990 to 2019 were similar. Before 1994 and after 2015, the difference in the HIV mortality rate between females and males was virtually indistinguishable. But from 1994 to 2015, the yearly global HIV mortality rate for females was higher than that for males.
 
 ```{r echo=TRUE,message = FALSE,warning = FALSE, fig.align='center'}
 death_gender = maindata %>% 
@@ -98,7 +99,10 @@ plot_death_gender + transition_reveal(year)
 
 ### Global trend of HIV mortality per 100k population by Age: 1990 to 2019
 
-Next we plot the estimated number of HIV deaths per 100k population across all countries from 1990 to 2019 *by age group*. Mortality is highest among those in the 25-49 year old age group, and lowest in those who are 75+. 
+Generally, the estimated global HIV mortality rates from 1990 to 2019 were the highest among young or middle-aged adults (25-49 years), and were the lowest among the elderly (75+ years). 
+
+Among young or middle-aged adults, the global HIV mortality rate changed the most from 1990 to 2019, with the peak occurring in 2004. The mortality trends were more stable for people in other age groups (0-9 years, 10-24 years, 50-74 years, and 75+ years). Among the people aged over 75 years old, the global HIV mortality rates during the 30 years were low and stable. 
+
 
 ```{r echo=TRUE, message = FALSE,warning = FALSE,  fig.align='center'}
 death_age = maindata %>% 
@@ -125,7 +129,7 @@ plot_death_age + transition_reveal(year)
 
 ### HIV Mortality Rate by Country GDP Per Capita: 1990 to 2019
 
-We next wanted to explore the relationship between GDP per capita and HIV mortality per 100k. The below graph shows that the countries with the highest HIV mortality per 100k tend to be those with lower GDP per capita, which may be indicative of the fact that poorer countries do not have adequate resources to avert otherwise preventable HIV/AIDS deaths.
+We next wanted to explore the relationship between GDP per capita and HIV mortality per 100k. The below graph shows there was a non-linear negative association between the estimated global HIV mortality rates in the past 30 years and the country GDP. The countries with lower GDP had higher HIV mortality rate. This may be indicative of the fact that poorer countries do not have adequate resources to avert otherwise preventable HIV/AIDS deaths.
 
 ```{r,echo=TRUE, message = FALSE,warning = FALSE, fig.align='center', warning=FALSE}
 
@@ -147,6 +151,8 @@ We additionally wanted to look at how countries rank in terms of their number of
 
 ```{r,echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 top_10 <- maindata %>% group_by(country_name) %>% summarise(count=sum(val)) %>% arrange(desc(count)) %>% head(n=10)
+top_10$count <- format(top_10$count, big.mark=",")
+
 knitr::kable(top_10) %>%
   kable_styling(full_width = F) %>%
   column_spec(1, width = "50%") %>%
@@ -229,7 +235,7 @@ final_animation<-animate(plt,100,fps = 20,duration = 30, width = 1000, height = 
 final_animation
 ```
 
-Finally, we show the 10 countries with the highest total number of HIV/AIDS deaths adjusted for population size and the 10 countries with the lowest total number of HIV/AIDS deaths adjusted for population size. 
+Now we show a table of the 10 countries with the highest total number of HIV/AIDS deaths adjusted for population size, as well as an animation of how the top 10 has changed between 1990 and 2019.
 
 ### Top 10 countries with highest HIV mortality per 100k
 
@@ -334,6 +340,8 @@ hivrate_animation
 
 
 ### Top 10 countries with lowest HIV mortality per 100k
+
+Finally we show a table of the 10 countries with the highest total number of HIV/AIDS deaths adjusted for population size, as well as an animation of how the top 10 has changed between 1990 and 2019.
 
 ```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 top_10_low = death_country %>%
