@@ -83,80 +83,69 @@ regression %>%
  xlab("Estimated log(HIV deaths per 100k)")
 ```
 
-## Regression models
+### Linear regression models
 
-Now we proceed with building different regression models.
+### Hypothesis 1:
+There is statistically significant relationship between the HIV deaths per 100k and age groups, sex, year, and the country's gdp respectively. 
 
-### Logistic regression models
+### model 1:
 
-#### model1:
-
-$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
-```{r, echo=TRUE}
+$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
+```{r}
 regression_logit = regression %>%
   mutate(log_mortality_per_100k = if_else(log_mortality_per_100k == -Inf, 0.01, log_mortality_per_100k))
   
-model1_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_logit) 
-kable(summary(model1_logit)$coefficients)
+model1_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_logit) %>% 
+  broom::tidy() %>% 
+  mutate(exp_est = exp(estimate))
+
+knitr::kable(model1_logit)
+
 ```
 
-#### model2:
+Interpretation:
+The 10-24 years old has 0.83 times the HIV mortality per 100k population compared to the 0-9 years old holding sex, year and gdp in constant.
+The 25-49 years old has 9.26 times the HIV mortality per 100k population compared to the 0-9 age years old holding sex, year and gdp in constant.
+The 50-74 years old has 2.70 times the HIV mortality per 100k population compared to the 0-9 age years old holding sex, year and gdp in constant.
+The 75+ years old has 0.06 times the HIV mortality per 100k population compared to the 0-9 age years old holding sex, year and gdp in constant.
+The HIV mortality per 100k population will increase by 4% with 1 year increase between 1990-2019 holding age, sex, and gdp in constant.
+The the HIV mortality per 100k population will decrease by 0.004% with 1 unit increase of gdp holding age, sex, and year in constant.
 
-$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4year_{2004} + \beta_5gdp + \beta_6 year*year_{2004}  $$
-```{r, echo=TRUE}
+The associations between the HIV deaths per 100k and age groups, sex, year, and the country's gdp respectively are all statistically significant at the level of 5%.
+
+
+### Hypothesis 2:
+There is a significant change of the HIV deaths per 100k before and after the year 2004 controlling for age groups, sex, and gdp.
+
+### model 2:
+$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4gdp  $$
+```{r}
   
-model2_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, data = regression_logit)
-kable(summary(model2_logit)$coefficients)
+model2_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita, data = regression_logit) %>% 
+  broom::tidy() %>% 
+  mutate(exp_est = exp(estimate))
+
+knitr::kable(model2_logit)
+
+```
+Interpretation: 
+The HIV deaths per 100k is 44.51% lower before 2004 than after 2004 after controlling for age, sex, and gdp at the level of 5% significance. 
+
+### Hypothesis 3:
+There is an interaction between age and sex. 
+
+### model 3:
+
+$$ log(motality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp + \beta_5 age*sex $$
+
+```{r}
+model1_compare = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita, data = regression_logit)
+
+model3_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year + gdp_per_capita + age_name*sex_name, data = regression_logit) 
+
+anova(model1_compare, model3_logit) 
+
 ```
 
-#### model3:
-
-$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex $$
-
-```{r, echo=TRUE}
-model3_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_logit)
-kable(summary(model3_logit)$coefficients)
-```
-
-#### model4:
-$$ log(mortality/100000) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age*sex + \beta_6 country$$
-
-```{r, echo=TRUE}
-model4_logit = lm(log_mortality_per_100k ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_logit)
-kable(summary(model4_logit)$coefficients)
-```
-
-### Poisson Regression models
-
-#### model1:
-
-$$ log(E(Y_i|age_i,sex_i,year_i,gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 gdp $$
-```{r, echo=TRUE}
-regression_poisson = regression %>% 
-  mutate(val = as.integer(val))
-model1_poi = glm(val ~ age_name + sex_name + year + gdp_per_capita, family = "poisson", data = regression_poisson)
-kable(summary(model1_poi)$coefficients)
-```
-#### model2:
-
-$$ log(E(Y_i|age_i,sex_i,year_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year + \beta_4 year_{2004} + \beta_5 gdp + \beta_6 year *year_{2004}$$
-```{r, echo=TRUE}
-model2_poi = glm(val ~ age_name + sex_name + year + year_2004 + gdp_per_capita + year*year_2004, family = "poisson", data = regression_poisson)
-kable(summary(model2_poi)$coefficients)
-```
-
-#### model3:
-
-$$ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex$$
-```{r, echo=TRUE}
-model3_poi = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name, data = regression_poisson)
-kable(summary(model3_logit)$coefficients)
-```
-
-#### model4:
-
-$$ log(E(Y_i|age_i,sex_i,year_{2004i},gdp_i,country_i)) = \beta_0 + \beta_1 age + \beta_2 sex + \beta_3 year_{2004} + \beta_4 gdp + \beta_5 age *sex + \beta_6 country$$
-```{r, echo=TRUE}
-model4_logit = glm(val ~ age_name + sex_name + year_2004 + gdp_per_capita + age_name*sex_name + country_name, data = regression_poisson)
-kable(summary(model4_logit)$coefficients)
-```
+Interpretation:
+There is an interaction between age groups and sex at the 5% significance level, which means that gender can have different impacts on the HIV deaths per 100k regarding to different age groups.
