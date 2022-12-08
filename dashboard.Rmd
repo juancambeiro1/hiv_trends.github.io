@@ -36,42 +36,7 @@ theme_set(theme_bw() +
                 plot.subtitle = element_text(hjust = 0.5, size = 12)))
 ```
 
-
-```{r}
-deaths = read_csv("./data/final_hiv_deaths.csv") %>% 
-  janitor::clean_names() %>% 
-  select("location_id","location_name", starts_with("sex"), starts_with("age"), "year", "val", "upper", "lower") %>%
-  rename(country_name = location_name) %>% 
-  mutate(year = as.character(year))
-  
-gdp = read_csv("./data/final_gdp_per_capita.csv", skip = 4, col_names = TRUE) %>% 
-  janitor::clean_names() %>% 
-  drop_na(location_id) 
-names(gdp) <- sub('^x', '', names(gdp))
-gdp_clean = gdp %>%  
-  select("location_id", "country_name", "1990":"2019") %>% 
-  pivot_longer(cols = "1990":"2019",
-               names_to = "year",
-               values_to = "GDP_per_capita") 
-population = read_csv("./data/final_population_total.csv", skip = 4, col_names = TRUE)  %>% 
-  janitor::clean_names() %>% 
-  drop_na(location_id) 
-names(population) <- sub('^x', '', names(population))
-population_clean = population %>%  
-  select("location_id", "1990":"2019") %>% 
-  pivot_longer(cols = "1990":"2019",
-               names_to = "year",
-               values_to = "Population") 
-gdp_population = inner_join(gdp_clean, population_clean, by = c("location_id", "year")) %>% 
-  janitor::clean_names() 
-maindata = left_join(deaths, gdp_population, by = c("year","location_id")) %>% 
-  select(-country_name.x, -age_id) %>% 
-  rename(country_name = country_name.y) %>% 
-  select(location_id, country_name, everything())
-```
-
-Column {data-width=650}
------------------------------------------------------------------------
+### Scatterplot showing HIV mortality rate per 100k against GDP per capital (USD)
 
 ```{r}
 death_country = maindata %>% 
@@ -91,7 +56,9 @@ gdp_plotly = read_csv("./data/final_gdp_per_capita.csv", skip = 4, col_names = T
   select("location_id", "country_code", "country_name")
 maindata_plotly = left_join(death_country, gdp_plotly, by = c("location_id")) %>% 
   select(location_id, country_name, mortality_per_100k, country_code, gdp_per_capita, population)
+
 fig <- plot_ly(maindata_plotly, x = ~gdp_per_capita, y = ~mortality_per_100k, type = 'scatter', mode = 'markers', split = ~country_name, size = ~population) %>%
+  add_markers(marker=list(sizeref=1.0, sizemode="population")) %>% 
   layout( plot_bgcolor='#e5ecf6',
           xaxis = list(
             title = 'GDP per capita (USD)',
@@ -106,28 +73,5 @@ fig <- plot_ly(maindata_plotly, x = ~gdp_per_capita, y = ~mortality_per_100k, ty
 fig
 ```
 
-Column {data-width=350}
------------------------------------------------------------------------
-```{r}
 
-l <- list(color = toRGB("grey"), width = 0.5)
 
-g <- list(
-  showframe = FALSE,
-  showcoastlines = FALSE,
-  projection = list(type = 'Mercator')
-)
-
-fig2 <- plot_geo(maindata_plotly)
-fig2 <- fig2 %>% add_trace(
-    z = ~mortality_per_100k, color = ~gdp_per_capita, colors = 'Blues',
-    text = ~country_name, locations = ~country_code, marker = list(line = l)
-  )
-fig2 <- fig2 %>% colorbar(title = 'GDP Billions US$', tickprefix = '$')
-fig2 <- fig2 %>% layout(
-    title = 'Figure showing the association between GDP per capita and HIV mortality rate',
-    geo = g
-  )
-
-fig2
-```
