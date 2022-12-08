@@ -5,7 +5,7 @@ navbar:
   right:
     - text: "HIV/AIDS Timeline"
       href: timeline.html
-    - text: "Data cleaning/pre-processing"
+    - text: "Data cleaning/processing"
       href: data.html
     - text: "Trends"
       href: trends.html

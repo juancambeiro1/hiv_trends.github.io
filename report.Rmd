@@ -6,6 +6,13 @@ output:
     toc_float: true
 --- 
 
+### Group members (all made equal contribution)
+* Juan Cambeiro (jc5313)
+* Jiaxin Wu (jw4007) 
+* Liping Lu (ll3407)
+* Thirsten Stockton (tjs2193)
+* Kiran Kui (yk2959)
+
 ### Background and Motivation
 
 Human immunodeficiency virus (HIV) is a retrovirus that attacks and weakens the immune system, making it difficult for the body to fight off other infections and diseases. Acquired Immunodeficiency Syndrome (AIDS) is the most advanced stage of HIV infection, when the immune system is severely weakened and the body is unable to fight off life-threatening infections and diseases.
@@ -42,9 +49,3 @@ X
 
 X
 
-# Group members
-* Juan Cambeiro (jc5313)
-* Jiaxin Wu (jw4007) 
-* Liping Lu (ll3407)
-* Thirsten Stockton (tjs2193)
-* Kiran Kui (yk2959)
