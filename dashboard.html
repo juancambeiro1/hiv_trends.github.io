@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-
-<html>
-
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-<meta charset="utf-8" />
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
 
 
 
 <title>Dashboard</title>
 
+<meta property="og:title" content="Dashboard" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script id="flexdashboard-navbar" type="application/json">
+[{"title":"Source Code","icon":"fa-code","href":"source_embed","align":"right"}]
+</script>
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,261 +40,120 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-
+<link href="site_libs/value-box-accent-static-0.6.0/theme-cosmo-value-box.css" rel="stylesheet" />
+<link href="site_libs/featherlight-1.3.5/featherlight.min.css" rel="stylesheet" />
+<script src="site_libs/featherlight-1.3.5/featherlight.min.js"></script>
+<link href="site_libs/prism-1.4.1/prism.css" rel="stylesheet" />
+<script src="site_libs/prism-1.4.1/prism.js"></script>
+<link href="site_libs/flexdashboard-css-0.6.0/flexdashboard.min.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.0/theme-cosmo.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+/*
+  CSS for flexdashboard.js' use of Sly(). The sizing/position of this CSS needs to be
+  applied _before_ flexdashboard.js initializes, which is why this CSS has been pulled
+  out from flexdashboard.scss and inlined in the document's head.
+*/
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-
-
-
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
   outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
   padding: 0;
 }
-</style>
 
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
 
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
 }
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
 }
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
 }
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
+
+.storyboard-nav .sbnext {
   float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  text-align: right;
+  margin-right: 8px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
 }
 
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  text-align: left;
+  cursor: pointer;
 }
 
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
 }
 
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
+.sbframe-commentary {
+  width: 300px;
 }
 
-.tabset-dropdown > .nav-tabs > li {
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
   display: none;
 }
-</style>
-
-<!-- code folding -->
-
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
 }
 
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
+#dashboard-container {
+  height: 100%;
 }
 }
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
 </style>
 
 
@@ -292,159 +162,1923 @@ div.tocify {
 
 <body>
 
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
 
-<div class="container-fluid main-container">
+<span class="navbar-logo">
+  
+</span>
+<span class="navbar-brand">
+  Dashboard
+  <span class="navbar-author">
+        </span>
+</span>
 
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">Home</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://www.youtube.com/watch?v=Bg8tbmppoIA">
-    <span class="fa fa-brands fa-youtube"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="timeline.html">HIV/AIDS Timeline</a>
-</li>
-<li>
-  <a href="data.html">Data cleaning/pre-processing</a>
-</li>
-<li>
-  <a href="trends.html">Trends</a>
-</li>
-<li>
-  <a href="dashboard.html">Dashboard</a>
-</li>
-<li>
-  <a href="regression.html">Regression Analysis</a>
-</li>
-<li>
-  <a href="report.html">Final Project Report</a>
-</li>
-<li>
-  <a href="https://github.com/juancambeiro1/hiv_trends.github.io">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-
-
-<h1 class="title toc-ignore">Dashboard</h1>
+<button id="navbar-button" type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
 
 </div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
 
 
-<div id="wip" class="section level3">
-<h3>WIP</h3>
-</div>
+var FlexDashboard = (function () {
 
+  // initialize options
+  var _options = {};
 
+  var FlexDashboard = function() {
 
-</div>
-</div>
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false,
+      resize_reload: true
+    });
+  };
 
-</div>
+  function init(options) {
 
-<script>
+    // extend default options
+    $.extend(true, _options, options);
 
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.append(h1.contents());
+        h3.insertBefore(h1);
+        h1.detach();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if resize_reload is set to true and it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    if (_options.resize_reload) {
+      $(window).on('resize', function() {
+        if (_options.isMobile !== isMobilePhone() ||
+            _options.isPortrait !== isPortrait()) {
+          window.location.reload();
+        }
+      });
+    } else {
+      // if in desktop mode and resizing to mobile, make sure the heights are 100%
+      // This enforces what `fillpage.css` does for "wider" pages.
+      // Since we are not reloading once the page becomes small, we need to force the height to 100%
+      // This is a new situation introduced when `_options.resize_reload` is `false`
+      if (! _options.isMobile) {
+        // only add if `fillpage.css` was added in the first place
+        if (_options.fillPage) {
+          // fillpage.css
+          $("html,body,#dashboard").css("height", "100%");
+        }
+      }
+    }
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          var a = navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target);
+          a.removeClass("nav-link").addClass("dropdown-item");
+          li.append(a);
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li class="nav-item"></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li class="nav-item"></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('data-bs-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover its inner contens, then detach it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.contents();
+    h1.detach();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      li.find("> a").removeClass("nav-link").addClass("dropdown-item");
+      menu.append(li);
+    } else {
+      li.addClass("nav-item")
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a class="nav-link"></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = null;
+      var iconSplit = icon.split(" ");
+      if (iconSplit.length > 1) {
+        iconSet = iconSplit[0];
+        icon = iconSplit.slice(1).join(" ");
+      } else {
+        iconSet = icon.substring(0, dashPos);
+      }
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.append(h2.contents());
+      h3.insertBefore(h2);
+      h2.detach();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.append(h3.contents());
+      h3.detach();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.append(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var pills = tabset.hasClass("tabset-pills");
+    var navClass = pills ? "nav-pills" : "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    var activeTab = 0;
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // see if this is marked as the active tab
+      if (tab.hasClass('active'))
+        activeTab = i;
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingDom = heading.contents();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab" class="nav-link"></a>');
+      a.append(headingDom);
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation" class="nav-item"></li>');
+      li.append(a);
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // set active tab
+    $(tabList.children()[activeTab]).tab("show");
+    var active = $(tabContent.children('div.section')[activeTab]);
+    active.addClass('active');
+    if (fade)
+      active.addClass('in');
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.contents();
+    h3.detach();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.empty().append(blockquote.children('p:first-child').contents());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.empty().append(caption.contents());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.decodeURIComponent(window.location.hash);
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.decodeURIComponent(window.location.hash);
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from currently active tabs
+    $('.navbar ul.nav .active').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").tab("show");
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
 });
 
+// plot image (figure style)
+window.FlexDashboardComponents.push({
 
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.append(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var iconSplit = chartIcon.split(" ");
+      if (iconSplit.length > 1) {
+        iconLib = iconSplit[0];
+        chartIcon = iconSplit.slice(1).join(" ");
+      } else {
+        var components = chartIcon.split("-");
+        if (components.length > 1)
+          iconLib = components[0];
+      }
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // If valueBox(color=) was an accent color, this attr should
+      // be populated with the accent color and the relevant CSS comes
+      // in through HTML dependencies
+      var dataColorAccent = valueOutput.attr('data-color-accent');
+      var valueBoxClasses = "value-box-" + (["primary", "info", "danger", "warning", "success"].join(" value-box-"));
+      if (dataColorAccent) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.addClass('value-box-' + dataColorAccent);
+      }
+
+      // If valueBox(color=) was a CSS color, these other data-color-*
+      // attrs will be populated
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.css('background-color', dataColor);
+      }
+      var dataColorText = valueOutput.attr('data-color-text');
+      if (dataColorText) {
+        valueBox.find(".inner").css('color', dataColorText);
+      }
+      var dataColorIcon = valueOutput.attr('data-color-icon');
+      if (dataColorIcon) {
+        valueBox.find(".icon").css('color', dataColorIcon);
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
 </script>
 
-<!-- tabsets -->
+<div id="dashboard-container">
+
+<div class="knitr-options" data-fig-width="672" data-fig-height="403">
+
+</div>
+<div id="column" class="section level2" data-width="650">
+<h2>Column</h2>
+<div class="knitr-options" data-fig-width="672" data-fig-height="403">
+
+</div>
+<div id="htmlwidget-f92b9ddb4390d2247146" style="width:60%;height:403.2px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f92b9ddb4390d2247146">{"x":{"visdat":{"8cb45ec02e77":["function () ","plotlyVisDat"]},"cur_data":"8cb45ec02e77","attrs":{"8cb45ec02e77":{"x":{},"y":{},"mode":"markers","size":{},"split":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"plot_bgcolor":"#e5ecf6","xaxis":{"domain":[0,1],"automargin":true,"title":"GDP per capita (USD)","zerolinecolor":"#ffff","zerolinewidth":5,"gridcolor":"ffff"},"yaxis":{"domain":[0,1],"automargin":true,"title":"HIV mortality per 100k","zerolinecolor":"#ffff","zerolinewidth":5,"gridcolor":"ffff"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[494.179349886029],"y":[0.0835087621449754],"mode":"markers","type":"scatter","name":"Afghanistan","marker":{"color":"rgba(31,119,180,1)","size":[12.4314172962971],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":12.4314172962971},"error_y":{"color":"rgba(31,119,180,1)","width":12.4314172962971},"error_x":{"color":"rgba(31,119,180,1)","width":12.4314172962971},"line":{"color":"rgba(31,119,180,1)","width":12.4314172962971},"xaxis":"x","yaxis":"y","frame":null},{"x":[5396.21586434732],"y":[0.00576858708565349],"mode":"markers","type":"scatter","name":"Albania","marker":{"color":"rgba(255,127,14,1)","size":[10.1817874592062],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.1817874592062},"error_y":{"color":"rgba(255,127,14,1)","width":10.1817874592062},"error_x":{"color":"rgba(255,127,14,1)","width":10.1817874592062},"line":{"color":"rgba(255,127,14,1)","width":10.1817874592062},"xaxis":"x","yaxis":"y","frame":null},{"x":[3989.66827645236],"y":[0.0612153381897646],"mode":"markers","type":"scatter","name":"Algeria","marker":{"color":"rgba(44,160,44,1)","size":[12.7518021519511],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":12.7518021519511},"error_y":{"color":"rgba(44,160,44,1)","width":12.7518021519511},"error_x":{"color":"rgba(44,160,44,1)","width":12.7518021519511},"line":{"color":"rgba(44,160,44,1)","width":12.7518021519511},"xaxis":"x","yaxis":"y","frame":null},{"x":[11715.3601388487],"y":[0.0870566002750946],"mode":"markers","type":"scatter","name":"American Samoa","marker":{"color":"rgba(214,39,40,1)","size":[10.0028480659896],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.0028480659896},"error_y":{"color":"rgba(214,39,40,1)","width":10.0028480659896},"error_x":{"color":"rgba(214,39,40,1)","width":10.0028480659896},"line":{"color":"rgba(214,39,40,1)","width":10.0028480659896},"xaxis":"x","yaxis":"y","frame":null},{"x":[40898.4179063904],"y":[0.402083927974943],"mode":"markers","type":"scatter","name":"Andorra","marker":{"color":"rgba(148,103,189,1)","size":[10.0042439686748],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.0042439686748},"error_y":{"color":"rgba(148,103,189,1)","width":10.0042439686748},"error_x":{"color":"rgba(148,103,189,1)","width":10.0042439686748},"line":{"color":"rgba(148,103,189,1)","width":10.0042439686748},"xaxis":"x","yaxis":"y","frame":null},{"x":[2177.79901475964],"y":[5.27939354933527],"mode":"markers","type":"scatter","name":"Angola","marker":{"color":"rgba(140,86,75,1)","size":[12.0339834585084],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":12.0339834585084},"error_y":{"color":"rgba(140,86,75,1)","width":12.0339834585084},"error_x":{"color":"rgba(140,86,75,1)","width":12.0339834585084},"line":{"color":"rgba(140,86,75,1)","width":12.0339834585084},"xaxis":"x","yaxis":"y","frame":null},{"x":[17376.6496765004],"y":[0.758154437861279],"mode":"markers","type":"scatter","name":"Antigua and Barbuda","marker":{"color":"rgba(227,119,194,1)","size":[10.0055206372064],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.0055206372064},"error_y":{"color":"rgba(227,119,194,1)","width":10.0055206372064},"error_x":{"color":"rgba(227,119,194,1)","width":10.0055206372064},"line":{"color":"rgba(227,119,194,1)","width":10.0055206372064},"xaxis":"x","yaxis":"y","frame":null},{"x":[10076.3552409481],"y":[0.395423648176076],"mode":"markers","type":"scatter","name":"Argentina","marker":{"color":"rgba(127,127,127,1)","size":[12.8723570235028],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":12.8723570235028},"error_y":{"color":"rgba(127,127,127,1)","width":12.8723570235028},"error_x":{"color":"rgba(127,127,127,1)","width":12.8723570235028},"line":{"color":"rgba(127,127,127,1)","width":12.8723570235028},"xaxis":"x","yaxis":"y","frame":null},{"x":[4604.64632355695],"y":[0.0644957282024152],"mode":"markers","type":"scatter","name":"Armenia","marker":{"color":"rgba(188,189,34,1)","size":[10.1884068407355],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.1884068407355},"error_y":{"color":"rgba(188,189,34,1)","width":10.1884068407355},"error_x":{"color":"rgba(188,189,34,1)","width":10.1884068407355},"line":{"color":"rgba(188,189,34,1)","width":10.1884068407355},"xaxis":"x","yaxis":"y","frame":null},{"x":[54875.2859563351],"y":[0.0278533176874695],"mode":"markers","type":"scatter","name":"Australia","marker":{"color":"rgba(23,190,207,1)","size":[11.6210078803539],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":11.6210078803539},"error_y":{"color":"rgba(23,190,207,1)","width":11.6210078803539},"error_x":{"color":"rgba(23,190,207,1)","width":11.6210078803539},"line":{"color":"rgba(23,190,207,1)","width":11.6210078803539},"xaxis":"x","yaxis":"y","frame":null},{"x":[50114.4011099728],"y":[0.0399405194721574],"mode":"markers","type":"scatter","name":"Austria","marker":{"color":"rgba(31,119,180,1)","size":[10.5670275110081],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.5670275110081},"error_y":{"color":"rgba(31,119,180,1)","width":10.5670275110081},"error_x":{"color":"rgba(31,119,180,1)","width":10.5670275110081},"line":{"color":"rgba(31,119,180,1)","width":10.5670275110081},"xaxis":"x","yaxis":"y","frame":null},{"x":[4805.75371765917],"y":[0.0370162473751449],"mode":"markers","type":"scatter","name":"Azerbaijan","marker":{"color":"rgba(255,127,14,1)","size":[10.6401895236709],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.6401895236709},"error_y":{"color":"rgba(255,127,14,1)","width":10.6401895236709},"error_x":{"color":"rgba(255,127,14,1)","width":10.6401895236709},"line":{"color":"rgba(255,127,14,1)","width":10.6401895236709},"xaxis":"x","yaxis":"y","frame":null},{"x":[33872.3343072665],"y":[2.98221633961443],"mode":"markers","type":"scatter","name":"Bahamas, The","marker":{"color":"rgba(44,160,44,1)","size":[10.0242126525933],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.0242126525933},"error_y":{"color":"rgba(44,160,44,1)","width":10.0242126525933},"error_x":{"color":"rgba(44,160,44,1)","width":10.0242126525933},"line":{"color":"rgba(44,160,44,1)","width":10.0242126525933},"xaxis":"x","yaxis":"y","frame":null},{"x":[23552.3799480773],"y":[0.0448222857811475],"mode":"markers","type":"scatter","name":"Bahrain","marker":{"color":"rgba(214,39,40,1)","size":[10.1042355838535],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.1042355838535},"error_y":{"color":"rgba(214,39,40,1)","width":10.1042355838535},"error_x":{"color":"rgba(214,39,40,1)","width":10.1042355838535},"line":{"color":"rgba(214,39,40,1)","width":10.1042355838535},"xaxis":"x","yaxis":"y","frame":null},{"x":[2154.22681857606],"y":[0.0219880429932525],"mode":"markers","type":"scatter","name":"Bangladesh","marker":{"color":"rgba(148,103,189,1)","size":[20.4232648711401],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":20.4232648711401},"error_y":{"color":"rgba(148,103,189,1)","width":20.4232648711401},"error_x":{"color":"rgba(148,103,189,1)","width":20.4232648711401},"line":{"color":"rgba(148,103,189,1)","width":20.4232648711401},"xaxis":"x","yaxis":"y","frame":null},{"x":[18480.0565925601],"y":[0.862686950663678],"mode":"markers","type":"scatter","name":"Barbados","marker":{"color":"rgba(140,86,75,1)","size":[10.0176618067276],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.0176618067276},"error_y":{"color":"rgba(140,86,75,1)","width":10.0176618067276},"error_x":{"color":"rgba(140,86,75,1)","width":10.0176618067276},"line":{"color":"rgba(140,86,75,1)","width":10.0176618067276},"xaxis":"x","yaxis":"y","frame":null},{"x":[6837.71782606351],"y":[0.311797706610566],"mode":"markers","type":"scatter","name":"Belarus","marker":{"color":"rgba(227,119,194,1)","size":[10.6015407158145],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.6015407158145},"error_y":{"color":"rgba(227,119,194,1)","width":10.6015407158145},"error_x":{"color":"rgba(227,119,194,1)","width":10.6015407158145},"line":{"color":"rgba(227,119,194,1)","width":10.6015407158145},"xaxis":"x","yaxis":"y","frame":null},{"x":[46599.1113350938],"y":[0.0487158149576022],"mode":"markers","type":"scatter","name":"Belgium","marker":{"color":"rgba(127,127,127,1)","size":[10.7338312968329],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.7338312968329},"error_y":{"color":"rgba(127,127,127,1)","width":10.7338312968329},"error_x":{"color":"rgba(127,127,127,1)","width":10.7338312968329},"line":{"color":"rgba(127,127,127,1)","width":10.7338312968329},"xaxis":"x","yaxis":"y","frame":null},{"x":[4983.33611435869],"y":[2.05032520157655],"mode":"markers","type":"scatter","name":"Belize","marker":{"color":"rgba(188,189,34,1)","size":[10.0242679542248],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.0242679542248},"error_y":{"color":"rgba(188,189,34,1)","width":10.0242679542248},"error_x":{"color":"rgba(188,189,34,1)","width":10.0242679542248},"line":{"color":"rgba(188,189,34,1)","width":10.0242679542248},"xaxis":"x","yaxis":"y","frame":null},{"x":[1219.51550596905],"y":[1.72310764429754],"mode":"markers","type":"scatter","name":"Benin","marker":{"color":"rgba(23,190,207,1)","size":[10.7537891761553],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.7537891761553},"error_y":{"color":"rgba(23,190,207,1)","width":10.7537891761553},"error_x":{"color":"rgba(23,190,207,1)","width":10.7537891761553},"line":{"color":"rgba(23,190,207,1)","width":10.7537891761553},"xaxis":"x","yaxis":"y","frame":null},{"x":[116153.166121638],"y":[0.977671722261175],"mode":"markers","type":"scatter","name":"Bermuda","marker":{"color":"rgba(31,119,180,1)","size":[10.0033978217462],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.0033978217462},"error_y":{"color":"rgba(31,119,180,1)","width":10.0033978217462},"error_x":{"color":"rgba(31,119,180,1)","width":10.0033978217462},"line":{"color":"rgba(31,119,180,1)","width":10.0033978217462},"xaxis":"x","yaxis":"y","frame":null},{"x":[3322.86332883678],"y":[0.401690400392263],"mode":"markers","type":"scatter","name":"Bhutan","marker":{"color":"rgba(255,127,14,1)","size":[10.0480983542692],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.0480983542692},"error_y":{"color":"rgba(255,127,14,1)","width":10.0480983542692},"error_x":{"color":"rgba(255,127,14,1)","width":10.0480983542692},"line":{"color":"rgba(255,127,14,1)","width":10.0480983542692},"xaxis":"x","yaxis":"y","frame":null},{"x":[3552.06814383653],"y":[0.635864026036843],"mode":"markers","type":"scatter","name":"Bolivia","marker":{"color":"rgba(44,160,44,1)","size":[10.7353734771284],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.7353734771284},"error_y":{"color":"rgba(44,160,44,1)","width":10.7353734771284},"error_x":{"color":"rgba(44,160,44,1)","width":10.7353734771284},"line":{"color":"rgba(44,160,44,1)","width":10.7353734771284},"xaxis":"x","yaxis":"y","frame":null},{"x":[6119.76235142981],"y":[0.00519017905639773],"mode":"markers","type":"scatter","name":"Bosnia and Herzegovina","marker":{"color":"rgba(214,39,40,1)","size":[10.2103529575592],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.2103529575592},"error_y":{"color":"rgba(214,39,40,1)","width":10.2103529575592},"error_x":{"color":"rgba(214,39,40,1)","width":10.2103529575592},"line":{"color":"rgba(214,39,40,1)","width":10.2103529575592},"xaxis":"x","yaxis":"y","frame":null},{"x":[7247.42947645351],"y":[24.3629270365711],"mode":"markers","type":"scatter","name":"Botswana","marker":{"color":"rgba(148,103,189,1)","size":[10.1465933730406],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.1465933730406},"error_y":{"color":"rgba(148,103,189,1)","width":10.1465933730406},"error_x":{"color":"rgba(148,103,189,1)","width":10.1465933730406},"line":{"color":"rgba(148,103,189,1)","width":10.1465933730406},"xaxis":"x","yaxis":"y","frame":null},{"x":[8876.05983587779],"y":[0.737307190110576],"mode":"markers","type":"scatter","name":"Brazil","marker":{"color":"rgba(140,86,75,1)","size":[23.4922398449078],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":23.4922398449078},"error_y":{"color":"rgba(140,86,75,1)","width":23.4922398449078},"error_x":{"color":"rgba(140,86,75,1)","width":23.4922398449078},"line":{"color":"rgba(140,86,75,1)","width":23.4922398449078},"xaxis":"x","yaxis":"y","frame":null},{"x":[31085.9619255901],"y":[0.122049724017721],"mode":"markers","type":"scatter","name":"Brunei Darussalam","marker":{"color":"rgba(227,119,194,1)","size":[10.0270135363817],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.0270135363817},"error_y":{"color":"rgba(227,119,194,1)","width":10.0270135363817},"error_x":{"color":"rgba(227,119,194,1)","width":10.0270135363817},"line":{"color":"rgba(227,119,194,1)","width":10.0270135363817},"xaxis":"x","yaxis":"y","frame":null},{"x":[9879.26853313318],"y":[0.0658201834249902],"mode":"markers","type":"scatter","name":"Bulgaria","marker":{"color":"rgba(127,127,127,1)","size":[10.445289823867],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.445289823867},"error_y":{"color":"rgba(127,127,127,1)","width":10.445289823867},"error_x":{"color":"rgba(127,127,127,1)","width":10.445289823867},"line":{"color":"rgba(127,127,127,1)","width":10.445289823867},"xaxis":"x","yaxis":"y","frame":null},{"x":[796.115206827676],"y":[1.45605868671276],"mode":"markers","type":"scatter","name":"Burkina Faso","marker":{"color":"rgba(188,189,34,1)","size":[11.2985090958603],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":11.2985090958603},"error_y":{"color":"rgba(188,189,34,1)","width":11.2985090958603},"error_x":{"color":"rgba(188,189,34,1)","width":11.2985090958603},"line":{"color":"rgba(188,189,34,1)","width":11.2985090958603},"xaxis":"x","yaxis":"y","frame":null},{"x":[223.862875707709],"y":[1.77576674072362],"mode":"markers","type":"scatter","name":"Burundi","marker":{"color":"rgba(23,190,207,1)","size":[10.7364906979502],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.7364906979502},"error_y":{"color":"rgba(23,190,207,1)","width":10.7364906979502},"error_x":{"color":"rgba(23,190,207,1)","width":10.7364906979502},"line":{"color":"rgba(23,190,207,1)","width":10.7364906979502},"xaxis":"x","yaxis":"y","frame":null},{"x":[3603.77524058462],"y":[0.992329278666834],"mode":"markers","type":"scatter","name":"Cabo Verde","marker":{"color":"rgba(31,119,180,1)","size":[10.0344706257467],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.0344706257467},"error_y":{"color":"rgba(31,119,180,1)","width":10.0344706257467},"error_x":{"color":"rgba(31,119,180,1)","width":10.0344706257467},"line":{"color":"rgba(31,119,180,1)","width":10.0344706257467},"xaxis":"x","yaxis":"y","frame":null},{"x":[1643.12138876539],"y":[0.858609301680513],"mode":"markers","type":"scatter","name":"Cambodia","marker":{"color":"rgba(255,127,14,1)","size":[11.0533380392974],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":11.0533380392974},"error_y":{"color":"rgba(255,127,14,1)","width":11.0533380392974},"error_x":{"color":"rgba(255,127,14,1)","width":11.0533380392974},"line":{"color":"rgba(255,127,14,1)","width":11.0533380392974},"xaxis":"x","yaxis":"y","frame":null},{"x":[1533.09568807789],"y":[8.95497967912944],"mode":"markers","type":"scatter","name":"Cameroon","marker":{"color":"rgba(44,160,44,1)","size":[11.6536545112482],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":11.6536545112482},"error_y":{"color":"rgba(44,160,44,1)","width":11.6536545112482},"error_x":{"color":"rgba(44,160,44,1)","width":11.6536545112482},"line":{"color":"rgba(44,160,44,1)","width":11.6536545112482},"xaxis":"x","yaxis":"y","frame":null},{"x":[46328.6718408497],"y":[0.0674345146403456],"mode":"markers","type":"scatter","name":"Canada","marker":{"color":"rgba(214,39,40,1)","size":[12.4032532941822],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":12.4032532941822},"error_y":{"color":"rgba(214,39,40,1)","width":12.4032532941822},"error_x":{"color":"rgba(214,39,40,1)","width":12.4032532941822},"line":{"color":"rgba(214,39,40,1)","width":12.4032532941822},"xaxis":"x","yaxis":"y","frame":null},{"x":[468.117514792315],"y":[11.6889347586241],"mode":"markers","type":"scatter","name":"Central African Republic","marker":{"color":"rgba(148,103,189,1)","size":[10.3026830911002],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.3026830911002},"error_y":{"color":"rgba(148,103,189,1)","width":10.3026830911002},"error_x":{"color":"rgba(148,103,189,1)","width":10.3026830911002},"line":{"color":"rgba(148,103,189,1)","width":10.3026830911002},"xaxis":"x","yaxis":"y","frame":null},{"x":[709.54004317463],"y":[2.94435013976026],"mode":"markers","type":"scatter","name":"Chad","marker":{"color":"rgba(140,86,75,1)","size":[11.0188362144799],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":11.0188362144799},"error_y":{"color":"rgba(140,86,75,1)","width":11.0188362144799},"error_x":{"color":"rgba(140,86,75,1)","width":11.0188362144799},"line":{"color":"rgba(140,86,75,1)","width":11.0188362144799},"xaxis":"x","yaxis":"y","frame":null},{"x":[14699.4627808048],"y":[0.2596068879014],"mode":"markers","type":"scatter","name":"Chile","marker":{"color":"rgba(227,119,194,1)","size":[11.2109632247375],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":11.2109632247375},"error_y":{"color":"rgba(227,119,194,1)","width":11.2109632247375},"error_x":{"color":"rgba(227,119,194,1)","width":11.2109632247375},"line":{"color":"rgba(227,119,194,1)","width":11.2109632247375},"xaxis":"x","yaxis":"y","frame":null},{"x":[10143.8381955595],"y":[0.225510141202113],"mode":"markers","type":"scatter","name":"China","marker":{"color":"rgba(127,127,127,1)","size":[100],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":100},"error_y":{"color":"rgba(127,127,127,1)","width":100},"error_x":{"color":"rgba(127,127,127,1)","width":100},"line":{"color":"rgba(127,127,127,1)","width":100},"xaxis":"x","yaxis":"y","frame":null},{"x":[6418.61578254492],"y":[0.486634226275825],"mode":"markers","type":"scatter","name":"Colombia","marker":{"color":"rgba(188,189,34,1)","size":[13.2176393769257],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":13.2176393769257},"error_y":{"color":"rgba(188,189,34,1)","width":13.2176393769257},"error_x":{"color":"rgba(188,189,34,1)","width":13.2176393769257},"line":{"color":"rgba(188,189,34,1)","width":13.2176393769257},"xaxis":"x","yaxis":"y","frame":null},{"x":[1404.43318720472],"y":[0.0218021940626679],"mode":"markers","type":"scatter","name":"Comoros","marker":{"color":"rgba(23,190,207,1)","size":[10.0537114379024],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.0537114379024},"error_y":{"color":"rgba(23,190,207,1)","width":10.0537114379024},"error_x":{"color":"rgba(23,190,207,1)","width":10.0537114379024},"line":{"color":"rgba(23,190,207,1)","width":10.0537114379024},"xaxis":"x","yaxis":"y","frame":null},{"x":[596.56057010511],"y":[1.1795688140937],"mode":"markers","type":"scatter","name":"Congo, Dem. Rep.","marker":{"color":"rgba(31,119,180,1)","size":[15.5480517275705],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":15.5480517275705},"error_y":{"color":"rgba(31,119,180,1)","width":15.5480517275705},"error_x":{"color":"rgba(31,119,180,1)","width":15.5480517275705},"line":{"color":"rgba(31,119,180,1)","width":15.5480517275705},"xaxis":"x","yaxis":"y","frame":null},{"x":[2369.72944099031],"y":[7.94530977932219],"mode":"markers","type":"scatter","name":"Congo, Rep.","marker":{"color":"rgba(255,127,14,1)","size":[10.3433010206338],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.3433010206338},"error_y":{"color":"rgba(255,127,14,1)","width":10.3433010206338},"error_x":{"color":"rgba(255,127,14,1)","width":10.3433010206338},"line":{"color":"rgba(255,127,14,1)","width":10.3433010206338},"xaxis":"x","yaxis":"y","frame":null},{"x":[12762.1380073688],"y":[0.288482409774283],"mode":"markers","type":"scatter","name":"Costa Rica","marker":{"color":"rgba(44,160,44,1)","size":[10.3220151349647],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.3220151349647},"error_y":{"color":"rgba(44,160,44,1)","width":10.3220151349647},"error_x":{"color":"rgba(44,160,44,1)","width":10.3220151349647},"line":{"color":"rgba(44,160,44,1)","width":10.3220151349647},"xaxis":"x","yaxis":"y","frame":null},{"x":[2276.3323939018],"y":[5.30309207181509],"mode":"markers","type":"scatter","name":"Cote d'Ivoire","marker":{"color":"rgba(214,39,40,1)","size":[11.6434359844609],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":11.6434359844609},"error_y":{"color":"rgba(214,39,40,1)","width":11.6434359844609},"error_x":{"color":"rgba(214,39,40,1)","width":11.6434359844609},"line":{"color":"rgba(214,39,40,1)","width":11.6434359844609},"xaxis":"x","yaxis":"y","frame":null},{"x":[15311.766903695],"y":[0.0184814052319617],"mode":"markers","type":"scatter","name":"Croatia","marker":{"color":"rgba(148,103,189,1)","size":[10.2592137071532],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.2592137071532},"error_y":{"color":"rgba(148,103,189,1)","width":10.2592137071532},"error_x":{"color":"rgba(148,103,189,1)","width":10.2592137071532},"line":{"color":"rgba(148,103,189,1)","width":10.2592137071532},"xaxis":"x","yaxis":"y","frame":null},{"x":[9125.8786794952],"y":[0.297764097495403],"mode":"markers","type":"scatter","name":"Cuba","marker":{"color":"rgba(140,86,75,1)","size":[10.7238900453935],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.7238900453935},"error_y":{"color":"rgba(140,86,75,1)","width":10.7238900453935},"error_x":{"color":"rgba(140,86,75,1)","width":10.7238900453935},"line":{"color":"rgba(140,86,75,1)","width":10.7238900453935},"xaxis":"x","yaxis":"y","frame":null},{"x":[29206.076171875],"y":[0.0386641780381979],"mode":"markers","type":"scatter","name":"Cyprus","marker":{"color":"rgba(227,119,194,1)","size":[10.0759396889457],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.0759396889457},"error_y":{"color":"rgba(227,119,194,1)","width":10.0759396889457},"error_x":{"color":"rgba(227,119,194,1)","width":10.0759396889457},"line":{"color":"rgba(227,119,194,1)","width":10.0759396889457},"xaxis":"x","yaxis":"y","frame":null},{"x":[23660.1488068317],"y":[0.0176728968015912],"mode":"markers","type":"scatter","name":"Czechia","marker":{"color":"rgba(127,127,127,1)","size":[10.6815913937892],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.6815913937892},"error_y":{"color":"rgba(127,127,127,1)","width":10.6815913937892},"error_x":{"color":"rgba(127,127,127,1)","width":10.6815913937892},"line":{"color":"rgba(127,127,127,1)","width":10.6815913937892},"xaxis":"x","yaxis":"y","frame":null},{"x":[59775.7350964515],"y":[0.0419881818748338],"mode":"markers","type":"scatter","name":"Denmark","marker":{"color":"rgba(188,189,34,1)","size":[10.371042492711],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.371042492711},"error_y":{"color":"rgba(188,189,34,1)","width":10.371042492711},"error_x":{"color":"rgba(188,189,34,1)","width":10.371042492711},"line":{"color":"rgba(188,189,34,1)","width":10.371042492711},"xaxis":"x","yaxis":"y","frame":null},{"x":[3172.75068492992],"y":[9.27546579174709],"mode":"markers","type":"scatter","name":"Djibouti","marker":{"color":"rgba(23,190,207,1)","size":[10.0615537846449],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.0615537846449},"error_y":{"color":"rgba(23,190,207,1)","width":10.0615537846449},"error_x":{"color":"rgba(23,190,207,1)","width":10.0615537846449},"line":{"color":"rgba(23,190,207,1)","width":10.0615537846449},"xaxis":"x","yaxis":"y","frame":null},{"x":[8516.28003895161],"y":[0.698369585568462],"mode":"markers","type":"scatter","name":"Dominica","marker":{"color":"rgba(31,119,180,1)","size":[10.0039026968724],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.0039026968724},"error_y":{"color":"rgba(31,119,180,1)","width":10.0039026968724},"error_x":{"color":"rgba(31,119,180,1)","width":10.0039026968724},"line":{"color":"rgba(31,119,180,1)","width":10.0039026968724},"xaxis":"x","yaxis":"y","frame":null},{"x":[8282.11713050921],"y":[1.26835840258986],"mode":"markers","type":"scatter","name":"Dominican Republic","marker":{"color":"rgba(255,127,14,1)","size":[10.685880434892],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.685880434892},"error_y":{"color":"rgba(255,127,14,1)","width":10.685880434892},"error_x":{"color":"rgba(255,127,14,1)","width":10.685880434892},"line":{"color":"rgba(255,127,14,1)","width":10.685880434892},"xaxis":"x","yaxis":"y","frame":null},{"x":[6222.52465327248],"y":[0.694909520015113],"mode":"markers","type":"scatter","name":"Ecuador","marker":{"color":"rgba(44,160,44,1)","size":[11.1100535385431],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":11.1100535385431},"error_y":{"color":"rgba(44,160,44,1)","width":11.1100535385431},"error_x":{"color":"rgba(44,160,44,1)","width":11.1100535385431},"line":{"color":"rgba(44,160,44,1)","width":11.1100535385431},"xaxis":"x","yaxis":"y","frame":null},{"x":[3019.09228346646],"y":[0.00557045137223617],"mode":"markers","type":"scatter","name":"Egypt, Arab Rep.","marker":{"color":"rgba(214,39,40,1)","size":[16.417374706798],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":16.417374706798},"error_y":{"color":"rgba(214,39,40,1)","width":16.417374706798},"error_x":{"color":"rgba(214,39,40,1)","width":16.417374706798},"line":{"color":"rgba(214,39,40,1)","width":16.417374706798},"xaxis":"x","yaxis":"y","frame":null},{"x":[4167.73093878563],"y":[1.05407300464216],"mode":"markers","type":"scatter","name":"El Salvador","marker":{"color":"rgba(148,103,189,1)","size":[10.4119035576258],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.4119035576258},"error_y":{"color":"rgba(148,103,189,1)","width":10.4119035576258},"error_x":{"color":"rgba(148,103,189,1)","width":10.4119035576258},"line":{"color":"rgba(148,103,189,1)","width":10.4119035576258},"xaxis":"x","yaxis":"y","frame":null},{"x":[8380.74112238766],"y":[15.6170966378716],"mode":"markers","type":"scatter","name":"Equatorial Guinea","marker":{"color":"rgba(140,86,75,1)","size":[10.0860031793672],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.0860031793672},"error_y":{"color":"rgba(140,86,75,1)","width":10.0860031793672},"error_x":{"color":"rgba(140,86,75,1)","width":10.0860031793672},"line":{"color":"rgba(140,86,75,1)","width":10.0860031793672},"xaxis":"x","yaxis":"y","frame":null},{"x":[23397.8782560944],"y":[0.256505296365179],"mode":"markers","type":"scatter","name":"Estonia","marker":{"color":"rgba(227,119,194,1)","size":[10.0841410167991],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.0841410167991},"error_y":{"color":"rgba(227,119,194,1)","width":10.0841410167991},"error_x":{"color":"rgba(227,119,194,1)","width":10.0841410167991},"line":{"color":"rgba(227,119,194,1)","width":10.0841410167991},"xaxis":"x","yaxis":"y","frame":null},{"x":[3889.85122575483],"y":[28.9283221144316],"mode":"markers","type":"scatter","name":"Eswatini","marker":{"color":"rgba(127,127,127,1)","size":[10.0727148686039],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.0727148686039},"error_y":{"color":"rgba(127,127,127,1)","width":10.0727148686039},"error_x":{"color":"rgba(127,127,127,1)","width":10.0727148686039},"line":{"color":"rgba(127,127,127,1)","width":10.0727148686039},"xaxis":"x","yaxis":"y","frame":null},{"x":[855.760885186903],"y":[2.37251902486259],"mode":"markers","type":"scatter","name":"Ethiopia","marker":{"color":"rgba(188,189,34,1)","size":[17.16478750894],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":17.16478750894},"error_y":{"color":"rgba(188,189,34,1)","width":17.16478750894},"error_x":{"color":"rgba(188,189,34,1)","width":17.16478750894},"line":{"color":"rgba(188,189,34,1)","width":17.16478750894},"xaxis":"x","yaxis":"y","frame":null},{"x":[6175.8906526556],"y":[0.0989694372040246],"mode":"markers","type":"scatter","name":"Fiji","marker":{"color":"rgba(23,190,207,1)","size":[10.0562088979414],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.0562088979414},"error_y":{"color":"rgba(23,190,207,1)","width":10.0562088979414},"error_x":{"color":"rgba(23,190,207,1)","width":10.0562088979414},"line":{"color":"rgba(23,190,207,1)","width":10.0562088979414},"xaxis":"x","yaxis":"y","frame":null},{"x":[48628.641762105],"y":[0.0098778559134136],"mode":"markers","type":"scatter","name":"Finland","marker":{"color":"rgba(31,119,180,1)","size":[10.3523220273518],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.3523220273518},"error_y":{"color":"rgba(31,119,180,1)","width":10.3523220273518},"error_x":{"color":"rgba(31,119,180,1)","width":10.3523220273518},"line":{"color":"rgba(31,119,180,1)","width":10.3523220273518},"xaxis":"x","yaxis":"y","frame":null},{"x":[40578.6442850534],"y":[0.0679533457508749],"mode":"markers","type":"scatter","name":"France","marker":{"color":"rgba(255,127,14,1)","size":[14.298705270673],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":14.298705270673},"error_y":{"color":"rgba(255,127,14,1)","width":14.298705270673},"error_x":{"color":"rgba(255,127,14,1)","width":14.298705270673},"line":{"color":"rgba(255,127,14,1)","width":14.298705270673},"xaxis":"x","yaxis":"y","frame":null},{"x":[7766.99655422948],"y":[5.13310287703476],"mode":"markers","type":"scatter","name":"Gabon","marker":{"color":"rgba(44,160,44,1)","size":[10.1382102210946],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.1382102210946},"error_y":{"color":"rgba(44,160,44,1)","width":10.1382102210946},"error_x":{"color":"rgba(44,160,44,1)","width":10.1382102210946},"line":{"color":"rgba(44,160,44,1)","width":10.1382102210946},"xaxis":"x","yaxis":"y","frame":null},{"x":[772.505588308894],"y":[4.59289711787508],"mode":"markers","type":"scatter","name":"Gambia, The","marker":{"color":"rgba(214,39,40,1)","size":[10.1494059564806],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.1494059564806},"error_y":{"color":"rgba(214,39,40,1)","width":10.1494059564806},"error_x":{"color":"rgba(214,39,40,1)","width":10.1494059564806},"line":{"color":"rgba(214,39,40,1)","width":10.1494059564806},"xaxis":"x","yaxis":"y","frame":null},{"x":[4696.15058555612],"y":[0.0625849709680307],"mode":"markers","type":"scatter","name":"Georgia","marker":{"color":"rgba(148,103,189,1)","size":[10.2371511052744],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.2371511052744},"error_y":{"color":"rgba(148,103,189,1)","width":10.2371511052744},"error_x":{"color":"rgba(148,103,189,1)","width":10.2371511052744},"line":{"color":"rgba(148,103,189,1)","width":10.2371511052744},"xaxis":"x","yaxis":"y","frame":null},{"x":[46794.8992915603],"y":[0.0507032078148568],"mode":"markers","type":"scatter","name":"Germany","marker":{"color":"rgba(140,86,75,1)","size":[15.3116544506629],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":15.3116544506629},"error_y":{"color":"rgba(140,86,75,1)","width":15.3116544506629},"error_x":{"color":"rgba(140,86,75,1)","width":15.3116544506629},"line":{"color":"rgba(140,86,75,1)","width":15.3116544506629},"xaxis":"x","yaxis":"y","frame":null},{"x":[2246.62557816432],"y":[4.80669300790624],"mode":"markers","type":"scatter","name":"Ghana","marker":{"color":"rgba(227,119,194,1)","size":[11.9440022058254],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":11.9440022058254},"error_y":{"color":"rgba(227,119,194,1)","width":11.9440022058254},"error_x":{"color":"rgba(227,119,194,1)","width":11.9440022058254},"line":{"color":"rgba(227,119,194,1)","width":11.9440022058254},"xaxis":"x","yaxis":"y","frame":null},{"x":[19133.7577636254],"y":[0.0209659790192029],"mode":"markers","type":"scatter","name":"Greece","marker":{"color":"rgba(127,127,127,1)","size":[10.6847696073224],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.6847696073224},"error_y":{"color":"rgba(127,127,127,1)","width":10.6847696073224},"error_x":{"color":"rgba(127,127,127,1)","width":10.6847696073224},"line":{"color":"rgba(127,127,127,1)","width":10.6847696073224},"xaxis":"x","yaxis":"y","frame":null},{"x":[53256.2440862119],"y":[0.288377324955463],"mode":"markers","type":"scatter","name":"Greenland","marker":{"color":"rgba(188,189,34,1)","size":[10.0029064363822],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.0029064363822},"error_y":{"color":"rgba(188,189,34,1)","width":10.0029064363822},"error_x":{"color":"rgba(188,189,34,1)","width":10.0029064363822},"line":{"color":"rgba(188,189,34,1)","width":10.0029064363822},"xaxis":"x","yaxis":"y","frame":null},{"x":[10834.495680302],"y":[0.487057108875036],"mode":"markers","type":"scatter","name":"Grenada","marker":{"color":"rgba(23,190,207,1)","size":[10.0064724006613],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.0064724006613},"error_y":{"color":"rgba(23,190,207,1)","width":10.0064724006613},"error_x":{"color":"rgba(23,190,207,1)","width":10.0064724006613},"line":{"color":"rgba(23,190,207,1)","width":10.0064724006613},"xaxis":"x","yaxis":"y","frame":null},{"x":[38040.5869870588],"y":[0.419293613949321],"mode":"markers","type":"scatter","name":"Guam","marker":{"color":"rgba(31,119,180,1)","size":[10.0100074215997],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.0100074215997},"error_y":{"color":"rgba(31,119,180,1)","width":10.0100074215997},"error_x":{"color":"rgba(31,119,180,1)","width":10.0100074215997},"line":{"color":"rgba(31,119,180,1)","width":10.0100074215997},"xaxis":"x","yaxis":"y","frame":null},{"x":[4638.63494319511],"y":[0.402773208880849],"mode":"markers","type":"scatter","name":"Guatemala","marker":{"color":"rgba(255,127,14,1)","size":[11.0608490877109],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":11.0608490877109},"error_y":{"color":"rgba(255,127,14,1)","width":11.0608490877109},"error_x":{"color":"rgba(255,127,14,1)","width":11.0608490877109},"line":{"color":"rgba(255,127,14,1)","width":11.0608490877109},"xaxis":"x","yaxis":"y","frame":null},{"x":[1052.58809075877],"y":[3.16103975447479],"mode":"markers","type":"scatter","name":"Guinea","marker":{"color":"rgba(44,160,44,1)","size":[10.8158097960757],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.8158097960757},"error_y":{"color":"rgba(44,160,44,1)","width":10.8158097960757},"error_x":{"color":"rgba(44,160,44,1)","width":10.8158097960757},"line":{"color":"rgba(44,160,44,1)","width":10.8158097960757},"xaxis":"x","yaxis":"y","frame":null},{"x":[749.453747028806],"y":[5.21943914667343],"mode":"markers","type":"scatter","name":"Guinea-Bissau","marker":{"color":"rgba(214,39,40,1)","size":[10.1221208986779],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.1221208986779},"error_y":{"color":"rgba(214,39,40,1)","width":10.1221208986779},"error_x":{"color":"rgba(214,39,40,1)","width":10.1221208986779},"line":{"color":"rgba(214,39,40,1)","width":10.1221208986779},"xaxis":"x","yaxis":"y","frame":null},{"x":[6609.51127954588],"y":[2.30994053643864],"mode":"markers","type":"scatter","name":"Guyana","marker":{"color":"rgba(148,103,189,1)","size":[10.0493566102345],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.0493566102345},"error_y":{"color":"rgba(148,103,189,1)","width":10.0493566102345},"error_x":{"color":"rgba(148,103,189,1)","width":10.0493566102345},"line":{"color":"rgba(148,103,189,1)","width":10.0493566102345},"xaxis":"x","yaxis":"y","frame":null},{"x":[1312.77063606676],"y":[5.24558970414112],"mode":"markers","type":"scatter","name":"Haiti","marker":{"color":"rgba(140,86,75,1)","size":[10.7193888761827],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.7193888761827},"error_y":{"color":"rgba(140,86,75,1)","width":10.7193888761827},"error_x":{"color":"rgba(140,86,75,1)","width":10.7193888761827},"line":{"color":"rgba(140,86,75,1)","width":10.7193888761827},"xaxis":"x","yaxis":"y","frame":null},{"x":[2574.35675105143],"y":[0.0937731871611556],"mode":"markers","type":"scatter","name":"Honduras","marker":{"color":"rgba(227,119,194,1)","size":[10.6224055418938],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.6224055418938},"error_y":{"color":"rgba(227,119,194,1)","width":10.6224055418938},"error_x":{"color":"rgba(227,119,194,1)","width":10.6224055418938},"line":{"color":"rgba(227,119,194,1)","width":10.6224055418938},"xaxis":"x","yaxis":"y","frame":null},{"x":[16735.6597794761],"y":[0.0381270809717235],"mode":"markers","type":"scatter","name":"Hungary","marker":{"color":"rgba(127,127,127,1)","size":[10.6240055171891],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.6240055171891},"error_y":{"color":"rgba(127,127,127,1)","width":10.6240055171891},"error_x":{"color":"rgba(127,127,127,1)","width":10.6240055171891},"line":{"color":"rgba(127,127,127,1)","width":10.6240055171891},"xaxis":"x","yaxis":"y","frame":null},{"x":[68941.4622272394],"y":[0.0245253461904871],"mode":"markers","type":"scatter","name":"Iceland","marker":{"color":"rgba(188,189,34,1)","size":[10.0223635322598],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.0223635322598},"error_y":{"color":"rgba(188,189,34,1)","width":10.0223635322598},"error_x":{"color":"rgba(188,189,34,1)","width":10.0223635322598},"line":{"color":"rgba(188,189,34,1)","width":10.0223635322598},"xaxis":"x","yaxis":"y","frame":null},{"x":[2072.24489735041],"y":[0.338825719873338],"mode":"markers","type":"scatter","name":"India","marker":{"color":"rgba(23,190,207,1)","size":[97.3578450641588],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":97.3578450641588},"error_y":{"color":"rgba(23,190,207,1)","width":97.3578450641588},"error_x":{"color":"rgba(23,190,207,1)","width":97.3578450641588},"line":{"color":"rgba(23,190,207,1)","width":97.3578450641588},"xaxis":"x","yaxis":"y","frame":null},{"x":[4135.23334351202],"y":[0.207033408906249],"mode":"markers","type":"scatter","name":"Indonesia","marker":{"color":"rgba(31,119,180,1)","size":[27.3010868437812],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":27.3010868437812},"error_y":{"color":"rgba(31,119,180,1)","width":27.3010868437812},"error_x":{"color":"rgba(31,119,180,1)","width":27.3010868437812},"line":{"color":"rgba(31,119,180,1)","width":27.3010868437812},"xaxis":"x","yaxis":"y","frame":null},{"x":[3514.0421682578],"y":[0.141912094667483],"mode":"markers","type":"scatter","name":"Iran, Islamic Rep.","marker":{"color":"rgba(255,127,14,1)","size":[15.3002061178826],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":15.3002061178826},"error_y":{"color":"rgba(255,127,14,1)","width":15.3002061178826},"error_x":{"color":"rgba(255,127,14,1)","width":15.3002061178826},"line":{"color":"rgba(255,127,14,1)","width":15.3002061178826},"xaxis":"x","yaxis":"y","frame":null},{"x":[5943.45845510233],"y":[0.0209050460750266],"mode":"markers","type":"scatter","name":"Iraq","marker":{"color":"rgba(44,160,44,1)","size":[12.5124857800219],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":12.5124857800219},"error_y":{"color":"rgba(44,160,44,1)","width":12.5124857800219},"error_x":{"color":"rgba(44,160,44,1)","width":12.5124857800219},"line":{"color":"rgba(44,160,44,1)","width":12.5124857800219},"xaxis":"x","yaxis":"y","frame":null},{"x":[80886.6157387104],"y":[0.0174812105074488],"mode":"markers","type":"scatter","name":"Ireland","marker":{"color":"rgba(214,39,40,1)","size":[10.3147766308924],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.3147766308924},"error_y":{"color":"rgba(214,39,40,1)","width":10.3147766308924},"error_x":{"color":"rgba(214,39,40,1)","width":10.3147766308924},"line":{"color":"rgba(214,39,40,1)","width":10.3147766308924},"xaxis":"x","yaxis":"y","frame":null},{"x":[43951.2477305677],"y":[0.0405201534589795],"mode":"markers","type":"scatter","name":"Israel","marker":{"color":"rgba(148,103,189,1)","size":[10.5781568844362],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.5781568844362},"error_y":{"color":"rgba(148,103,189,1)","width":10.5781568844362},"error_x":{"color":"rgba(148,103,189,1)","width":10.5781568844362},"line":{"color":"rgba(148,103,189,1)","width":10.5781568844362},"xaxis":"x","yaxis":"y","frame":null},{"x":[33673.4754474483],"y":[0.103951130296438],"mode":"markers","type":"scatter","name":"Italy","marker":{"color":"rgba(140,86,75,1)","size":[13.8179426148445],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":13.8179426148445},"error_y":{"color":"rgba(140,86,75,1)","width":13.8179426148445},"error_x":{"color":"rgba(140,86,75,1)","width":13.8179426148445},"line":{"color":"rgba(140,86,75,1)","width":13.8179426148445},"xaxis":"x","yaxis":"y","frame":null},{"x":[5369.4983713849],"y":[1.41776876054156],"mode":"markers","type":"scatter","name":"Jamaica","marker":{"color":"rgba(227,119,194,1)","size":[10.1878026144702],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.1878026144702},"error_y":{"color":"rgba(227,119,194,1)","width":10.1878026144702},"error_x":{"color":"rgba(227,119,194,1)","width":10.1878026144702},"line":{"color":"rgba(227,119,194,1)","width":10.1878026144702},"xaxis":"x","yaxis":"y","frame":null},{"x":[40458.0018755824],"y":[0.012689650957388],"mode":"markers","type":"scatter","name":"Japan","marker":{"color":"rgba(127,127,127,1)","size":[18.0952788875698],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":18.0952788875698},"error_y":{"color":"rgba(127,127,127,1)","width":18.0952788875698},"error_x":{"color":"rgba(127,127,127,1)","width":18.0952788875698},"line":{"color":"rgba(127,127,127,1)","width":18.0952788875698},"xaxis":"x","yaxis":"y","frame":null},{"x":[4405.48710929391],"y":[0.0270710931491616],"mode":"markers","type":"scatter","name":"Jordan","marker":{"color":"rgba(188,189,34,1)","size":[10.6451387959282],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.6451387959282},"error_y":{"color":"rgba(188,189,34,1)","width":10.6451387959282},"error_x":{"color":"rgba(188,189,34,1)","width":10.6451387959282},"line":{"color":"rgba(188,189,34,1)","width":10.6451387959282},"xaxis":"x","yaxis":"y","frame":null},{"x":[9812.5958082732],"y":[0.140730526998977],"mode":"markers","type":"scatter","name":"Kazakhstan","marker":{"color":"rgba(23,190,207,1)","size":[11.1829376365327],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":11.1829376365327},"error_y":{"color":"rgba(23,190,207,1)","width":11.1829376365327},"error_x":{"color":"rgba(23,190,207,1)","width":11.1829376365327},"line":{"color":"rgba(23,190,207,1)","width":11.1829376365327},"xaxis":"x","yaxis":"y","frame":null},{"x":[1909.30453654793],"y":[9.72622207471618],"mode":"markers","type":"scatter","name":"Kenya","marker":{"color":"rgba(31,119,180,1)","size":[13.3604981316942],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":13.3604981316942},"error_y":{"color":"rgba(31,119,180,1)","width":13.3604981316942},"error_x":{"color":"rgba(31,119,180,1)","width":13.3604981316942},"line":{"color":"rgba(31,119,180,1)","width":13.3604981316942},"xaxis":"x","yaxis":"y","frame":null},{"x":[1512.95276955828],"y":[0.136152944470374],"mode":"markers","type":"scatter","name":"Kiribati","marker":{"color":"rgba(255,127,14,1)","size":[10.0068308063796],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.0068308063796},"error_y":{"color":"rgba(255,127,14,1)","width":10.0068308063796},"error_x":{"color":"rgba(255,127,14,1)","width":10.0068308063796},"line":{"color":"rgba(255,127,14,1)","width":10.0068308063796},"xaxis":"x","yaxis":"y","frame":null},{"x":[31902.4169048194],"y":[0.0266963958248347],"mode":"markers","type":"scatter","name":"Korea, Rep.","marker":{"color":"rgba(44,160,44,1)","size":[13.3087674511881],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":13.3087674511881},"error_y":{"color":"rgba(44,160,44,1)","width":13.3087674511881},"error_x":{"color":"rgba(44,160,44,1)","width":13.3087674511881},"line":{"color":"rgba(44,160,44,1)","width":13.3087674511881},"xaxis":"x","yaxis":"y","frame":null},{"x":[32373.2511149607],"y":[0.00683233272051651],"mode":"markers","type":"scatter","name":"Kuwait","marker":{"color":"rgba(214,39,40,1)","size":[10.268280873152],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.268280873152},"error_y":{"color":"rgba(214,39,40,1)","width":10.268280873152},"error_x":{"color":"rgba(214,39,40,1)","width":10.268280873152},"line":{"color":"rgba(214,39,40,1)","width":10.268280873152},"xaxis":"x","yaxis":"y","frame":null},{"x":[1374.03210467421],"y":[0.263376333404937],"mode":"markers","type":"scatter","name":"Kyrgyz Republic","marker":{"color":"rgba(148,103,189,1)","size":[10.412072978809],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.412072978809},"error_y":{"color":"rgba(148,103,189,1)","width":10.412072978809},"error_x":{"color":"rgba(148,103,189,1)","width":10.412072978809},"line":{"color":"rgba(148,103,189,1)","width":10.412072978809},"xaxis":"x","yaxis":"y","frame":null},{"x":[2613.94442676868],"y":[0.521463877345677],"mode":"markers","type":"scatter","name":"Lao PDR","marker":{"color":"rgba(140,86,75,1)","size":[10.457673233714],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.457673233714},"error_y":{"color":"rgba(140,86,75,1)","width":10.457673233714},"error_x":{"color":"rgba(140,86,75,1)","width":10.457673233714},"line":{"color":"rgba(140,86,75,1)","width":10.457673233714},"xaxis":"x","yaxis":"y","frame":null},{"x":[17926.841589919],"y":[0.615931260809343],"mode":"markers","type":"scatter","name":"Latvia","marker":{"color":"rgba(227,119,194,1)","size":[10.1216672974344],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.1216672974344},"error_y":{"color":"rgba(227,119,194,1)","width":10.1216672974344},"error_x":{"color":"rgba(227,119,194,1)","width":10.1216672974344},"line":{"color":"rgba(227,119,194,1)","width":10.1216672974344},"xaxis":"x","yaxis":"y","frame":null},{"x":[7527.44305969499],"y":[0.0891361839904196],"mode":"markers","type":"scatter","name":"Lebanon","marker":{"color":"rgba(127,127,127,1)","size":[10.437614596737],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.437614596737},"error_y":{"color":"rgba(127,127,127,1)","width":10.437614596737},"error_x":{"color":"rgba(127,127,127,1)","width":10.437614596737},"line":{"color":"rgba(127,127,127,1)","width":10.437614596737},"xaxis":"x","yaxis":"y","frame":null},{"x":[1153.38805839164],"y":[50.782546964718],"mode":"markers","type":"scatter","name":"Lesotho","marker":{"color":"rgba(188,189,34,1)","size":[10.1351855095467],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.1351855095467},"error_y":{"color":"rgba(188,189,34,1)","width":10.1351855095467},"error_x":{"color":"rgba(188,189,34,1)","width":10.1351855095467},"line":{"color":"rgba(188,189,34,1)","width":10.1351855095467},"xaxis":"x","yaxis":"y","frame":null},{"x":[672.340499220841],"y":[3.34580723762648],"mode":"markers","type":"scatter","name":"Liberia","marker":{"color":"rgba(23,190,207,1)","size":[10.3149706021641],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.3149706021641},"error_y":{"color":"rgba(23,190,207,1)","width":10.3149706021641},"error_x":{"color":"rgba(23,190,207,1)","width":10.3149706021641},"line":{"color":"rgba(23,190,207,1)","width":10.3149706021641},"xaxis":"x","yaxis":"y","frame":null},{"x":[10218.0430276718],"y":[0.125246744220105],"mode":"markers","type":"scatter","name":"Libya","marker":{"color":"rgba(31,119,180,1)","size":[10.4326114932961],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.4326114932961},"error_y":{"color":"rgba(31,119,180,1)","width":10.4326114932961},"error_x":{"color":"rgba(31,119,180,1)","width":10.4326114932961},"line":{"color":"rgba(31,119,180,1)","width":10.4326114932961},"xaxis":"x","yaxis":"y","frame":null},{"x":[19575.768481407],"y":[0.217370743811835],"mode":"markers","type":"scatter","name":"Lithuania","marker":{"color":"rgba(255,127,14,1)","size":[10.1779480555306],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.1779480555306},"error_y":{"color":"rgba(255,127,14,1)","width":10.1779480555306},"error_x":{"color":"rgba(255,127,14,1)","width":10.1779480555306},"line":{"color":"rgba(255,127,14,1)","width":10.1779480555306},"xaxis":"x","yaxis":"y","frame":null},{"x":[113218.713349678],"y":[0.0400866750570235],"mode":"markers","type":"scatter","name":"Luxembourg","marker":{"color":"rgba(44,160,44,1)","size":[10.0389500579],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.0389500579},"error_y":{"color":"rgba(44,160,44,1)","width":10.0389500579},"error_x":{"color":"rgba(44,160,44,1)","width":10.0389500579},"line":{"color":"rgba(44,160,44,1)","width":10.0389500579},"xaxis":"x","yaxis":"y","frame":null},{"x":[526.224572187601],"y":[0.938003948786587],"mode":"markers","type":"scatter","name":"Madagascar","marker":{"color":"rgba(214,39,40,1)","size":[11.7235275792497],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":11.7235275792497},"error_y":{"color":"rgba(214,39,40,1)","width":11.7235275792497},"error_x":{"color":"rgba(214,39,40,1)","width":11.7235275792497},"line":{"color":"rgba(214,39,40,1)","width":11.7235275792497},"xaxis":"x","yaxis":"y","frame":null},{"x":[591.847083709889],"y":[7.63691733007706],"mode":"markers","type":"scatter","name":"Malawi","marker":{"color":"rgba(148,103,189,1)","size":[11.1902947354333],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":11.1902947354333},"error_y":{"color":"rgba(148,103,189,1)","width":11.1902947354333},"error_x":{"color":"rgba(148,103,189,1)","width":11.1902947354333},"line":{"color":"rgba(148,103,189,1)","width":11.1902947354333},"xaxis":"x","yaxis":"y","frame":null},{"x":[11432.8260346567],"y":[0.476005043716902],"mode":"markers","type":"scatter","name":"Malaysia","marker":{"color":"rgba(140,86,75,1)","size":[12.041942418171],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":12.041942418171},"error_y":{"color":"rgba(140,86,75,1)","width":12.041942418171},"error_x":{"color":"rgba(140,86,75,1)","width":12.041942418171},"line":{"color":"rgba(140,86,75,1)","width":12.041942418171},"xaxis":"x","yaxis":"y","frame":null},{"x":[10561.6135113508],"y":[0.0162722498185694],"mode":"markers","type":"scatter","name":"Maldives","marker":{"color":"rgba(227,119,194,1)","size":[10.0332572504119],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.0332572504119},"error_y":{"color":"rgba(227,119,194,1)","width":10.0332572504119},"error_x":{"color":"rgba(227,119,194,1)","width":10.0332572504119},"line":{"color":"rgba(227,119,194,1)","width":10.0332572504119},"xaxis":"x","yaxis":"y","frame":null},{"x":[879.043167526284],"y":[2.28698689798508],"mode":"markers","type":"scatter","name":"Mali","marker":{"color":"rgba(127,127,127,1)","size":[11.2560988180726],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":11.2560988180726},"error_y":{"color":"rgba(127,127,127,1)","width":11.2560988180726},"error_x":{"color":"rgba(127,127,127,1)","width":11.2560988180726},"line":{"color":"rgba(127,127,127,1)","width":11.2560988180726},"xaxis":"x","yaxis":"y","frame":null},{"x":[31185.6496235309],"y":[0.0278802324421408],"mode":"markers","type":"scatter","name":"Malta","marker":{"color":"rgba(188,189,34,1)","size":[10.0315377852329],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.0315377852329},"error_y":{"color":"rgba(188,189,34,1)","width":10.0315377852329},"error_x":{"color":"rgba(188,189,34,1)","width":10.0315377852329},"line":{"color":"rgba(188,189,34,1)","width":10.0315377852329},"xaxis":"x","yaxis":"y","frame":null},{"x":[4073.10982973584],"y":[0.671213596869209],"mode":"markers","type":"scatter","name":"Marshall Islands","marker":{"color":"rgba(23,190,207,1)","size":[10.0030704872336],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.0030704872336},"error_y":{"color":"rgba(23,190,207,1)","width":10.0030704872336},"error_x":{"color":"rgba(23,190,207,1)","width":10.0030704872336},"line":{"color":"rgba(23,190,207,1)","width":10.0030704872336},"xaxis":"x","yaxis":"y","frame":null},{"x":[1743.30131716071],"y":[0.0455648791647018],"mode":"markers","type":"scatter","name":"Mauritania","marker":{"color":"rgba(31,119,180,1)","size":[10.2886511172411],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.2886511172411},"error_y":{"color":"rgba(31,119,180,1)","width":10.2886511172411},"error_x":{"color":"rgba(31,119,180,1)","width":10.2886511172411},"line":{"color":"rgba(31,119,180,1)","width":10.2886511172411},"xaxis":"x","yaxis":"y","frame":null},{"x":[11097.168977137],"y":[0.722002221706815],"mode":"markers","type":"scatter","name":"Mauritius","marker":{"color":"rgba(255,127,14,1)","size":[10.0802319266745],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.0802319266745},"error_y":{"color":"rgba(255,127,14,1)","width":10.0802319266745},"error_x":{"color":"rgba(255,127,14,1)","width":10.0802319266745},"line":{"color":"rgba(255,127,14,1)","width":10.0802319266745},"xaxis":"x","yaxis":"y","frame":null},{"x":[9950.2176218348],"y":[0.394614654179079],"mode":"markers","type":"scatter","name":"Mexico","marker":{"color":"rgba(44,160,44,1)","size":[18.1555371435891],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":18.1555371435891},"error_y":{"color":"rgba(44,160,44,1)","width":18.1555371435891},"error_x":{"color":"rgba(44,160,44,1)","width":18.1555371435891},"line":{"color":"rgba(44,160,44,1)","width":18.1555371435891},"xaxis":"x","yaxis":"y","frame":null},{"x":[3624.24909158279],"y":[3.98570774383661],"mode":"markers","type":"scatter","name":"Micronesia, Fed. Sts.","marker":{"color":"rgba(214,39,40,1)","size":[10.0065880545936],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.0065880545936},"error_y":{"color":"rgba(214,39,40,1)","width":10.0065880545936},"error_x":{"color":"rgba(214,39,40,1)","width":10.0065880545936},"line":{"color":"rgba(214,39,40,1)","width":10.0065880545936},"xaxis":"x","yaxis":"y","frame":null},{"x":[4492.10574015947],"y":[0.611094168232009],"mode":"markers","type":"scatter","name":"Moldova","marker":{"color":"rgba(148,103,189,1)","size":[10.1696903391927],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.1696903391927},"error_y":{"color":"rgba(148,103,189,1)","width":10.1696903391927},"error_x":{"color":"rgba(148,103,189,1)","width":10.1696903391927},"line":{"color":"rgba(148,103,189,1)","width":10.1696903391927},"xaxis":"x","yaxis":"y","frame":null},{"x":[189487.14712838],"y":[0.217055391918561],"mode":"markers","type":"scatter","name":"Monaco","marker":{"color":"rgba(140,86,75,1)","size":[10.0018030889177],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.0018030889177},"error_y":{"color":"rgba(140,86,75,1)","width":10.0018030889177},"error_x":{"color":"rgba(140,86,75,1)","width":10.0018030889177},"line":{"color":"rgba(140,86,75,1)","width":10.0018030889177},"xaxis":"x","yaxis":"y","frame":null},{"x":[4404.84583020208],"y":[0.0466168700473998],"mode":"markers","type":"scatter","name":"Mongolia","marker":{"color":"rgba(227,119,194,1)","size":[10.2055048265516],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.2055048265516},"error_y":{"color":"rgba(227,119,194,1)","width":10.2055048265516},"error_x":{"color":"rgba(227,119,194,1)","width":10.2055048265516},"line":{"color":"rgba(227,119,194,1)","width":10.2055048265516},"xaxis":"x","yaxis":"y","frame":null},{"x":[8909.89015110329],"y":[0.0216796923682397],"mode":"markers","type":"scatter","name":"Montenegro","marker":{"color":"rgba(127,127,127,1)","size":[10.0390796491221],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.0390796491221},"error_y":{"color":"rgba(127,127,127,1)","width":10.0390796491221},"error_x":{"color":"rgba(127,127,127,1)","width":10.0390796491221},"line":{"color":"rgba(127,127,127,1)","width":10.0390796491221},"xaxis":"x","yaxis":"y","frame":null},{"x":[3235.00073242188],"y":[0.135524024522811],"mode":"markers","type":"scatter","name":"Morocco","marker":{"color":"rgba(188,189,34,1)","size":[12.3310438121646],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":12.3310438121646},"error_y":{"color":"rgba(188,189,34,1)","width":12.3310438121646},"error_x":{"color":"rgba(188,189,34,1)","width":12.3310438121646},"line":{"color":"rgba(188,189,34,1)","width":12.3310438121646},"xaxis":"x","yaxis":"y","frame":null},{"x":[506.817139131225],"y":[21.8349333891635],"mode":"markers","type":"scatter","name":"Mozambique","marker":{"color":"rgba(23,190,207,1)","size":[11.9406895421985],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":11.9406895421985},"error_y":{"color":"rgba(23,190,207,1)","width":11.9406895421985},"error_x":{"color":"rgba(23,190,207,1)","width":11.9406895421985},"line":{"color":"rgba(23,190,207,1)","width":11.9406895421985},"xaxis":"x","yaxis":"y","frame":null},{"x":[1271.11153579726],"y":[0.883117669849835],"mode":"markers","type":"scatter","name":"Myanmar","marker":{"color":"rgba(31,119,180,1)","size":[13.4545719608399],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":13.4545719608399},"error_y":{"color":"rgba(31,119,180,1)","width":13.4545719608399},"error_x":{"color":"rgba(31,119,180,1)","width":13.4545719608399},"line":{"color":"rgba(31,119,180,1)","width":13.4545719608399},"xaxis":"x","yaxis":"y","frame":null},{"x":[5028.29534239511],"y":[15.1230239546248],"mode":"markers","type":"scatter","name":"Namibia","marker":{"color":"rgba(255,127,14,1)","size":[10.1587930408194],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.1587930408194},"error_y":{"color":"rgba(255,127,14,1)","width":10.1587930408194},"error_x":{"color":"rgba(255,127,14,1)","width":10.1587930408194},"line":{"color":"rgba(255,127,14,1)","width":10.1587930408194},"xaxis":"x","yaxis":"y","frame":null},{"x":[11029.7355824213],"y":[0.763106533824292],"mode":"markers","type":"scatter","name":"Nauru","marker":{"color":"rgba(44,160,44,1)","size":[10],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10},"error_y":{"color":"rgba(44,160,44,1)","width":10},"error_x":{"color":"rgba(44,160,44,1)","width":10},"line":{"color":"rgba(44,160,44,1)","width":10},"xaxis":"x","yaxis":"y","frame":null},{"x":[1194.95723579184],"y":[0.501174316274559],"mode":"markers","type":"scatter","name":"Nepal","marker":{"color":"rgba(214,39,40,1)","size":[11.8283391311938],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":11.8283391311938},"error_y":{"color":"rgba(214,39,40,1)","width":11.8283391311938},"error_x":{"color":"rgba(214,39,40,1)","width":11.8283391311938},"line":{"color":"rgba(214,39,40,1)","width":11.8283391311938},"xaxis":"x","yaxis":"y","frame":null},{"x":[52476.2732533327],"y":[0.0280376561579744],"mode":"markers","type":"scatter","name":"Netherlands","marker":{"color":"rgba(148,103,189,1)","size":[11.1082133687626],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":11.1082133687626},"error_y":{"color":"rgba(148,103,189,1)","width":11.1082133687626},"error_x":{"color":"rgba(148,103,189,1)","width":11.1082133687626},"line":{"color":"rgba(148,103,189,1)","width":11.1082133687626},"xaxis":"x","yaxis":"y","frame":null},{"x":[42865.233643554],"y":[0.0174676278663251],"mode":"markers","type":"scatter","name":"New Zealand","marker":{"color":"rgba(140,86,75,1)","size":[10.3176446438289],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.3176446438289},"error_y":{"color":"rgba(140,86,75,1)","width":10.3176446438289},"error_x":{"color":"rgba(140,86,75,1)","width":10.3176446438289},"line":{"color":"rgba(140,86,75,1)","width":10.3176446438289},"xaxis":"x","yaxis":"y","frame":null},{"x":[1924.4718155705],"y":[0.857311937933355],"mode":"markers","type":"scatter","name":"Nicaragua","marker":{"color":"rgba(227,119,194,1)","size":[10.4177823448204],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.4177823448204},"error_y":{"color":"rgba(227,119,194,1)","width":10.4177823448204},"error_x":{"color":"rgba(227,119,194,1)","width":10.4177823448204},"line":{"color":"rgba(227,119,194,1)","width":10.4177823448204},"xaxis":"x","yaxis":"y","frame":null},{"x":[554.099389259855],"y":[0.610496619744047],"mode":"markers","type":"scatter","name":"Niger","marker":{"color":"rgba(127,127,127,1)","size":[11.4896248854176],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":11.4896248854176},"error_y":{"color":"rgba(127,127,127,1)","width":11.4896248854176},"error_x":{"color":"rgba(127,127,127,1)","width":11.4896248854176},"line":{"color":"rgba(127,127,127,1)","width":11.4896248854176},"xaxis":"x","yaxis":"y","frame":null},{"x":[2229.8586518613],"y":[4.0937519552452],"mode":"markers","type":"scatter","name":"Nigeria","marker":{"color":"rgba(188,189,34,1)","size":[22.8474217984424],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":22.8474217984424},"error_y":{"color":"rgba(188,189,34,1)","width":22.8474217984424},"error_x":{"color":"rgba(188,189,34,1)","width":22.8474217984424},"line":{"color":"rgba(188,189,34,1)","width":22.8474217984424},"xaxis":"x","yaxis":"y","frame":null},{"x":[6070.38805358275],"y":[0.00918168650532824],"mode":"markers","type":"scatter","name":"North Macedonia","marker":{"color":"rgba(23,190,207,1)","size":[10.1320801151561],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.1320801151561},"error_y":{"color":"rgba(23,190,207,1)","width":10.1320801151561},"error_x":{"color":"rgba(23,190,207,1)","width":10.1320801151561},"line":{"color":"rgba(23,190,207,1)","width":10.1320801151561},"xaxis":"x","yaxis":"y","frame":null},{"x":[20659.6402915421],"y":[0.103124154189702],"mode":"markers","type":"scatter","name":"Northern Mariana Islands","marker":{"color":"rgba(31,119,180,1)","size":[10.0029696017139],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.0029696017139},"error_y":{"color":"rgba(31,119,180,1)","width":10.0029696017139},"error_x":{"color":"rgba(31,119,180,1)","width":10.0029696017139},"line":{"color":"rgba(31,119,180,1)","width":10.0029696017139},"xaxis":"x","yaxis":"y","frame":null},{"x":[75719.7528965342],"y":[0.0256078937169282],"mode":"markers","type":"scatter","name":"Norway","marker":{"color":"rgba(255,127,14,1)","size":[10.3412163089568],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.3412163089568},"error_y":{"color":"rgba(255,127,14,1)","width":10.3412163089568},"error_x":{"color":"rgba(255,127,14,1)","width":10.3412163089568},"line":{"color":"rgba(255,127,14,1)","width":10.3412163089568},"xaxis":"x","yaxis":"y","frame":null},{"x":[17700.7034900714],"y":[0.197883122573111],"mode":"markers","type":"scatter","name":"Oman","marker":{"color":"rgba(44,160,44,1)","size":[10.3173756157764],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.3173756157764},"error_y":{"color":"rgba(44,160,44,1)","width":10.3173756157764},"error_x":{"color":"rgba(44,160,44,1)","width":10.3173756157764},"line":{"color":"rgba(44,160,44,1)","width":10.3173756157764},"xaxis":"x","yaxis":"y","frame":null},{"x":[1481.81386417347],"y":[0.182363156929829],"mode":"markers","type":"scatter","name":"Pakistan","marker":{"color":"rgba(214,39,40,1)","size":[23.8448787218385],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":23.8448787218385},"error_y":{"color":"rgba(214,39,40,1)","width":23.8448787218385},"error_x":{"color":"rgba(214,39,40,1)","width":23.8448787218385},"line":{"color":"rgba(214,39,40,1)","width":23.8448787218385},"xaxis":"x","yaxis":"y","frame":null},{"x":[15232.4870840509],"y":[1.03290013982009],"mode":"markers","type":"scatter","name":"Palau","marker":{"color":"rgba(148,103,189,1)","size":[10.0004626796616],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.0004626796616},"error_y":{"color":"rgba(148,103,189,1)","width":10.0004626796616},"error_x":{"color":"rgba(148,103,189,1)","width":10.0004626796616},"line":{"color":"rgba(148,103,189,1)","width":10.0004626796616},"xaxis":"x","yaxis":"y","frame":null},{"x":[15774.2549523836],"y":[1.27267292163558],"mode":"markers","type":"scatter","name":"Panama","marker":{"color":"rgba(140,86,75,1)","size":[10.2707974490151],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.2707974490151},"error_y":{"color":"rgba(140,86,75,1)","width":10.2707974490151},"error_x":{"color":"rgba(140,86,75,1)","width":10.2707974490151},"line":{"color":"rgba(140,86,75,1)","width":10.2707974490151},"xaxis":"x","yaxis":"y","frame":null},{"x":[2820.30639749593],"y":[4.36366981074492],"mode":"markers","type":"scatter","name":"Papua New Guinea","marker":{"color":"rgba(227,119,194,1)","size":[10.560391251293],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.560391251293},"error_y":{"color":"rgba(227,119,194,1)","width":10.560391251293},"error_x":{"color":"rgba(227,119,194,1)","width":10.560391251293},"line":{"color":"rgba(227,119,194,1)","width":10.560391251293},"xaxis":"x","yaxis":"y","frame":null},{"x":[5383.57442150776],"y":[0.809552783052992],"mode":"markers","type":"scatter","name":"Paraguay","marker":{"color":"rgba(127,127,127,1)","size":[10.4496933681167],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.4496933681167},"error_y":{"color":"rgba(127,127,127,1)","width":10.4496933681167},"error_x":{"color":"rgba(127,127,127,1)","width":10.4496933681167},"line":{"color":"rgba(127,127,127,1)","width":10.4496933681167},"xaxis":"x","yaxis":"y","frame":null},{"x":[7023.07752627143],"y":[0.738547345391185],"mode":"markers","type":"scatter","name":"Peru","marker":{"color":"rgba(188,189,34,1)","size":[12.0777876570731],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":12.0777876570731},"error_y":{"color":"rgba(188,189,34,1)","width":12.0777876570731},"error_x":{"color":"rgba(188,189,34,1)","width":12.0777876570731},"line":{"color":"rgba(188,189,34,1)","width":12.0777876570731},"xaxis":"x","yaxis":"y","frame":null},{"x":[3485.34084390091],"y":[0.483041669392451],"mode":"markers","type":"scatter","name":"Philippines","marker":{"color":"rgba(23,190,207,1)","size":[16.9114801438984],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":16.9114801438984},"error_y":{"color":"rgba(23,190,207,1)","width":16.9114801438984},"error_x":{"color":"rgba(23,190,207,1)","width":16.9114801438984},"line":{"color":"rgba(23,190,207,1)","width":16.9114801438984},"xaxis":"x","yaxis":"y","frame":null},{"x":[15732.2031311754],"y":[0.0353177886243646],"mode":"markers","type":"scatter","name":"Poland","marker":{"color":"rgba(31,119,180,1)","size":[12.4265403956546],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":12.4265403956546},"error_y":{"color":"rgba(31,119,180,1)","width":12.4265403956546},"error_x":{"color":"rgba(31,119,180,1)","width":12.4265403956546},"line":{"color":"rgba(31,119,180,1)","width":12.4265403956546},"xaxis":"x","yaxis":"y","frame":null},{"x":[23330.817288932],"y":[0.468657371771906],"mode":"markers","type":"scatter","name":"Portugal","marker":{"color":"rgba(255,127,14,1)","size":[10.656938565782],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.656938565782},"error_y":{"color":"rgba(255,127,14,1)","width":10.656938565782},"error_x":{"color":"rgba(255,127,14,1)","width":10.656938565782},"line":{"color":"rgba(255,127,14,1)","width":10.656938565782},"xaxis":"x","yaxis":"y","frame":null},{"x":[32850.5486123592],"y":[0.72463331981144],"mode":"markers","type":"scatter","name":"Puerto Rico","marker":{"color":"rgba(44,160,44,1)","size":[10.2034927422196],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.2034927422196},"error_y":{"color":"rgba(44,160,44,1)","width":10.2034927422196},"error_x":{"color":"rgba(44,160,44,1)","width":10.2034927422196},"line":{"color":"rgba(44,160,44,1)","width":10.2034927422196},"xaxis":"x","yaxis":"y","frame":null},{"x":[62087.9741348946],"y":[0.0151398937399699],"mode":"markers","type":"scatter","name":"Qatar","marker":{"color":"rgba(214,39,40,1)","size":[10.1803732718198],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.1803732718198},"error_y":{"color":"rgba(214,39,40,1)","width":10.1803732718198},"error_x":{"color":"rgba(214,39,40,1)","width":10.1803732718198},"line":{"color":"rgba(214,39,40,1)","width":10.1803732718198},"xaxis":"x","yaxis":"y","frame":null},{"x":[12899.3461112897],"y":[0.0733930672851711],"mode":"markers","type":"scatter","name":"Romania","marker":{"color":"rgba(148,103,189,1)","size":[11.2377901420876],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":11.2377901420876},"error_y":{"color":"rgba(148,103,189,1)","width":11.2377901420876},"error_x":{"color":"rgba(148,103,189,1)","width":11.2377901420876},"line":{"color":"rgba(148,103,189,1)","width":11.2377901420876},"xaxis":"x","yaxis":"y","frame":null},{"x":[11536.2509765625],"y":[1.29367963030722],"mode":"markers","type":"scatter","name":"Russian Federation","marker":{"color":"rgba(140,86,75,1)","size":[19.2315682872971],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":19.2315682872971},"error_y":{"color":"rgba(140,86,75,1)","width":19.2315682872971},"error_x":{"color":"rgba(140,86,75,1)","width":19.2315682872971},"line":{"color":"rgba(140,86,75,1)","width":19.2315682872971},"xaxis":"x","yaxis":"y","frame":null},{"x":[820.177239282094],"y":[2.42739870423158],"mode":"markers","type":"scatter","name":"Rwanda","marker":{"color":"rgba(227,119,194,1)","size":[10.8065838216923],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.8065838216923},"error_y":{"color":"rgba(227,119,194,1)","width":10.8065838216923},"error_x":{"color":"rgba(227,119,194,1)","width":10.8065838216923},"line":{"color":"rgba(227,119,194,1)","width":10.8065838216923},"xaxis":"x","yaxis":"y","frame":null},{"x":[4322.86841572276],"y":[0.683131702958585],"mode":"markers","type":"scatter","name":"Samoa","marker":{"color":"rgba(127,127,127,1)","size":[10.01191248289],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.01191248289},"error_y":{"color":"rgba(127,127,127,1)","width":10.01191248289},"error_x":{"color":"rgba(127,127,127,1)","width":10.01191248289},"line":{"color":"rgba(127,127,127,1)","width":10.01191248289},"xaxis":"x","yaxis":"y","frame":null},{"x":[47727.1348939463],"y":[0.198098719464351],"mode":"markers","type":"scatter","name":"San Marino","marker":{"color":"rgba(188,189,34,1)","size":[10.001476841258],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.001476841258},"error_y":{"color":"rgba(188,189,34,1)","width":10.001476841258},"error_x":{"color":"rgba(188,189,34,1)","width":10.001476841258},"line":{"color":"rgba(188,189,34,1)","width":10.001476841258},"xaxis":"x","yaxis":"y","frame":null},{"x":[1987.57970166818],"y":[0.0134785855592763],"mode":"markers","type":"scatter","name":"Sao Tome and Principe","marker":{"color":"rgba(23,190,207,1)","size":[10.0130603913223],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.0130603913223},"error_y":{"color":"rgba(23,190,207,1)","width":10.0130603913223},"error_x":{"color":"rgba(23,190,207,1)","width":10.0130603913223},"line":{"color":"rgba(23,190,207,1)","width":10.0130603913223},"xaxis":"x","yaxis":"y","frame":null},{"x":[23450.5620241541],"y":[0.199359826333484],"mode":"markers","type":"scatter","name":"Saudi Arabia","marker":{"color":"rgba(31,119,180,1)","size":[12.1901853142115],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":12.1901853142115},"error_y":{"color":"rgba(31,119,180,1)","width":12.1901853142115},"error_x":{"color":"rgba(31,119,180,1)","width":12.1901853142115},"line":{"color":"rgba(31,119,180,1)","width":12.1901853142115},"xaxis":"x","yaxis":"y","frame":null},{"x":[1435.83036653076],"y":[0.983587715921646],"mode":"markers","type":"scatter","name":"Senegal","marker":{"color":"rgba(255,127,14,1)","size":[11.0411793522652],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":11.0411793522652},"error_y":{"color":"rgba(255,127,14,1)","width":11.0411793522652},"error_x":{"color":"rgba(255,127,14,1)","width":11.0411793522652},"line":{"color":"rgba(255,127,14,1)","width":11.0411793522652},"xaxis":"x","yaxis":"y","frame":null},{"x":[7417.20364852201],"y":[0.0689134789225214],"mode":"markers","type":"scatter","name":"Serbia","marker":{"color":"rgba(44,160,44,1)","size":[10.4433382197007],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":10.4433382197007},"error_y":{"color":"rgba(44,160,44,1)","width":10.4433382197007},"error_x":{"color":"rgba(44,160,44,1)","width":10.4433382197007},"line":{"color":"rgba(44,160,44,1)","width":10.4433382197007},"xaxis":"x","yaxis":"y","frame":null},{"x":[17252.0207802609],"y":[0.411603332487795],"mode":"markers","type":"scatter","name":"Seychelles","marker":{"color":"rgba(214,39,40,1)","size":[10.0055532427926],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.0055532427926},"error_y":{"color":"rgba(214,39,40,1)","width":10.0055532427926},"error_x":{"color":"rgba(214,39,40,1)","width":10.0055532427926},"line":{"color":"rgba(214,39,40,1)","width":10.0055532427926},"xaxis":"x","yaxis":"y","frame":null},{"x":[521.754836722241],"y":[3.58141454800524],"mode":"markers","type":"scatter","name":"Sierra Leone","marker":{"color":"rgba(148,103,189,1)","size":[10.498829858678],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.498829858678},"error_y":{"color":"rgba(148,103,189,1)","width":10.498829858678},"error_x":{"color":"rgba(148,103,189,1)","width":10.498829858678},"line":{"color":"rgba(148,103,189,1)","width":10.498829858678},"xaxis":"x","yaxis":"y","frame":null},{"x":[65831.1894308765],"y":[0.0631049672844697],"mode":"markers","type":"scatter","name":"Singapore","marker":{"color":"rgba(140,86,75,1)","size":[10.3639553808507],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.3639553808507},"error_y":{"color":"rgba(140,86,75,1)","width":10.3639553808507},"error_x":{"color":"rgba(140,86,75,1)","width":10.3639553808507},"line":{"color":"rgba(140,86,75,1)","width":10.3639553808507},"xaxis":"x","yaxis":"y","frame":null},{"x":[19303.5456581383],"y":[0.00759102156868832],"mode":"markers","type":"scatter","name":"Slovak Republic","marker":{"color":"rgba(227,119,194,1)","size":[10.3480092033508],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.3480092033508},"error_y":{"color":"rgba(227,119,194,1)","width":10.3480092033508},"error_x":{"color":"rgba(227,119,194,1)","width":10.3480092033508},"line":{"color":"rgba(227,119,194,1)","width":10.3480092033508},"xaxis":"x","yaxis":"y","frame":null},{"x":[25942.9547741436],"y":[0.010336722572909],"mode":"markers","type":"scatter","name":"Slovenia","marker":{"color":"rgba(127,127,127,1)","size":[10.1328275502706],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.1328275502706},"error_y":{"color":"rgba(127,127,127,1)","width":10.1328275502706},"error_x":{"color":"rgba(127,127,127,1)","width":10.1328275502706},"line":{"color":"rgba(127,127,127,1)","width":10.1328275502706},"xaxis":"x","yaxis":"y","frame":null},{"x":[2344.04897615315],"y":[0.605710958516795],"mode":"markers","type":"scatter","name":"Solomon Islands","marker":{"color":"rgba(188,189,34,1)","size":[10.0421351761456],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.0421351761456},"error_y":{"color":"rgba(188,189,34,1)","width":10.0421351761456},"error_x":{"color":"rgba(188,189,34,1)","width":10.0421351761456},"line":{"color":"rgba(188,189,34,1)","width":10.0421351761456},"xaxis":"x","yaxis":"y","frame":null},{"x":[419.39480767899],"y":[2.06451266731522],"mode":"markers","type":"scatter","name":"Somalia","marker":{"color":"rgba(23,190,207,1)","size":[10.9866157577772],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.9866157577772},"error_y":{"color":"rgba(23,190,207,1)","width":10.9866157577772},"error_x":{"color":"rgba(23,190,207,1)","width":10.9866157577772},"line":{"color":"rgba(23,190,207,1)","width":10.9866157577772},"xaxis":"x","yaxis":"y","frame":null},{"x":[6624.76186493309],"y":[24.5653837887972],"mode":"markers","type":"scatter","name":"South Africa","marker":{"color":"rgba(31,119,180,1)","size":[13.7430895230426],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":13.7430895230426},"error_y":{"color":"rgba(31,119,180,1)","width":13.7430895230426},"error_x":{"color":"rgba(31,119,180,1)","width":13.7430895230426},"line":{"color":"rgba(31,119,180,1)","width":13.7430895230426},"xaxis":"x","yaxis":"y","frame":null},{"x":[29554.4905170087],"y":[0.144031168856953],"mode":"markers","type":"scatter","name":"Spain","marker":{"color":"rgba(255,127,14,1)","size":[13.0127608333595],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":13.0127608333595},"error_y":{"color":"rgba(255,127,14,1)","width":13.0127608333595},"error_x":{"color":"rgba(255,127,14,1)","width":13.0127608333595},"line":{"color":"rgba(255,127,14,1)","width":13.0127608333595},"xaxis":"x","yaxis":"y","frame":null},{"x":[3848.21237640698],"y":[0.0174246799932442],"mode":"markers","type":"scatter","name":"Sri Lanka","marker":{"color":"rgba(44,160,44,1)","size":[11.3932326072945],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":11.3932326072945},"error_y":{"color":"rgba(44,160,44,1)","width":11.3932326072945},"error_x":{"color":"rgba(44,160,44,1)","width":11.3932326072945},"line":{"color":"rgba(44,160,44,1)","width":11.3932326072945},"xaxis":"x","yaxis":"y","frame":null},{"x":[22047.8830270631],"y":[6.01476960731089],"mode":"markers","type":"scatter","name":"St. Kitts and Nevis","marker":{"color":"rgba(214,39,40,1)","size":[10.0026896412001],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.0026896412001},"error_y":{"color":"rgba(214,39,40,1)","width":10.0026896412001},"error_x":{"color":"rgba(214,39,40,1)","width":10.0026896412001},"line":{"color":"rgba(214,39,40,1)","width":10.0026896412001},"xaxis":"x","yaxis":"y","frame":null},{"x":[11591.0804351768],"y":[0.395985231472965],"mode":"markers","type":"scatter","name":"St. Lucia","marker":{"color":"rgba(148,103,189,1)","size":[10.0109983756906],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.0109983756906},"error_y":{"color":"rgba(148,103,189,1)","width":10.0109983756906},"error_x":{"color":"rgba(148,103,189,1)","width":10.0109983756906},"line":{"color":"rgba(148,103,189,1)","width":10.0109983756906},"xaxis":"x","yaxis":"y","frame":null},{"x":[8229.72248613756],"y":[1.80438319573786],"mode":"markers","type":"scatter","name":"St. Vincent and the Grenadines","marker":{"color":"rgba(140,86,75,1)","size":[10.0063823197378],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.0063823197378},"error_y":{"color":"rgba(140,86,75,1)","width":10.0063823197378},"error_x":{"color":"rgba(140,86,75,1)","width":10.0063823197378},"line":{"color":"rgba(140,86,75,1)","width":10.0063823197378},"xaxis":"x","yaxis":"y","frame":null},{"x":[755.328979492188],"y":[1.20403794200408],"mode":"markers","type":"scatter","name":"Sudan","marker":{"color":"rgba(227,119,194,1)","size":[12.7364700463249],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":12.7364700463249},"error_y":{"color":"rgba(227,119,194,1)","width":12.7364700463249},"error_x":{"color":"rgba(227,119,194,1)","width":12.7364700463249},"line":{"color":"rgba(227,119,194,1)","width":12.7364700463249},"xaxis":"x","yaxis":"y","frame":null},{"x":[6853.69341077988],"y":[1.72743730416446],"mode":"markers","type":"scatter","name":"Suriname","marker":{"color":"rgba(127,127,127,1)","size":[10.0364798331153],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.0364798331153},"error_y":{"color":"rgba(127,127,127,1)","width":10.0364798331153},"error_x":{"color":"rgba(127,127,127,1)","width":10.0364798331153},"line":{"color":"rgba(127,127,127,1)","width":10.0364798331153},"xaxis":"x","yaxis":"y","frame":null},{"x":[51939.4297445291],"y":[0.0198608816352194],"mode":"markers","type":"scatter","name":"Sweden","marker":{"color":"rgba(188,189,34,1)","size":[10.6564669994998],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.6564669994998},"error_y":{"color":"rgba(188,189,34,1)","width":10.6564669994998},"error_x":{"color":"rgba(188,189,34,1)","width":10.6564669994998},"line":{"color":"rgba(188,189,34,1)","width":10.6564669994998},"xaxis":"x","yaxis":"y","frame":null},{"x":[85334.5194620909],"y":[0.0430246294652804],"mode":"markers","type":"scatter","name":"Switzerland","marker":{"color":"rgba(23,190,207,1)","size":[10.5475511075089],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.5475511075089},"error_y":{"color":"rgba(23,190,207,1)","width":10.5475511075089},"error_x":{"color":"rgba(23,190,207,1)","width":10.5475511075089},"line":{"color":"rgba(23,190,207,1)","width":10.5475511075089},"xaxis":"x","yaxis":"y","frame":null},{"x":[890.544402355733],"y":[0.0643969475113375],"mode":"markers","type":"scatter","name":"Tajikistan","marker":{"color":"rgba(31,119,180,1)","size":[10.5952283382557],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.5952283382557},"error_y":{"color":"rgba(31,119,180,1)","width":10.5952283382557},"error_x":{"color":"rgba(31,119,180,1)","width":10.5952283382557},"line":{"color":"rgba(31,119,180,1)","width":10.5952283382557},"xaxis":"x","yaxis":"y","frame":null},{"x":[1085.88488769531],"y":[4.6763132612327],"mode":"markers","type":"scatter","name":"Tanzania","marker":{"color":"rgba(255,127,14,1)","size":[13.7077472412911],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":13.7077472412911},"error_y":{"color":"rgba(255,127,14,1)","width":13.7077472412911},"error_x":{"color":"rgba(255,127,14,1)","width":13.7077472412911},"line":{"color":"rgba(255,127,14,1)","width":13.7077472412911},"xaxis":"x","yaxis":"y","frame":null},{"x":[7814.38443127242],"y":[2.47247224830122],"mode":"markers","type":"scatter","name":"Thailand","marker":{"color":"rgba(44,160,44,1)","size":[14.4506508187246],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":14.4506508187246},"error_y":{"color":"rgba(44,160,44,1)","width":14.4506508187246},"error_x":{"color":"rgba(44,160,44,1)","width":14.4506508187246},"line":{"color":"rgba(44,160,44,1)","width":14.4506508187246},"xaxis":"x","yaxis":"y","frame":null},{"x":[1583.71357646622],"y":[1.83727083907865],"mode":"markers","type":"scatter","name":"Timor-Leste","marker":{"color":"rgba(214,39,40,1)","size":[10.0819842531698],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.0819842531698},"error_y":{"color":"rgba(214,39,40,1)","width":10.0819842531698},"error_x":{"color":"rgba(214,39,40,1)","width":10.0819842531698},"line":{"color":"rgba(214,39,40,1)","width":10.0819842531698},"xaxis":"x","yaxis":"y","frame":null},{"x":[893.352454121675],"y":[4.26566615882434],"mode":"markers","type":"scatter","name":"Togo","marker":{"color":"rgba(148,103,189,1)","size":[10.5160374248368],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.5160374248368},"error_y":{"color":"rgba(148,103,189,1)","width":10.5160374248368},"error_x":{"color":"rgba(148,103,189,1)","width":10.5160374248368},"line":{"color":"rgba(148,103,189,1)","width":10.5160374248368},"xaxis":"x","yaxis":"y","frame":null},{"x":[4903.01213835449],"y":[0.17599055152827],"mode":"markers","type":"scatter","name":"Tonga","marker":{"color":"rgba(140,86,75,1)","size":[10.0059925870837],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":10.0059925870837},"error_y":{"color":"rgba(140,86,75,1)","width":10.0059925870837},"error_x":{"color":"rgba(140,86,75,1)","width":10.0059925870837},"line":{"color":"rgba(140,86,75,1)","width":10.0059925870837},"xaxis":"x","yaxis":"y","frame":null},{"x":[17123.1162867028],"y":[1.47972796042164],"mode":"markers","type":"scatter","name":"Trinidad and Tobago","marker":{"color":"rgba(227,119,194,1)","size":[10.088495716602],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.088495716602},"error_y":{"color":"rgba(227,119,194,1)","width":10.088495716602},"error_x":{"color":"rgba(227,119,194,1)","width":10.088495716602},"line":{"color":"rgba(227,119,194,1)","width":10.088495716602},"xaxis":"x","yaxis":"y","frame":null},{"x":[3571.94504797154],"y":[0.126377324239825],"mode":"markers","type":"scatter","name":"Tunisia","marker":{"color":"rgba(127,127,127,1)","size":[10.7469848378398],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":10.7469848378398},"error_y":{"color":"rgba(127,127,127,1)","width":10.7469848378398},"error_x":{"color":"rgba(127,127,127,1)","width":10.7469848378398},"line":{"color":"rgba(127,127,127,1)","width":10.7469848378398},"xaxis":"x","yaxis":"y","frame":null},{"x":[9121.51516673708],"y":[0.0271153804272977],"mode":"markers","type":"scatter","name":"Turkiye","marker":{"color":"rgba(188,189,34,1)","size":[15.3331770145285],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":15.3331770145285},"error_y":{"color":"rgba(188,189,34,1)","width":15.3331770145285},"error_x":{"color":"rgba(188,189,34,1)","width":15.3331770145285},"line":{"color":"rgba(188,189,34,1)","width":15.3331770145285},"xaxis":"x","yaxis":"y","frame":null},{"x":[7612.03518009452],"y":[0.177324323089887],"mode":"markers","type":"scatter","name":"Turkmenistan","marker":{"color":"rgba(23,190,207,1)","size":[10.3792048856585],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":10.3792048856585},"error_y":{"color":"rgba(23,190,207,1)","width":10.3792048856585},"error_x":{"color":"rgba(23,190,207,1)","width":10.3792048856585},"line":{"color":"rgba(23,190,207,1)","width":10.3792048856585},"xaxis":"x","yaxis":"y","frame":null},{"x":[4652.35084630288],"y":[0.84017102317368],"mode":"markers","type":"scatter","name":"Tuvalu","marker":{"color":"rgba(31,119,180,1)","size":[10.0000569638771],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.0000569638771},"error_y":{"color":"rgba(31,119,180,1)","width":10.0000569638771},"error_x":{"color":"rgba(31,119,180,1)","width":10.0000569638771},"line":{"color":"rgba(31,119,180,1)","width":10.0000569638771},"xaxis":"x","yaxis":"y","frame":null},{"x":[798.585734133959],"y":[4.689961514887],"mode":"markers","type":"scatter","name":"Uganda","marker":{"color":"rgba(255,127,14,1)","size":[12.8295781747259],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":12.8295781747259},"error_y":{"color":"rgba(255,127,14,1)","width":12.8295781747259},"error_x":{"color":"rgba(255,127,14,1)","width":12.8295781747259},"line":{"color":"rgba(255,127,14,1)","width":12.8295781747259},"xaxis":"x","yaxis":"y","frame":null},{"x":[3661.45629882813],"y":[1.49665723879518],"mode":"markers","type":"scatter","name":"Ukraine","marker":{"color":"rgba(44,160,44,1)","size":[12.8370337297103],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":12.8370337297103},"error_y":{"color":"rgba(44,160,44,1)","width":12.8370337297103},"error_x":{"color":"rgba(44,160,44,1)","width":12.8370337297103},"line":{"color":"rgba(44,160,44,1)","width":12.8370337297103},"xaxis":"x","yaxis":"y","frame":null},{"x":[42701.4430454782],"y":[0.164100200754531],"mode":"markers","type":"scatter","name":"United Arab Emirates","marker":{"color":"rgba(214,39,40,1)","size":[10.6239661986881],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":10.6239661986881},"error_y":{"color":"rgba(214,39,40,1)","width":10.6239661986881},"error_x":{"color":"rgba(214,39,40,1)","width":10.6239661986881},"line":{"color":"rgba(214,39,40,1)","width":10.6239661986881},"xaxis":"x","yaxis":"y","frame":null},{"x":[43070.4983595888],"y":[0.0348303271716081],"mode":"markers","type":"scatter","name":"United Kingdom","marker":{"color":"rgba(148,103,189,1)","size":[14.2723267760322],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":14.2723267760322},"error_y":{"color":"rgba(148,103,189,1)","width":14.2723267760322},"error_x":{"color":"rgba(148,103,189,1)","width":14.2723267760322},"line":{"color":"rgba(148,103,189,1)","width":14.2723267760322},"xaxis":"x","yaxis":"y","frame":null},{"x":[65094.7994287929],"y":[0.214806549897167],"mode":"markers","type":"scatter","name":"United States","marker":{"color":"rgba(140,86,75,1)","size":[30.9902737706807],"sizemode":"area","line":{"color":"rgba(140,86,75,1)"}},"textfont":{"size":30.9902737706807},"error_y":{"color":"rgba(140,86,75,1)","width":30.9902737706807},"error_x":{"color":"rgba(140,86,75,1)","width":30.9902737706807},"line":{"color":"rgba(140,86,75,1)","width":30.9902737706807},"xaxis":"x","yaxis":"y","frame":null},{"x":[17688.01500769],"y":[0.512391606932991],"mode":"markers","type":"scatter","name":"Uruguay","marker":{"color":"rgba(227,119,194,1)","size":[10.2206290236164],"sizemode":"area","line":{"color":"rgba(227,119,194,1)"}},"textfont":{"size":10.2206290236164},"error_y":{"color":"rgba(227,119,194,1)","width":10.2206290236164},"error_x":{"color":"rgba(227,119,194,1)","width":10.2206290236164},"line":{"color":"rgba(227,119,194,1)","width":10.2206290236164},"xaxis":"x","yaxis":"y","frame":null},{"x":[1784.00981608195],"y":[0.174079350354545],"mode":"markers","type":"scatter","name":"Uzbekistan","marker":{"color":"rgba(127,127,127,1)","size":[12.1461882951606],"sizemode":"area","line":{"color":"rgba(127,127,127,1)"}},"textfont":{"size":12.1461882951606},"error_y":{"color":"rgba(127,127,127,1)","width":12.1461882951606},"error_x":{"color":"rgba(127,127,127,1)","width":12.1461882951606},"line":{"color":"rgba(127,127,127,1)","width":12.1461882951606},"xaxis":"x","yaxis":"y","frame":null},{"x":[3122.98259856381],"y":[0.634627266242725],"mode":"markers","type":"scatter","name":"Vanuatu","marker":{"color":"rgba(188,189,34,1)","size":[10.0184840428929],"sizemode":"area","line":{"color":"rgba(188,189,34,1)"}},"textfont":{"size":10.0184840428929},"error_y":{"color":"rgba(188,189,34,1)","width":10.0184840428929},"error_x":{"color":"rgba(188,189,34,1)","width":10.0184840428929},"line":{"color":"rgba(188,189,34,1)","width":10.0184840428929},"xaxis":"x","yaxis":"y","frame":null},{"x":[3425.08925344793],"y":[0.663414707956345],"mode":"markers","type":"scatter","name":"Vietnam","marker":{"color":"rgba(23,190,207,1)","size":[16.1663776713036],"sizemode":"area","line":{"color":"rgba(23,190,207,1)"}},"textfont":{"size":16.1663776713036},"error_y":{"color":"rgba(23,190,207,1)","width":16.1663776713036},"error_x":{"color":"rgba(23,190,207,1)","width":16.1663776713036},"line":{"color":"rgba(23,190,207,1)","width":16.1663776713036},"xaxis":"x","yaxis":"y","frame":null},{"x":[38596.0307118282],"y":[0.736607063191566],"mode":"markers","type":"scatter","name":"Virgin Islands (U.S.)","marker":{"color":"rgba(31,119,180,1)","size":[10.0061314485215],"sizemode":"area","line":{"color":"rgba(31,119,180,1)"}},"textfont":{"size":10.0061314485215},"error_y":{"color":"rgba(31,119,180,1)","width":10.0061314485215},"error_x":{"color":"rgba(31,119,180,1)","width":10.0061314485215},"line":{"color":"rgba(31,119,180,1)","width":10.0061314485215},"xaxis":"x","yaxis":"y","frame":null},{"x":[3656.85827137011],"y":[0.0290603835389003],"mode":"markers","type":"scatter","name":"West Bank and Gaza","marker":{"color":"rgba(255,127,14,1)","size":[10.298855259211],"sizemode":"area","line":{"color":"rgba(255,127,14,1)"}},"textfont":{"size":10.298855259211},"error_y":{"color":"rgba(255,127,14,1)","width":10.298855259211},"error_x":{"color":"rgba(255,127,14,1)","width":10.298855259211},"line":{"color":"rgba(255,127,14,1)","width":10.298855259211},"xaxis":"x","yaxis":"y","frame":null},{"x":[750.554583376727],"y":[0.118889301354625],"mode":"markers","type":"scatter","name":"Yemen, Rep.","marker":{"color":"rgba(44,160,44,1)","size":[11.8637070498867],"sizemode":"area","line":{"color":"rgba(44,160,44,1)"}},"textfont":{"size":11.8637070498867},"error_y":{"color":"rgba(44,160,44,1)","width":11.8637070498867},"error_x":{"color":"rgba(44,160,44,1)","width":11.8637070498867},"line":{"color":"rgba(44,160,44,1)","width":11.8637070498867},"xaxis":"x","yaxis":"y","frame":null},{"x":[1305.00103080403],"y":[12.6198000459949],"mode":"markers","type":"scatter","name":"Zambia","marker":{"color":"rgba(214,39,40,1)","size":[11.1412127793133],"sizemode":"area","line":{"color":"rgba(214,39,40,1)"}},"textfont":{"size":11.1412127793133},"error_y":{"color":"rgba(214,39,40,1)","width":11.1412127793133},"error_x":{"color":"rgba(214,39,40,1)","width":11.1412127793133},"line":{"color":"rgba(214,39,40,1)","width":11.1412127793133},"xaxis":"x","yaxis":"y","frame":null},{"x":[1316.74065692871],"y":[14.1492460871644],"mode":"markers","type":"scatter","name":"Zimbabwe","marker":{"color":"rgba(148,103,189,1)","size":[10.9356338549686],"sizemode":"area","line":{"color":"rgba(148,103,189,1)"}},"textfont":{"size":10.9356338549686},"error_y":{"color":"rgba(148,103,189,1)","width":10.9356338549686},"error_x":{"color":"rgba(148,103,189,1)","width":10.9356338549686},"line":{"color":"rgba(148,103,189,1)","width":10.9356338549686},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="column-1" class="section level2" data-width="350">
+<h2>Column</h2>
+<div class="knitr-options" data-fig-width="672" data-fig-height="403">
+
+</div>
+<div id="htmlwidget-0d49a453bc279433bce3" style="width:60%;height:403.2px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0d49a453bc279433bce3">{"x":{"visdat":{"8cb411634ec5":["function () ","plotlyVisDat"]},"cur_data":"8cb411634ec5","attrs":{"8cb411634ec5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"z":{},"color":{},"colors":"Blues","text":{},"locations":{},"marker":{"line":{"color":"rgba(190,190,190,1)","width":0.5}},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"mapType":"geo","scene":{"zaxis":{"title":"mortality_per_100k"}},"geo":{"domain":{"x":[0,1],"y":[0,1]},"showframe":false,"showcoastlines":false,"projection":{"type":"Mercator"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5},"title":"Figure showing the association between GDP per capita and HIV mortality rate"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"colorbar":{"title":"GDP Billions US$","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top","tickprefix":"$"},"colorscale":[["0","rgba(247,251,255,1)"],["0.0416666666666667","rgba(239,246,252,1)"],["0.0833333333333333","rgba(230,240,250,1)"],["0.125","rgba(222,235,247,1)"],["0.166666666666667","rgba(214,230,244,1)"],["0.208333333333333","rgba(206,224,242,1)"],["0.25","rgba(198,219,239,1)"],["0.291666666666667","rgba(185,213,234,1)"],["0.333333333333333","rgba(172,208,230,1)"],["0.375","rgba(158,202,225,1)"],["0.416666666666667","rgba(142,193,221,1)"],["0.458333333333333","rgba(125,183,218,1)"],["0.5","rgba(107,174,214,1)"],["0.541666666666667","rgba(94,165,209,1)"],["0.583333333333333","rgba(81,155,203,1)"],["0.625","rgba(66,146,198,1)"],["0.666666666666667","rgba(57,135,192,1)"],["0.708333333333333","rgba(46,124,187,1)"],["0.75","rgba(33,113,181,1)"],["0.791666666666667","rgba(27,102,173,1)"],["0.833333333333333","rgba(19,91,164,1)"],["0.875","rgba(8,81,156,1)"],["0.916666666666667","rgba(9,70,139,1)"],["0.958333333333333","rgba(9,59,123,1)"],["1","rgba(8,48,107,1)"]],"showscale":true,"z":[0.225510141202113,0.2964832940436,0.858609301680513,0.207033408906249,0.521463877345677,0.476005043716902,0.0162722498185694,0.883117669849835,0.483041669392451,0.0174246799932442,2.47247224830122,1.83727083907865,0.663414707956345,0.0989694372040246,0.136152944470374,0.671213596869209,3.98570774383661,4.36366981074492,0.683131702958585,0.605710958516795,0.17599055152827,0.634627266242725,0.0644957282024152,0.0370162473751449,0.0625849709680307,0.140730526998977,0.263376333404937,0.0466168700473998,0.0643969475113375,0.177324323089887,0.174079350354545,0.00576858708565349,0.00519017905639773,0.0658201834249902,0.0184814052319617,0.0176728968015912,0.0381270809717235,0.00918168650532824,0.0216796923682397,0.0353177886243646,0.0733930672851711,0.0689134789225214,0.00759102156868832,0.010336722572909,0.311797706610566,0.256505296365179,0.615931260809343,0.217370743811835,0.611094168232009,1.29367963030722,1.49665723879518,0.122049724017721,0.012689650957388,0.0266963958248347,0.0631049672844697,0.0278533176874695,0.0174676278663251,0.402083927974943,0.0399405194721574,0.0487158149576022,0.0386641780381979,0.0419881818748338,0.0098778559134136,0.0679533457508749,0.0507032078148568,0.0209659790192029,0.0245253461904871,0.0174812105074488,0.0405201534589795,0.103951130296438,0.0400866750570235,0.0278802324421408,0.0280376561579744,0.0256078937169282,0.468657371771906,0.144031168856953,0.0198608816352194,0.0430246294652804,0.0348303271716081,0.395423648176076,0.2596068879014,0.512391606932991,0.0674345146403456,0.214806549897167,0.758154437861279,2.98221633961443,0.862686950663678,2.05032520157655,0.297764097495403,0.698369585568462,1.26835840258986,0.487057108875036,2.30994053643864,5.24558970414112,1.41776876054156,0.395985231472965,1.80438319573786,1.72743730416446,1.47972796042164,0.635864026036843,0.694909520015113,0.738547345391185,0.486634226275825,0.288482409774283,1.05407300464216,0.402773208880849,0.0937731871611556,0.394614654179079,0.857311937933355,1.27267292163558,0.648787128533954,0.737307190110576,0.809552783052992,0.0612153381897646,0.0448222857811475,0.00557045137223617,0.141912094667483,0.0209050460750266,0.0270710931491616,0.00683233272051651,0.0891361839904196,0.125246744220105,0.135524024522811,0.0290603835389003,0.197883122573111,0.0151398937399699,0.199359826333484,0.00847206550904209,0.126377324239825,0.0271153804272977,0.164100200754531,0.118889301354625,0.0835087621449754,0.0219880429932525,0.401690400392263,0.338825719873338,0.501174316274559,0.182363156929829,5.27939354933527,11.6889347586241,7.94530977932219,1.1795688140937,15.6170966378716,5.13310287703476,1.77576674072362,0.0218021940626679,9.27546579174709,null,2.37251902486259,9.72622207471618,0.938003948786587,7.63691733007706,0.722002221706815,21.8349333891635,2.42739870423158,0.411603332487795,2.06451266731522,4.6763132612327,4.689961514887,12.6198000459949,24.3629270365711,50.782546964718,15.1230239546248,24.5653837887972,28.9283221144316,14.1492460871644,1.72310764429754,1.45605868671276,8.95497967912944,0.992329278666834,2.94435013976026,5.30309207181509,4.59289711787508,4.80669300790624,3.16103975447479,5.21943914667343,3.34580723762648,2.28698689798508,0.0455648791647018,0.610496619744047,4.0937519552452,0.0134785855592763,0.983587715921646,3.58141454800524,4.26566615882434,0.0870566002750946,0.977671722261175,0.288377324955463,0.419293613949321,0.217055391918561,0.763106533824292,0.103124154189702,1.03290013982009,0.72463331981144,6.01476960731089,0.198098719464351,0.84017102317368,0.736607063191566,3.96929482302935,1.20403794200408],"text":["China","Korea, Dem. People's Rep.","Cambodia","Indonesia","Lao PDR","Malaysia","Maldives","Myanmar","Philippines","Sri Lanka","Thailand","Timor-Leste","Vietnam","Fiji","Kiribati","Marshall Islands","Micronesia, Fed. Sts.","Papua New Guinea","Samoa","Solomon Islands","Tonga","Vanuatu","Armenia","Azerbaijan","Georgia","Kazakhstan","Kyrgyz Republic","Mongolia","Tajikistan","Turkmenistan","Uzbekistan","Albania","Bosnia and Herzegovina","Bulgaria","Croatia","Czechia","Hungary","North Macedonia","Montenegro","Poland","Romania","Serbia","Slovak Republic","Slovenia","Belarus","Estonia","Latvia","Lithuania","Moldova","Russian Federation","Ukraine","Brunei Darussalam","Japan","Korea, Rep.","Singapore","Australia","New Zealand","Andorra","Austria","Belgium","Cyprus","Denmark","Finland","France","Germany","Greece","Iceland","Ireland","Israel","Italy","Luxembourg","Malta","Netherlands","Norway","Portugal","Spain","Sweden","Switzerland","United Kingdom","Argentina","Chile","Uruguay","Canada","United States","Antigua and Barbuda","Bahamas, The","Barbados","Belize","Cuba","Dominica","Dominican Republic","Grenada","Guyana","Haiti","Jamaica","St. Lucia","St. Vincent and the Grenadines","Suriname","Trinidad and Tobago","Bolivia","Ecuador","Peru","Colombia","Costa Rica","El Salvador","Guatemala","Honduras","Mexico","Nicaragua","Panama","Venezuela, RB","Brazil","Paraguay","Algeria","Bahrain","Egypt, Arab Rep.","Iran, Islamic Rep.","Iraq","Jordan","Kuwait","Lebanon","Libya","Morocco","West Bank and Gaza","Oman","Qatar","Saudi Arabia","Syrian Arab Republic","Tunisia","Turkiye","United Arab Emirates","Yemen, Rep.","Afghanistan","Bangladesh","Bhutan","India","Nepal","Pakistan","Angola","Central African Republic","Congo, Rep.","Congo, Dem. Rep.","Equatorial Guinea","Gabon","Burundi","Comoros","Djibouti","Eritrea","Ethiopia","Kenya","Madagascar","Malawi","Mauritius","Mozambique","Rwanda","Seychelles","Somalia","Tanzania","Uganda","Zambia","Botswana","Lesotho","Namibia","South Africa","Eswatini","Zimbabwe","Benin","Burkina Faso","Cameroon","Cabo Verde","Chad","Cote d'Ivoire","Gambia, The","Ghana","Guinea","Guinea-Bissau","Liberia","Mali","Mauritania","Niger","Nigeria","Sao Tome and Principe","Senegal","Sierra Leone","Togo","American Samoa","Bermuda","Greenland","Guam","Monaco","Nauru","Northern Mariana Islands","Palau","Puerto Rico","St. Kitts and Nevis","San Marino","Tuvalu","Virgin Islands (U.S.)","South Sudan","Sudan"],"locations":["CHN","PRK","KHM","IDN","LAO","MYS","MDV","MMR","PHL","LKA","THA","TLS","VNM","FJI","KIR","MHL","FSM","PNG","WSM","SLB","TON","VUT","ARM","AZE","GEO","KAZ","KGZ","MNG","TJK","TKM","UZB","ALB","BIH","BGR","HRV","CZE","HUN","MKD","MNE","POL","ROU","SRB","SVK","SVN","BLR","EST","LVA","LTU","MDA","RUS","UKR","BRN","JPN","KOR","SGP","AUS","NZL","AND","AUT","BEL","CYP","DNK","FIN","FRA","DEU","GRC","ISL","IRL","ISR","ITA","LUX","MLT","NLD","NOR","PRT","ESP","SWE","CHE","GBR","ARG","CHL","URY","CAN","USA","ATG","BHS","BRB","BLZ","CUB","DMA","DOM","GRD","GUY","HTI","JAM","LCA","VCT","SUR","TTO","BOL","ECU","PER","COL","CRI","SLV","GTM","HND","MEX","NIC","PAN","VEN","BRA","PRY","DZA","BHR","EGY","IRN","IRQ","JOR","KWT","LBN","LBY","MAR","PSE","OMN","QAT","SAU","SYR","TUN","TUR","ARE","YEM","AFG","BGD","BTN","IND","NPL","PAK","AGO","CAF","COG","COD","GNQ","GAB","BDI","COM","DJI","ERI","ETH","KEN","MDG","MWI","MUS","MOZ","RWA","SYC","SOM","TZA","UGA","ZMB","BWA","LSO","NAM","ZAF","SWZ","ZWE","BEN","BFA","CMR","CPV","TCD","CIV","GMB","GHA","GIN","GNB","LBR","MLI","MRT","NER","NGA","STP","SEN","SLE","TGO","ASM","BMU","GRL","GUM","MCO","NRU","MNP","PLW","PRI","KNA","SMR","TUV","VIR","SSD","SDN"],"marker":{"line":{"colorbar":{"title":"","ticklen":2},"cmin":223.862875707709,"cmax":189487.14712838,"colorscale":[["0","rgba(247,251,255,1)"],["0.0416666666666667","rgba(239,246,252,1)"],["0.0833333333333333","rgba(230,240,250,1)"],["0.125","rgba(222,235,247,1)"],["0.166666666666667","rgba(214,230,244,1)"],["0.208333333333333","rgba(206,224,242,1)"],["0.25","rgba(198,219,239,1)"],["0.291666666666667","rgba(185,213,234,1)"],["0.333333333333333","rgba(172,208,230,1)"],["0.375","rgba(158,202,225,1)"],["0.416666666666667","rgba(142,193,221,1)"],["0.458333333333333","rgba(125,183,218,1)"],["0.5","rgba(107,174,214,1)"],["0.541666666666667","rgba(94,165,209,1)"],["0.583333333333333","rgba(81,155,203,1)"],["0.625","rgba(66,146,198,1)"],["0.666666666666667","rgba(57,135,192,1)"],["0.708333333333333","rgba(46,124,187,1)"],["0.75","rgba(33,113,181,1)"],["0.791666666666667","rgba(27,102,173,1)"],["0.833333333333333","rgba(19,91,164,1)"],["0.875","rgba(8,81,156,1)"],["0.916666666666667","rgba(9,70,139,1)"],["0.958333333333333","rgba(9,59,123,1)"],["1","rgba(8,48,107,1)"]],"showscale":false,"color":"rgba(190,190,190,1)","width":0.5}},"type":"choropleth","geo":"geo","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+
+</div>
 
 <script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
+$(document).ready(function() {
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed table-sm');
 
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<div id="flexdashboard-source-code">
+<pre class="line-numbers"><code class="language-r">---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+
+---
+
+```{r,include=FALSE,message=FALSE,echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(plotly)
+library(highcharter)
+library(rworldmap)
+library(gganimate)
+library(transformr)
+library(corrplot)
+library(leaps)
+library(kableExtra)
+library(modelr)
+library(mgcv)
+library(magick)
+knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = "60%")
+theme_set(theme_bw() + 
+          theme(legend.position = "bottom",
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+```
+
+
+```{r}
+deaths = read_csv("./data/final_hiv_deaths.csv") %&gt;% 
+  janitor::clean_names() %&gt;% 
+  select("location_id","location_name", starts_with("sex"), starts_with("age"), "year", "val", "upper", "lower") %&gt;%
+  rename(country_name = location_name) %&gt;% 
+  mutate(year = as.character(year))
+  
+gdp = read_csv("./data/final_gdp_per_capita.csv", skip = 4, col_names = TRUE) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  drop_na(location_id) 
+names(gdp) &lt;- sub('^x', '', names(gdp))
+gdp_clean = gdp %&gt;%  
+  select("location_id", "country_name", "1990":"2019") %&gt;% 
+  pivot_longer(cols = "1990":"2019",
+               names_to = "year",
+               values_to = "GDP_per_capita") 
+population = read_csv("./data/final_population_total.csv", skip = 4, col_names = TRUE)  %&gt;% 
+  janitor::clean_names() %&gt;% 
+  drop_na(location_id) 
+names(population) &lt;- sub('^x', '', names(population))
+population_clean = population %&gt;%  
+  select("location_id", "1990":"2019") %&gt;% 
+  pivot_longer(cols = "1990":"2019",
+               names_to = "year",
+               values_to = "Population") 
+gdp_population = inner_join(gdp_clean, population_clean, by = c("location_id", "year")) %&gt;% 
+  janitor::clean_names() 
+maindata = left_join(deaths, gdp_population, by = c("year","location_id")) %&gt;% 
+  select(-country_name.x, -age_id) %&gt;% 
+  rename(country_name = country_name.y) %&gt;% 
+  select(location_id, country_name, everything())
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+```{r}
+death_country = maindata %&gt;% 
+  drop_na(country_name, location_id) %&gt;% 
+  filter(year==2019) %&gt;% 
+  group_by(location_id) %&gt;% 
+  summarize(HIV_death = sum(val),
+            pop_year  = sum(population, na.rm = T),
+            gdp_per_capita = mean(gdp_per_capita), 
+            population = mean(population)) %&gt;% 
+  mutate(
+    HIV_death = as.numeric(HIV_death),
+    mortality_per_100k = HIV_death/(pop_year/100000))
+gdp_plotly = read_csv("./data/final_gdp_per_capita.csv", skip = 4, col_names = TRUE) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  drop_na(location_id) %&gt;% 
+  select("location_id", "country_code", "country_name")
+maindata_plotly = left_join(death_country, gdp_plotly, by = c("location_id")) %&gt;% 
+  select(location_id, country_name, mortality_per_100k, country_code, gdp_per_capita, population)
+fig &lt;- plot_ly(maindata_plotly, x = ~gdp_per_capita, y = ~mortality_per_100k, type = 'scatter', mode = 'markers', split = ~country_name, size = ~population) %&gt;%
+  layout( plot_bgcolor='#e5ecf6',
+          xaxis = list(
+            title = 'GDP per capita (USD)',
+            zerolinecolor = '#ffff',
+            zerolinewidth = 5,
+            gridcolor = 'ffff'),
+          yaxis = list(
+            title = 'HIV mortality per 100k',
+            zerolinecolor = '#ffff',
+            zerolinewidth = 5,
+            gridcolor = 'ffff'))
+fig
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+```{r}
+
+l &lt;- list(color = toRGB("grey"), width = 0.5)
+
+g &lt;- list(
+  showframe = FALSE,
+  showcoastlines = FALSE,
+  projection = list(type = 'Mercator')
+)
+
+fig2 &lt;- plot_geo(maindata_plotly)
+fig2 &lt;- fig2 %&gt;% add_trace(
+    z = ~mortality_per_100k, color = ~gdp_per_capita, colors = 'Blues',
+    text = ~country_name, locations = ~country_code, marker = list(line = l)
+  )
+fig2 &lt;- fig2 %&gt;% colorbar(title = 'GDP Billions US$', tickprefix = '$')
+fig2 &lt;- fig2 %&gt;% layout(
+    title = 'Figure showing the association between GDP per capita and HIV mortality rate',
+    geo = g
+  )
+
+fig2
+```
+</code></pre>
+</div>
+<script type="text/javascript">
 $(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+  FlexDashboard.init({
+    fillPage: true,
+    orientation: "columns",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460,
+    resize_reload: true
+  });
+  var navbar = $(".navbar").first();
+  var body = $("body").first();
+  var sidebar = $(".section.sidebar").first();
+  function addNavbarPadding() {
+    var navHeight = navbar.outerHeight();
+    body.css("padding-top", (navHeight + 8) + "px");
+    sidebar.css("top", navHeight + "px");
+    var resizeEvent = window.document.createEvent("UIEvents");
+    resizeEvent.initUIEvent("resize", true, false, window, 0);
+    window.dispatchEvent(resizeEvent);
+  }
+  if (!window.Shiny) setTimeout(addNavbarPadding, 100);
+  $(document).on("shiny:idle", function() {
+    setTimeout(addNavbarPadding, 50);
   });
 });
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
 </script>
 
 </body>

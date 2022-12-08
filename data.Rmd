@@ -1,8 +1,10 @@
 ---
 title: "Data cleaning/processing"
+always_allow_html: true
 output: 
   html_document:
     toc: true
+    code_folding: hide
     toc_float: true
 --- 
 
@@ -90,7 +92,7 @@ The dataset contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row
 
 
 #### Population By Country Dataset
-```{r, message = FALSE,warning = FALSE}
+```{r,message = FALSE,warning = FALSE}
 population = read_csv("data/final_population_total.csv", skip = 4, col_names = TRUE)  %>% 
   janitor::clean_names() %>% 
   drop_na(location_id) 
