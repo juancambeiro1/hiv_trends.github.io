@@ -14,7 +14,6 @@ library(ggplot2)
 library(broom)
 library(plotly)
 library(highcharter)
-library(rworldmap)
 library(gganimate)
 library(transformr)
 library(corrplot)
@@ -59,7 +58,7 @@ deaths %>%
  unnest(n_missing)
 ```
 
-The death dataset contains HIV death count data from 204 distinct countries, in the 30 years between 1990 and 2019.
+The **deaths** dataset contains HIV death count data from 204 distinct countries, in the 30 years between 1990 and 2019.
 
 The deaths dataset contains `r nrow(deaths)` rows and `r ncol(deaths)` columns, with each row representing a single record of number of HIV deaths in a country stratified by year, sex and age group. Variables in the deaths dataset are as follows: `r colnames(deaths)`. 
 
@@ -86,9 +85,9 @@ gdp_clean %>%
            n_missing = map(gdp_clean, ~sum(is.na(.)))) %>%
  unnest(n_missing)
 ```
-The raw GDP dataset contains GDP per capita (US dollars) from 200 distinct countries, from 1960 to 2021. 
+The raw GDP dataset, **gdp**, contains GDP per capita (US dollars) from 200 distinct countries from 1960 to 2021. It contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's GDP per capital (US dollars) in a given year.
 
-The dataset contains `r nrow(gdp)` rows and `r ncol(gdp)` columns, with each row representing a single record of a country's GDP per capital (US dollars) in a given year. 
+The **gdp_clean** dataset contains `r nrow(gdp_clean)` rows and `r ncol(gdp_clean)` columns, with each row representing a single record of a country's GDP per capital (US dollars) in a given year. 
 
 
 #### Population By Country Dataset
@@ -113,10 +112,9 @@ population_clean %>%
  unnest(n_missing)
 ```
 
-The raw population dataset contains total population from 200 distinct countries, from 1960 to 2021. 
+The raw population dataset, **population**,  contains total population from 200 distinct countries, from 1960 to 2021. It contains `r nrow(population)` rows and `r ncol(population)` columns, with each row representing a single record of a country's population in a given year.
 
-The dataset contains `r nrow(population)` rows and `r ncol(population)` columns, with each row representing a single record of a country's population in a given year. 
-
+The **population_clean** dataset contains `r nrow(population_clean)` rows and `r ncol(population_clean)` columns, with each row representing a single record of a country's population in a given year. 
 
 
 ### Merging 3 datasets to produce the "maindata" dataset for visualization and analysis

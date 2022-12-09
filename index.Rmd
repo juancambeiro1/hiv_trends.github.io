@@ -19,7 +19,7 @@ output:
 
 # Background
 
-Human immunodeficiency virus (HIV), which is a virus that causes acquired immunodeficiency syndrome (AIDS), is one of the world’s most pressing public health challenges. Since the time it was identified, tens of millions of deaths due to HIV/AIDS have occurred. HIV/AIDS is considered an ongoing pandemic since it is actively spreading globally, and it continues to wreak devastating impacts across the world, and in particular in low-and-middle income countries that have limited resources to address it. It is therefore important and timely to study trends in HIV/AIDS in countries across the world as well as stratified by sociodemographic variables to determine communities and subgroups who are most impacted by the disease. Furthermore, it is important to determine the predictors of HIV/AIDS deaths to develop targeted policies and legislation that can prevent or slow the spread of HIV/AIDS.
+Human immunodeficiency virus (HIV), which is a virus that causes acquired immunodeficiency syndrome (AIDS), is one of the world’s most pressing public health challenges. Since the time it was identified, tens of millions of deaths due to HIV/AIDS have occurred. HIV/AIDS is an ongoing pandemic that continues to wreak devastating impacts across the world, and in particular in low-and-middle income countries that have limited resources to address it. It is therefore important and timely to study trends in HIV/AIDS in countries across the world as well as stratified by sociodemographic variables to determine communities and subgroups who are most impacted by the disease. Furthermore, it is important to determine the predictors of HIV/AIDS deaths to develop targeted policies and legislation that can prevent or slow the spread of HIV/AIDS.
 
 Our project proposal can be found [here](proposal.html).
 
@@ -27,11 +27,11 @@ Our project proposal can be found [here](proposal.html).
 
 We combine a complex set of datasets from the following websites:
 
-* HIV/AIDS deaths data by country 1990-2019, by sex and by age group, from the [2019 Global Burden of Disease Study](https://vizhub.healthdata.org/gbd-results/?params=gbd-api-2019-public/c896c16b3ce69e85653c71c75e780f64). 
+* HIV/AIDS deaths data by country 1990-2019, by sex and by age group, from the [2019 Global Burden of Disease Study](https://vizhub.healthdata.org/gbd-results?params=gbd-api-2019-permalink/4065269292a8a53e41715ff2e8415266). 
 
-* GDP per capita by country 1990-2019 from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2019&start=1990).
+* GDP per capita (current US$) by country from the [World Bank](https://data.worldbank.org/indicator/NY.GDP.PCAP.CD).
 
-* Population totals by country 1990-2019, which will allow for adjustment by population size (per 100k) from the [World Bank](https://data.worldbank.org/indicator/SP.POP.TOTL).
+* Population totals by country(which will allow for adjustment by population size) from the [World Bank](https://data.worldbank.org/indicator/SP.POP.TOTL).
 
 
 # Website Navigation
@@ -42,7 +42,8 @@ We combine a complex set of datasets from the following websites:
 * [Analysis](regression.html): Exploratory data analysis and regression analysis
 * [Report](report.html): Our written report that describes what we did in this project and our results
 
-# Group members
+# Group members 
+## All contributed equally
 * Juan Cambeiro (jc5313)
 * Jiaxin Wu (jw4007) 
 * Liping Lu (ll3407)

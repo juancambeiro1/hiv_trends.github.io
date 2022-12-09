@@ -6,7 +6,7 @@ output:
     toc_float: true
 --- 
 
-### Group members (all made equal contribution)
+### Group members 
 * Juan Cambeiro (jc5313)
 * Jiaxin Wu (jw4007) 
 * Liping Lu (ll3407)
@@ -78,8 +78,26 @@ By analyzing the dataset which included the estimated HIV mortality per 100k pop
 
 Before 2004,  HIV mortality increased steeply by year. Since 2000, remarkable progress has been made in the diagnosis and treatment of persons living with HIV/AIDS, which has contributed to the decline of global HIV mortality. However, many people with HIV still do not have access to prevention, care, and treatment, especially in the countries under poverty. Women and young or middle-aged adults are two populations with high risk of HIV mortality. This is probably because in many countries women have a limited role in sexual decision-making and protection. Moreover, young or middle-aged adults are more likely to have particular HIV risk behaviors, including sexual activity and drug abuse.
 
-A few limitations should not be neglected. Some potential risk factors (e.g., race, education levels, sexual activities, drug abuse) were not included in this study. In addition, many countries lack the information on GDP per capita as well as the population, which reduces the statistical power to some extent. 
+A few limitations should not be neglected. Some potential risk factors (e.g., race, education levels, sexual activities, drug abuse) were not included in this study. In addition, many countries lack the information on GDP per capita as well as on population size, which reduces the statistical power.
 
-The large dataset provides a comprehensive picture of global HIV mortality over a 30-year period. Our findings call for more attention to the populations and  countries at high risk of HIV mortality. 
+The large dataset provides a comprehensive picture of global HIV mortality over a 30-year period. Our findings call for more attention to the populations and countries at high risk of HIV mortality. 
 
 
+### References
+
+Danforth K, Granich R, Wiedeman D, Baxi S, Padian N. Global mortality and morbidity of HIV/AIDS. Major infectious         diseases Washington, DC: The International Bank for Reconstruction and Development/The World Bank. 2017.
+
+GDP per capita (current US$). World Bank. (2022, September 16). Retrieved December 9, 2022, from                          https://data.worldbank.org/indicator/NY.GDP.PCAP.CD 
+
+Global Burden of Disease Collaborative Network.
+    Global Burden of Disease Study 2019 (GBD 2019) Results.
+    Seattle, United States: Institute for Health Metrics and Evaluation (IHME), 2020.
+    Available from https://vizhub.healthdata.org/gbd-results/
+    
+Global HIV &amp; AIDS statistics - fact sheet. UNAIDS. (n.d.). Retrieved December 9, 2022, from                           https://www.unaids.org/en/resources/fact-sheet 
+
+Greig A, Peacock D, Jewkes R, Msimang S. Gender and AIDS: time to act. Aids. 2008;22 Suppl 2(Suppl 2):S35-43.
+
+HIV historical timeline. HIV Historical Timeline. (n.d.). Retrieved December 9, 2022, from https://hivhistory.org/ 
+
+Population, total. World Bank. (2022, September 16). Retrieved December 9, 2022, from                                     https://data.worldbank.org/indicator/SP.POP.TOTL 

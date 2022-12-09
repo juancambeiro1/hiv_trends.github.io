@@ -54,8 +54,6 @@ death_year = maindata %>%
  mutate(HIV_death = as.numeric(HIV_death),
         mortality_per_100k = HIV_death/(pop_year/100000))
 
-
-
 plot_death_year = death_year %>%
 ggplot(aes(x = as.factor(year), y = mortality_per_100k, group=1)) + 
   geom_line(col = "deepskyblue3", size = 1) + 
