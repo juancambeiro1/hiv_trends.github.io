@@ -450,8 +450,7 @@ plot_sex</code></pre>
   distinct(population) %&gt;% 
   mutate(count = population/100000)</code></pre>
 <p>In <strong>maindata</strong>, the global age distribution across
-years was approximately balanced across the years between the five age
-groups.</p>
+years was approximately balanced between the five age groups.</p>
 <pre class="r"><code>plot_age = ggplot(aes(x=as.factor(year),y=count,fill=age_name, alpha = 0.5),data=age_count)+
   geom_bar(stat=&quot;identity&quot;) +
   ggtitle(&quot;Age distribution across 30 years&quot;) +

@@ -97,7 +97,7 @@ age_count = maindata %>%
   mutate(count = population/100000)
 ```
 
-In **maindata**, the global age distribution across years was approximately balanced across the years between the five age groups.
+In **maindata**, the global age distribution across years was approximately balanced between the five age groups.
 
 ```{r, echo=TRUE, message = FALSE,warning = FALSE, fig.align='center'}
 plot_age = ggplot(aes(x=as.factor(year),y=count,fill=age_name, alpha = 0.5),data=age_count)+
