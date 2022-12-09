@@ -44,7 +44,7 @@ maindata = read_csv("data/maindata.csv")
 
 ### Global trend of HIV mortality per 100k population: 1990 to 2019
 
-We plot the estimated global HIV mortality per 100k population across 200 countries from 1990 to 2019. The estimated global HIV mortality rate increased from 1990, reached a peak in 2004, and decreased from 2005 to 2019.
+We plot the estimated global HIV mortality per 100k population across 200 countries from 1990 to 2019. The estimated global HIV mortality rate increased from 1990 to 2004, peaked in 2004, and then fell from 2005 to 2019. The global HIV mortality rate in 2004 was 2.88 per 100k population. In 2019, the global HIV mortality rate decreased to 1.13 per 100k population.
 
 ```{r echo=TRUE,message = FALSE,warning = FALSE, fig.align='center'}
 death_year = maindata %>%
@@ -72,7 +72,7 @@ plot_death_year + transition_reveal(year)
 
 ### Global trend of HIV mortality per 100k population by sex: 1990 to 2019
 
-The trajectories of estimated global HIV mortality for females and males from 1990 to 2019 were similar. Before 1994 and after 2015, the difference in the HIV mortality rate between females and males was virtually indistinguishable. But from 1994 to 2015, the yearly global HIV mortality rate for females was higher than that for males.
+The trajectories of estimated global HIV mortality for females and males from 1990 to 2019 were similar. Before 1994 and after 2015, the difference in the HIV mortality rate between females and males was virtually indistinguishable. But from 1994 to 2015, the yearly global HIV mortality rate for females was higher than that for males. The average HIV mortality rate in females across 30 years was 2.01 per 100k population. The average HIV mortality rate in males across 30 years was 1.75 per 100k population.
 
 ```{r echo=TRUE,message = FALSE,warning = FALSE, fig.align='center'}
 death_gender = maindata %>% 
@@ -99,9 +99,8 @@ plot_death_gender + transition_reveal(year)
 
 ### Global trend of HIV mortality per 100k population by Age: 1990 to 2019
 
-Generally, the estimated global HIV mortality rates from 1990 to 2019 were the highest among young or middle-aged adults (25-49 years), and were the lowest among the elderly (75+ years). 
-
-Among young or middle-aged adults, the global HIV mortality rate changed the most from 1990 to 2019, with the peak occurring in 2004. The mortality trends were more stable for people in other age groups (0-9 years, 10-24 years, 50-74 years, and 75+ years). Among the people aged over 75 years old, the global HIV mortality rates during the 30 years were low and stable. 
+Generally, the estimated global HIV mortality rates from 1990 to 2019 were the highest among young or middle-aged adults (25-49 years), and were the lowest among the elderly (75+ years).
+Among young or middle-aged adults, the global HIV mortality rate changed the most from 1990 to 2019, with the peak occurring in 2004. The mortality trends were more stable for people in other age groups (0-9 years, 10-24 years, 50-74 years, and 75+ years). Among the people aged over 75 years old, the global HIV mortality rates during the 30 years were low and stable. The average HIV mortality rate in young and middle-aged adults (25-49 years) across 30 years was 5.94 per 100k population. The average HIV mortality rate in elderly (75+ years) across 30 years was 0.053 per 100k population.
 
 
 ```{r echo=TRUE, message = FALSE,warning = FALSE,  fig.align='center'}
