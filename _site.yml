@@ -16,7 +16,7 @@ navbar:
     - text: "Final Project Report"
       href: report.html
     - icon: fa-brands fa-youtube
-      href: https://www.youtube.com/watch?v=Bg8tbmppoIA
+      href: https://www.youtube.com/watch?v=w9QiHSrYBKM
     - icon: fa-github fa-lg
       href: https://github.com/juancambeiro1/hiv_trends.github.io
 output:
